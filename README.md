@@ -69,7 +69,7 @@ yarn install
 
 ### 프론트엔드
 
-|                                 모승(PL)                                 |                                 또락                                  |
+|                                 모승(PL)                                 |                                 뿌꾸                                  |
 | :----------------------------------------------------------------------: | :-------------------------------------------------------------------: |
 |               [@endmoseung](https://github.com/endmoseung)               |                [@sjoleee](https://github.com/sjoleee)                 |
 | <img src="https://avatars.githubusercontent.com/endmoseung" width="100"> | <img src="https://avatars.githubusercontent.com/sjoleee" width="100"> |
