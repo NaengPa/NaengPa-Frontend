@@ -29,7 +29,7 @@ const ResultList = () => {
     abc.current = [...selectedIngredient];
     axios({
       method: "POST",
-      url: "https://nangpa-server.herokuapp.com/recipe/getRecipeList",
+      url: "https://naengpa-server.herokuapp.com/recipe/getRecipeList",
       data: {
         irdntNms: [...selectedIngredient],
       },
@@ -58,7 +58,7 @@ const ResultList = () => {
   const handleByPopular = () => {
     setFoodData(
       foodData.sort((a, b) => {
-        return Number(a.likeCnt) - Number(b.likeCnt);
+        return Number(b.likeCnt) - Number(a.likeCnt);
       })
     );
     setByPopularState(true);
@@ -67,7 +67,7 @@ const ResultList = () => {
   const handleByCorrect = () => {
     setFoodData(
       foodData.sort((a, b) => {
-        return a.containCnt - b.containCnt;
+        return b.containCnt - a.containCnt;
       })
     );
     setByPopularState(false);
