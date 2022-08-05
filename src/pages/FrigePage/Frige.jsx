@@ -139,7 +139,7 @@ function Frige() {
   useEffect(() => {
     (async () => {
       const response = await fetch(
-        "https://nangpa-server.herokuapp.com/recipe/getIrdnt"
+        "https://naengpa-server.herokuapp.com/recipe/getIrdnt"
       );
       const json = await response.json();
       setIrdnt(json);

@@ -3,19 +3,19 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { selectedIngredientAtom } from "../atom";
 
-const FrigeButton = ({ item, handleAdd }) => {
+const SearchButton = ({ item, addListClick }) => {
   const [selectedIngredient, setSelectedIngredient] = useRecoilState(
     selectedIngredientAtom
   );
   const valid = selectedIngredient.includes(item);
   return (
-    <Wrapper valid={valid} onClick={handleAdd}>
+    <Wrapper valid={valid} onClick={addListClick}>
       <FoodText>{item}</FoodText>
     </Wrapper>
   );
 };
 
-export default FrigeButton;
+export default SearchButton;
 
 const Wrapper = styled.button`
   white-space: nowrap;
@@ -25,12 +25,8 @@ const Wrapper = styled.button`
   margin-right: 10px;
   padding: 10px 15px;
   border-radius: 20px;
-  pointer-events: ${({ valid }) => (valid ? "none" : "auto")};
-  border: ${({ valid }) => (valid ? "" : "1px")} solid
-    ${({ theme }) => theme.colors.MAIN_COLOR};
+  border: 1px solid ${({ theme }) => theme.colors.MAIN_COLOR};
   font-size: 14px;
-  color: ${({ valid }) => (valid ? "white" : "#2E8CFE")};
-  background-color: ${({ valid }) => (valid ? "#2E8CFE" : "transparent")};
   height: 37px;
   margin-bottom: 10px;
 `;
