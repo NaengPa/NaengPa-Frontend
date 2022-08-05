@@ -125,7 +125,7 @@ function Detail() {
   useEffect(() => {
     (async () => {
       const response = await fetch(
-        `https://nangpa-server.herokuapp.com/recipe/getRecipeDetail/${recipeId}`
+        `https://naengpa-server.herokuapp.com/recipe/getRecipeDetail/${recipeId}`
       );
       const json = await response.json();
       setRecipeDetail(json);
