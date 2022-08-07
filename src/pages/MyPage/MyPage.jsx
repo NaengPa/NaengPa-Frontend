@@ -142,19 +142,19 @@ function MyPage() {
               <BadgeIcon />
             </IconContainer>
           </Btn>
-          <Btn>
+          <Btn onClick={handleModal}>
             <BtnTitle>냉파{"\n"}달력</BtnTitle>
             <IconContainer>
               <CalenderIcon />
             </IconContainer>
           </Btn>
-          <Btn>
+          <Btn onClick={handleModal}>
             <BtnTitle>저장한{"\n"}레시피</BtnTitle>
             <IconContainer>
               <SavedRecipeIcon />
             </IconContainer>
           </Btn>
-          <Btn>
+          <Btn onClick={handleModal}>
             <BtnTitle>내가 만든{"\n"}레시피</BtnTitle>
             <IconContainer>
               <CreateRecipeIcon />
