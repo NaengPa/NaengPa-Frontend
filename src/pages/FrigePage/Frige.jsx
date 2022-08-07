@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import SearchFilter from "react-filter-search";
+
 import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
@@ -148,7 +148,7 @@ function Frige() {
 
   return (
     <>
-      <FrigeSearchContainer>
+      {/* <FrigeSearchContainer>
         <FrigeTitle>셰프의 냉장고 재료를{"\n"}선택해주세요</FrigeTitle>
         <InputWrapper>
           <Search />
@@ -194,7 +194,7 @@ function Frige() {
             </IngredientItemList>
           )}
         />
-      </FrigeSearchContainer>
+      </FrigeSearchContainer> */}
       <AllFrigeListContainer>
         <AllFrigeList irdnt={irdnt} />
       </AllFrigeListContainer>
