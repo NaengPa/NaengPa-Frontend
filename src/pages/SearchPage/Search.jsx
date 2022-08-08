@@ -9,6 +9,7 @@ import { myFrigeAtom, selectedIngredientAtom } from "../../atom";
 import FrigeButton from "../../components/frigeButton";
 import { useNavigate } from "react-router-dom";
 import SearchButton from "../../components/searchButton";
+import { get_GetIngredients } from "../../common/axios";
 
 function SearchIndex() {
   const [searchInput, setSearchInput] = useState("");
@@ -16,23 +17,16 @@ function SearchIndex() {
     selectedIngredientAtom
   );
   const [viewMyFrigeAtom, setViewMyFrigeAtom] = useRecoilState(myFrigeAtom);
-  const [dataState, SetDataState] = useState(false);
   const [data, setData] = useState([]);
   const [filterData, setFilterData] = useState([]);
   useEffect(() => {
-    axios
-      .get("https://naengpa-server.herokuapp.com/recipe/getIrdnt")
-      .then((Response) => {
-        let data = [];
-        for (let i = 0; i < Response.data.length; i++) {
-          data.push(Response.data[i].irdntNm);
-        }
-        setData(data);
-        SetDataState(true);
-      })
-      .catch((Error) => {
-        console.error(Error); //error타입으로
+    (async () => {
+      let promise = new Promise((resolve, reject) => {
+        resolve(get_GetIngredients());
       });
+      let result = await promise;
+      setData(result);
+    })();
   }, []);
 
   useEffect(() => {
@@ -92,7 +86,7 @@ function SearchIndex() {
           <StyledMyIconSearch searchInput={searchInput}></StyledMyIconSearch>
           <FormInput
             placeholder={
-              dataState ? "재료를 검색해주세요" : "재료를 불러오고 있어요"
+              data.length > 0 ? "재료를 검색해주세요" : "재료를 불러오고 있어요"
             }
             value={searchInput}
             onChange={handleChangingSearch}
@@ -140,7 +134,7 @@ function SearchIndex() {
         </FoodButtonContainer>
         <SelectedItemWrap></SelectedItemWrap>
       </IngredientContainer>
-      <RecipeSearchButton dataState={dataState} onClick={moveToNext}>
+      <RecipeSearchButton data={data} onClick={moveToNext}>
         레시피 검색하기
       </RecipeSearchButton>
     </StyledContainer>
@@ -264,10 +258,10 @@ const RecipeSearchButton = styled.div`
   line-height: 37px;
   letter-spacing: -0.165px;
   color: #fff;
-  background: ${({ dataState }) => (dataState ? "#2e8cfe" : "#A9A9A9")};
+  background: ${({ data }) => (data.length > 0 ? "#2e8cfe" : "#A9A9A9")};
   border-radius: 10px;
   box-sizing: border-box;
-  pointer-events: ${({ dataState }) => (dataState ? "auto" : "none")};
+  pointer-events: ${({ data }) => (data.length > 0 ? "auto" : "none")};
   cursor: pointer;
   text-align: center;
 `;
