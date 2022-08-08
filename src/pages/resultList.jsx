@@ -12,6 +12,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import FoodButtonAlone from "../components/foodButtonAlone";
 import { useNavigate } from "react-router-dom";
 import { Button, Modal } from "react-bootstrap";
+import { AxiosData, post_GetRecipeList } from "../common/axios";
 
 const ResultList = () => {
   const homeRef = useRef(0);
@@ -24,27 +25,17 @@ const ResultList = () => {
   const [foodList, setFoodList] = useState([...selectedIngredient]);
   const [show, setShow] = useState(false);
 
-  let abc = useRef();
   useEffect(() => {
-    abc.current = [...selectedIngredient];
-    axios({
-      method: "POST",
-      url: "https://naengpa-server.herokuapp.com/recipe/getRecipeList",
-      data: {
-        irdntNms: [...selectedIngredient],
-      },
-      headers: { contentType: "application/json" },
-    })
-      .then((res) => {
-        setFoodData(res.data);
-      })
-      .catch((error) => {
-        throw new Error(error);
+    (async () => {
+      let promise = new Promise((resolve, reject) => {
+        resolve(post_GetRecipeList(selectedIngredient));
       });
+      let result = await promise;
+      setFoodData(result);
+    })();
   }, []);
   const { scrollY } = useScroll();
 
-  useEffect(() => {});
   const observeroption = {
     root: null,
     rootmargin: "0px",
