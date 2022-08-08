@@ -57,8 +57,8 @@ yarn install
 
 |                                  지지(PM)                                  |
 | :------------------------------------------------------------------------: |
-|              [@jieunjenchoi](https://github.com/jieunjenchoi)              |
-| <img src="https://avatars.githubusercontent.com/jieunjenchoi" width="100"> |
+|              [@nomorecommit](https://github.com/nomorecommit)              |
+| <img src="https://avatars.githubusercontent.com/nomorecommit" width="100"> |
 
 ### 디자인
 
