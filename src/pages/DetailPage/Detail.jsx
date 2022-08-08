@@ -12,6 +12,7 @@ import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
 import GoBackButton from "../../components/goBackButton";
 import Header from "../../components/Header";
+import { get_GetRecipeDetail } from "../../common/axios";
 
 const RecipePhotoContainer = styled.div`
   position: relative;
@@ -124,11 +125,11 @@ function Detail() {
 
   useEffect(() => {
     (async () => {
-      const response = await fetch(
-        `https://naengpa-server.herokuapp.com/recipe/getRecipeDetail/${recipeId}`
-      );
-      const json = await response.json();
-      setRecipeDetail(json);
+      let promise = new Promise((resolve, reject) => {
+        resolve(get_GetRecipeDetail(recipeId));
+      });
+      let result = await promise;
+      setRecipeDetail(result);
     })();
   }, [recipeId]);
 

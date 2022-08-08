@@ -5,6 +5,7 @@ import { viewedRecipeAtom } from "../../atom";
 import axios from "axios";
 import ViewedRecipeImgItem from "./ViewedRecipeImgItem";
 import { Link } from "react-router-dom";
+import { post_GetCurRecipeList } from "../../common/axios";
 
 const ViewedRecipeImgListContainer = styled.div`
   width: 100%;
@@ -31,23 +32,17 @@ function ViewedRecipeImgList({ item }) {
   for (let x of limitViewedRecipe) {
     numberLimitViewedRecipe.push(Number(x));
   }
-
+  console.log(numberLimitViewedRecipe);
   const [viewedRecipeData, setViewedRecipeData] = useState([]);
 
   useEffect(() => {
-    axios({
-      method: "POST",
-      url: "https://nangpa-server.herokuapp.com/recipe/getCurRecipeList",
-      data: {
-        recipeIds: numberLimitViewedRecipe,
-      },
-    })
-      .then((Response) => {
-        setViewedRecipeData(Response.data);
-      })
-      .catch((Error) => {
-        console.log(Error);
+    (async () => {
+      let promise = new Promise((resolve, reject) => {
+        resolve(post_GetCurRecipeList(numberLimitViewedRecipe));
       });
+      let result = await promise;
+      setViewedRecipeData(result);
+    })();
   }, []);
 
   return (
