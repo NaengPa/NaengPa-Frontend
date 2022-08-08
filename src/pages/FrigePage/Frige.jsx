@@ -121,6 +121,7 @@ const FrigeGradient = styled.div`
     #ffffff 55.49%
   );
 `;
+//a
 
 const Wrapper = styled.div`
   z-index: 1;
