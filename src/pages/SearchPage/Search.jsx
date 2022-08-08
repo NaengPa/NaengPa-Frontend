@@ -10,6 +10,7 @@ import FrigeButton from "../../components/frigeButton";
 import { useNavigate } from "react-router-dom";
 import SearchButton from "../../components/searchButton";
 import { get_GetIngredients } from "../../common/axios";
+//d
 
 function SearchIndex() {
   const [searchInput, setSearchInput] = useState("");
