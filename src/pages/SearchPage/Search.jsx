@@ -39,15 +39,16 @@ function SearchIndex() {
 
   const addListClick = (e) => {
     console.log(e);
-    setSelectedIngredient([...selectedIngredient, e.target.outerText]);
-    setData(data.filter((item) => item !== e.target.outerText));
+    setSelectedIngredient([...selectedIngredient, e.target.textContent]);
+    setData(data.filter((item) => item !== e.target.textContent));
   };
   const handleDelete = (e) => {
+    console.log(e);
     setSelectedIngredient(
-      selectedIngredient.filter((item) => item !== e.target.outerText)
+      selectedIngredient.filter((item) => item !== e.target.textContent)
     );
 
-    setData([...data, e.target.outerText]);
+    setData([...data, e.target.textContent]);
   };
 
   const handleChangingSearch = (e) => {
@@ -59,8 +60,8 @@ function SearchIndex() {
   };
 
   const handleAdd = (e) => {
-    setSelectedIngredient([...selectedIngredient, e.target.outerText]);
-    setData(data.filter((item) => item !== e.target.outerText));
+    setSelectedIngredient([...selectedIngredient, e.target.textContent]);
+    setData(data.filter((item) => item !== e.target.textContent));
   };
 
   const navigate = useNavigate();
