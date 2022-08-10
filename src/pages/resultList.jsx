@@ -6,13 +6,12 @@ import GoBackButton from "../components/goBackButton";
 import { ReactComponent as Heart } from "../assets/shape.svg";
 import { ReactComponent as ArrowRight } from "../assets/upButton.svg";
 import { useScroll } from "../hooks/useScroll";
-import axios from "axios";
 import { selectedIngredientAtom } from "../atom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import FoodButtonAlone from "../components/foodButtonAlone";
 import { useNavigate } from "react-router-dom";
-import { Button, Modal } from "react-bootstrap";
-import { AxiosData, post_GetRecipeList } from "../common/axios";
+import { post_GetRecipeList } from "../common/axios";
+import Filter from "../components/filter/filter";
 
 const ResultList = () => {
   const homeRef = useRef(0);
@@ -26,6 +25,7 @@ const ResultList = () => {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
+    window.scrollTo(0, 1);
     (async () => {
       let promise = new Promise((resolve, reject) => {
         resolve(post_GetRecipeList(selectedIngredient));
@@ -35,7 +35,6 @@ const ResultList = () => {
     })();
   }, []);
   const { scrollY } = useScroll();
-
   const observeroption = {
     root: null,
     rootmargin: "0px",
@@ -82,23 +81,9 @@ const ResultList = () => {
   };
   return (
     <ResultListWrapper ref={homeRef}>
-      <Modal
-        onHide={handleClose}
-        show={show}
-        size="lg"
-        centered
-        className="error-modal"
-      >
-        <Modal.Header>
-          <Modal.Title>필터기능은 준비 중입니다</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          보다 나은 서비스를 위하여 필터기능 준비 중에 있습니다.
-          <br />
-          빠른 시일 내에 준비하여 찾아뵙겠습니다.
-        </Modal.Body>
-        <Button onClick={handleClose}>닫기</Button>
-      </Modal>
+      {show ? <Filter show={show} handleClose={handleClose}></Filter> : ""}
+      {/* <Filter show={show} handleClose={handleClose}></Filter> */}
+      <FilterOp show={show}></FilterOp>
       <HeaderContainer>
         <ButtonIconContainer>
           <GoBackButton></GoBackButton>
@@ -175,11 +160,18 @@ const ResultListWrapper = styled.div`
   box-sizing: border-box;
 `;
 
-const ModalStyle = styled(Modal)`
-  padding: 20px;
+const FilterOp = styled.div`
+  display: ${({ show }) => (show ? "block" : "none")};
+  position: sticky;
+  top: 0;
+  left: 0;
+  background-color: black;
+  opacity: 0.5;
+  z-index: 999;
   width: 100%;
-  position: absolute;
+  height: 100vh;
 `;
+
 const HeaderContainer = styled.div`
   display: flex;
   flex-direction: column;
