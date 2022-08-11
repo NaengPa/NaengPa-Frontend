@@ -10,6 +10,8 @@ import ResultList from "../pages/resultList";
 import Navigation from "../components/navigation";
 import styled from "styled-components";
 import ScrollToTop from "../components/ScrollToTop";
+import Login from "../pages/LoginPage/login";
+import SignIn from "../pages/SignIn/signIn";
 
 const RootRoute = () => {
   return (
@@ -26,6 +28,8 @@ const RootRoute = () => {
           <Route path="/frige" element={<Frige />} />
           <Route path="/myfrige" element={<MyFrige />} />
           <Route path="/resultlist" element={<ResultList />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signin" element={<SignIn></SignIn>} />
         </Routes>
       </BrowserRouter>
     </RouteWrapper>
