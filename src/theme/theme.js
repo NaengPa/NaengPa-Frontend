@@ -1,6 +1,10 @@
 const colors = {
   MAIN_COLOR: "#2E8CFE",
+  KAKAO: "#FEE500",
+  GREY_20: "#D1DAE3",
+  GREY_30: "#B6C4CF",
   GREY_50: "#688191",
+  GREY_60: "#415867",
   WHITE: "#FFFFFF",
 };
 const mediaScreen = {};
