@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { myFrigeAtom } from "../../atom";
 
@@ -109,7 +109,7 @@ const Wrapper = styled.div`
 `;
 
 function MyFrige() {
-  const [myFrige, setMyFrigeAtom] = useRecoilState(myFrigeAtom);
+  const myFrige = useRecoilValue(myFrigeAtom);
   return (
     <>
       <MyFrigeContainer>
@@ -127,7 +127,9 @@ function MyFrige() {
       </MyFrigeContainer>
       <Wrapper>
         <Link to={{ pathname: "/frige" }}>
-          <SelectionCompleteBtn>냉장고 설정 다시하기</SelectionCompleteBtn>
+          <SelectionCompleteBtn>
+            {myFrige.length > 0 ? "냉장고 설정 다시하기" : "냉장고 설정하기"}
+          </SelectionCompleteBtn>
         </Link>
       </Wrapper>
       <FrigeGradient />
