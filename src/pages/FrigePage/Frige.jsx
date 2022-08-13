@@ -6,6 +6,7 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { ReactComponent as Search } from "../../assets/search.svg";
 import { myFrigeAtom } from "../../atom";
+import { get_GetIngredients } from "../../common/axios";
 import AllFrigeList from "./AllFrigeList";
 
 const FrigeSearchContainer = styled.div`
@@ -41,6 +42,7 @@ const StyledInput = styled.input`
   height: 100%;
   padding-left: 30px;
   background: transparent;
+  border: none;
   &:focus {
     outline: none;
   }
@@ -132,69 +134,67 @@ const Wrapper = styled.div`
 `;
 
 function Frige() {
-  const [searchInput, setSearchInput] = useState("");
+  const [searchText, setSearchText] = useState("");
   const [myFrige, setMyFrige] = useRecoilState(myFrigeAtom);
   const [irdnt, setIrdnt] = useState([]);
 
   useEffect(() => {
-    (async () => {
-      const response = await fetch(
-        "https://naengpa-server.herokuapp.com/recipe/getIrdnt"
-      );
-      const json = await response.json();
-      setIrdnt(json);
-    })();
+    async function get() {
+      const result = await get_GetIngredients();
+      setIrdnt(result);
+    }
+    get();
   }, []);
+
+  const onChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setSearchText(value);
+  };
+
+  const filteredIrdntList = [...irdnt].filter(
+    (item) => searchText != "" && item.includes(searchText)
+  );
 
   return (
     <>
-      {/* <FrigeSearchContainer>
+      <FrigeSearchContainer>
         <FrigeTitle>셰프의 냉장고 재료를{"\n"}선택해주세요</FrigeTitle>
         <InputWrapper>
           <Search />
           <StyledInput
-            className="border border-0 search-input"
+            value={searchText}
+            onChange={onChange}
             placeholder="찾으시는 재료의 검색도 가능해요"
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
-          />
+          ></StyledInput>
         </InputWrapper>
-        <SearchFilter
-          value={searchInput}
-          data={irdnt}
-          renderResults={(results) => (
-            <IngredientItemList>
-              {results.map((item) =>
-                searchInput === "" ? null : (
-                  <div>
-                    {myFrige.indexOf(item.irdntNm) === -1 ? (
-                      <IngredientItem
-                        onClick={() => {
-                          setMyFrige((prev) => [...prev, item.irdntNm]);
-                        }}
-                      >
-                        <IngredientName>{item.irdntNm}</IngredientName>
-                      </IngredientItem>
-                    ) : (
-                      <SelectedIngredientItem
-                        onClick={() =>
-                          setMyFrige((prev) =>
-                            [...prev].filter(
-                              (element) => element !== item.irdntNm
-                            )
-                          )
-                        }
-                      >
-                        <IngredientName>{item.irdntNm}</IngredientName>
-                      </SelectedIngredientItem>
-                    )}
-                  </div>
-                )
+        <IngredientItemList>
+          {filteredIrdntList.map((item) => (
+            <div>
+              {myFrige.indexOf(item) === -1 ? (
+                <IngredientItem
+                  onClick={() => {
+                    setMyFrige((prev) => [...prev, item]);
+                  }}
+                >
+                  <IngredientName>{item}</IngredientName>
+                </IngredientItem>
+              ) : (
+                <SelectedIngredientItem
+                  onClick={() =>
+                    setMyFrige((prev) =>
+                      [...prev].filter((element) => element !== item)
+                    )
+                  }
+                >
+                  <IngredientName>{item}</IngredientName>
+                </SelectedIngredientItem>
               )}
-            </IngredientItemList>
-          )}
-        />
-      </FrigeSearchContainer> */}
+            </div>
+          ))}
+        </IngredientItemList>
+      </FrigeSearchContainer>
       <AllFrigeListContainer>
         <AllFrigeList irdnt={irdnt} />
       </AllFrigeListContainer>

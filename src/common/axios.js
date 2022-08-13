@@ -22,7 +22,7 @@ export async function get_GetIngredients() {
     let data = [];
     const response = await axios({
       method: "get",
-      url: `${baseURL}/recipe/getIrdnt`,
+      url: "https://naengpa-server.herokuapp.com/recipe/getIrdnt",
       headers: { contentType: "application/json" },
     });
     for (let i = 0; i < response.data.length; i++) {
