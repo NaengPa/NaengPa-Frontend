@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import FindAndSignIn from "./findAndSignIn";
 import { ReactComponent as Kakao } from "../../assets/kakao.svg";
+import GoBackButton from "../../components/goBackButton";
 
 const Login = () => {
   const { handleSubmit } = useForm();
@@ -11,27 +12,30 @@ const Login = () => {
   };
   return (
     <Container>
-      <MainTitle>
-        냉파를 이용하기 위해<br></br> 로그인을 해주세요 🍳{" "}
-      </MainTitle>
-      <LoginForm onSubmit={handleSubmit(submitEvent)}>
-        <LoginWrapper>
-          <LoginTitle>아이디</LoginTitle>
-          <LoginInput
-            placeholder="naengpa@naengpa.com"
-            type={"text"}
-          ></LoginInput>
-        </LoginWrapper>
-        <PasswordWrapper>
-          <PasswordTitle>비밀번호</PasswordTitle>
-          <PasswordInput
-            placeholder="**********"
-            type={"password"}
-          ></PasswordInput>
-        </PasswordWrapper>
-        <LoginButton>로그인</LoginButton>
-        <FindAndSignIn></FindAndSignIn>
-      </LoginForm>
+      <GoBackButton></GoBackButton>
+      <MainContainer>
+        <MainTitle>
+          냉파를 이용하기 위해<br></br> 로그인을 해주세요 🍳{" "}
+        </MainTitle>
+        <LoginForm onSubmit={handleSubmit(submitEvent)}>
+          <LoginWrapper>
+            <LoginTitle>아이디</LoginTitle>
+            <LoginInput
+              placeholder="naengpa@naengpa.com"
+              type={"text"}
+            ></LoginInput>
+          </LoginWrapper>
+          <PasswordWrapper>
+            <PasswordTitle>비밀번호</PasswordTitle>
+            <PasswordInput
+              placeholder="**********"
+              type={"password"}
+            ></PasswordInput>
+          </PasswordWrapper>
+          <LoginButton>로그인</LoginButton>
+          <FindAndSignIn></FindAndSignIn>
+        </LoginForm>
+      </MainContainer>
       <KakaoLoginButton>
         <StyledMyIcon></StyledMyIcon>
         <KakaoTitle>카카오로 시작하기</KakaoTitle>
@@ -44,9 +48,12 @@ const Login = () => {
 export default Login;
 
 const Container = styled.div`
-  padding: 64px 16px 48px 16px;
+  padding: 20px 16px 48px 16px;
   width: 100%;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   input {
     outline: none;
     border: none;
@@ -63,6 +70,8 @@ const Container = styled.div`
     cursor: pointer;
   }
 `;
+
+const MainContainer = styled.div``;
 
 const MainTitle = styled.div`
   font-weight: 600;
@@ -103,7 +112,7 @@ const LoginButton = styled.button`
   background-color: ${({ theme }) => theme.colors.MAIN_COLOR};
 `;
 
-const KakaoLoginButton = styled.button`
+const KakaoLoginButton = styled.a`
   background-color: ${({ theme }) => theme.colors.KAKAO};
   padding: 15px 16px;
   width: 100%;
@@ -111,6 +120,8 @@ const KakaoLoginButton = styled.button`
   justify-content: space-between;
   border-radius: 5px;
   margin-top: 32px;
+  margin-bottom: 40px;
+  cursor: pointer;
 `;
 
 const Empty = styled.div``;
