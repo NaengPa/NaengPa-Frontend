@@ -5,6 +5,9 @@ import GoBackButton from "../../components/goBackButton";
 
 const SignIn = () => {
   const handleSubmit = useForm();
+  const submitEvent = (e) => {
+    e.preventDefault();
+  };
   return (
     <Container>
       <Header>
@@ -33,6 +36,7 @@ const SignIn = () => {
         </PasswordWrapper>
         <SignInButton>회원가입</SignInButton>
       </LoginForm>
+      <Empty></Empty>
     </Container>
   );
 };
@@ -43,6 +47,9 @@ const Container = styled.div`
   padding: 0 16px;
   width: 100%;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   input {
     outline: none;
     border: none;
