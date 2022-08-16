@@ -4,23 +4,35 @@ import { useForm } from "react-hook-form";
 import FindAndSignIn from "./findAndSignIn";
 import { ReactComponent as Kakao } from "../../assets/kakao.svg";
 import GoBackButton from "../../components/goBackButton";
-import { useCallback } from "react";
+import { useState } from "react";
 
 const Login = () => {
-  // const options =
-  // const regexId = ()=>{
+  const [emailState, setEmailState] = useState(false);
+  const [passwordState, setPasswordState] = useState(false);
 
-  // }
+  const onChangeEmail = (e) => {
+    const inputLen = e.target.value.length;
+    if (inputLen > 2) {
+      setEmailState(true);
+    } else {
+      setEmailState(false);
+    }
+    console.log(e.target.value);
+  };
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    reset,
-    formState: { errors },
-  } = useForm();
-  const submitEvent = (data) => {
-    console.log(data);
+  const onChangePassword = (e) => {
+    const inputLen = e.target.value.length;
+    if (inputLen > 2) {
+      setPasswordState(true);
+    } else {
+      setPasswordState(false);
+    }
+    console.log(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    console.log("hihi");
+    e.preventDefault();
   };
 
   return (
@@ -30,26 +42,32 @@ const Login = () => {
         <MainTitle>
           냉파를 이용하기 위해<br></br> 로그인을 해주세요 🍳{" "}
         </MainTitle>
-        <LoginForm onSubmit={handleSubmit(submitEvent)}>
+        <LoginForm onSubmit={handleSubmit}>
           <LoginWrapper>
             <LoginTitle>아이디</LoginTitle>
             <LoginInput
+              onChange={onChangeEmail}
               name="email"
               placeholder="naengpa@naengpa.com"
               type={"text"}
-              {...register("userId", { required: true, pattern: /^\S+@\S+$/i })}
             ></LoginInput>
           </LoginWrapper>
           <PasswordWrapper>
             <PasswordTitle>비밀번호</PasswordTitle>
             <PasswordInput
+              onChange={onChangePassword}
               name="password"
               placeholder="**********"
               type={"password"}
-              {...register("userId", { required: true, minLength: 6 })}
             ></PasswordInput>
           </PasswordWrapper>
-          <LoginButton>로그인</LoginButton>
+          <LoginButton
+            disabled={passwordState && emailState ? false : true}
+            passwordState={passwordState}
+            emailState={emailState}
+          >
+            로그인
+          </LoginButton>
           <FindAndSignIn></FindAndSignIn>
         </LoginForm>
       </MainContainer>
@@ -120,11 +138,18 @@ const PasswordInput = styled.input``;
 const LoginButton = styled.button`
   margin-top: 32px;
   font-weight: 600;
-  color: ${({ theme }) => theme.colors.WHITE};
+  color: ${(props) =>
+    props.passwordState && props.emailState
+      ? props.theme.colors.WHITE
+      : props.theme.colors.GREY_10};
   padding: 15px 0;
   width: 100%;
   border-radius: 5px;
-  background-color: ${({ theme }) => theme.colors.MAIN_COLOR};
+  background-color: ${(props) =>
+    props.passwordState && props.emailState
+      ? props.theme.colors.MAIN_COLOR
+      : props.theme.colors.GREY_30};
+  transition: all 300ms ease-in-out;
 `;
 
 const KakaoLoginButton = styled.a`
