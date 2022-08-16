@@ -4,13 +4,25 @@ import { useForm } from "react-hook-form";
 import FindAndSignIn from "./findAndSignIn";
 import { ReactComponent as Kakao } from "../../assets/kakao.svg";
 import GoBackButton from "../../components/goBackButton";
-//test
+import { useCallback } from "react";
 
 const Login = () => {
-  const { handleSubmit } = useForm();
-  const submitEvent = (e) => {
-    e.preventDefault();
+  // const options =
+  // const regexId = ()=>{
+
+  // }
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    formState: { errors },
+  } = useForm();
+  const submitEvent = (data) => {
+    console.log(data);
   };
+
   return (
     <Container>
       <GoBackButton></GoBackButton>
@@ -22,15 +34,19 @@ const Login = () => {
           <LoginWrapper>
             <LoginTitle>아이디</LoginTitle>
             <LoginInput
+              name="email"
               placeholder="naengpa@naengpa.com"
               type={"text"}
+              {...register("userId", { required: true, pattern: /^\S+@\S+$/i })}
             ></LoginInput>
           </LoginWrapper>
           <PasswordWrapper>
             <PasswordTitle>비밀번호</PasswordTitle>
             <PasswordInput
+              name="password"
               placeholder="**********"
               type={"password"}
+              {...register("userId", { required: true, minLength: 6 })}
             ></PasswordInput>
           </PasswordWrapper>
           <LoginButton>로그인</LoginButton>
@@ -39,8 +55,6 @@ const Login = () => {
       </MainContainer>
       <KakaoLoginButton>
         <StyledMyIcon></StyledMyIcon>
-        <KakaoTitle>카카오로 시작하기</KakaoTitle>
-        <Empty></Empty>
       </KakaoLoginButton>
     </Container>
   );
@@ -115,22 +129,14 @@ const LoginButton = styled.button`
 
 const KakaoLoginButton = styled.a`
   background-color: ${({ theme }) => theme.colors.KAKAO};
-  padding: 15px 16px;
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  border-radius: 5px;
   margin-top: 32px;
   margin-bottom: 40px;
   cursor: pointer;
-`;
-
-const Empty = styled.div``;
-
-const KakaoTitle = styled.div`
-  font-weight: 600;
+  border-radius: 5px;
 `;
 
 const StyledMyIcon = styled(Kakao)`
   cursor: pointer;
+  width: 100%;
 `;

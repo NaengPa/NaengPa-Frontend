@@ -23,6 +23,7 @@ const ResultList = () => {
   const [foodData, setFoodData] = useState([]);
   const [foodList, setFoodList] = useState([...selectedIngredient]);
   const [show, setShow] = useState(false);
+  const [filtered, setFiltered] = useState();
 
   useEffect(() => {
     window.scrollTo(0, 1);
@@ -31,19 +32,21 @@ const ResultList = () => {
         resolve(post_GetRecipeList(selectedIngredient));
       });
       let result = await promise;
-      setFoodData(result);
+      console.log(result);
+      setFoodData(result.recipeInfos);
+      setFiltered(result.filterInfo);
     })();
   }, []);
   const { scrollY } = useScroll();
-  const observeroption = {
-    root: null,
-    rootmargin: "0px",
-    threshold: 0.3,
-  };
-  const observerCallback = (entries, observer) => {
-    entries.forEach((entry) => {});
-  };
-  const observer = new IntersectionObserver(observerCallback, observeroption);
+  // const observeroption = {
+  //   root: null,
+  //   rootmargin: "0px",
+  //   threshold: 0.3,
+  // };
+  // const observerCallback = (entries, observer) => {
+  //   entries.forEach((entry) => {});
+  // };
+  // const observer = new IntersectionObserver(observerCallback, observeroption);
 
   const handleByPopular = () => {
     setFoodData(
