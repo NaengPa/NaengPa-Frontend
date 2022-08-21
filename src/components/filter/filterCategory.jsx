@@ -2,14 +2,18 @@ import React from "react";
 import styled from "styled-components";
 import FilterCategoryButton from "./filterCategoryButton";
 
-const FilterCategory = ({ filterItem }) => {
+const FilterCategory = ({ filterItem, handleFilterClick }) => {
   return (
     <Container>
       <CategoryWrapper>
         <CategoryTitle>{filterItem.title}</CategoryTitle>
         <CategoryButtonContainer>
           {filterItem.category.map((item) => (
-            <FilterCategoryButton item={item}></FilterCategoryButton>
+            <FilterCategoryButton
+              handleFilterClick={handleFilterClick}
+              filterItem={filterItem}
+              item={item}
+            ></FilterCategoryButton>
           ))}
         </CategoryButtonContainer>
       </CategoryWrapper>
