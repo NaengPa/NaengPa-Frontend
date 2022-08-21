@@ -3,8 +3,12 @@ import CommunityArticle from "./CommunityArticle";
 import WriteBtn from "./WriteBtn";
 
 const CommunityWrapper = styled.div`
-  padding: 10vh 16px 64px 16px;
-  /* position: relative; */
+  padding: 10vh 16px 16px 16px;
+  overflow-y: scroll;
+  max-height: 100vh;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const CommunityTitle = styled.span`
