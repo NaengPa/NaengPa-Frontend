@@ -9,6 +9,7 @@ const CommunityWrapper = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
+  community write text input 생성 및 스타일  width: 100%;
 `;
 
 const CommunityTitle = styled.span`

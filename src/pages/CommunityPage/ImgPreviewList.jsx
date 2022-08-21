@@ -8,7 +8,9 @@ const ImgPreviewListWrapper = styled.div`
   overflow-x: scroll;
   gap: 10px;
   padding-top: 10px;
-  width: 100%;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 function ImgPreviewList() {

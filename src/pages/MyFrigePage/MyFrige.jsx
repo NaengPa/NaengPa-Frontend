@@ -16,10 +16,7 @@ const MyFrigeSubtitle = styled.p`
   font-weight: 600;
   font-size: 14px;
   line-height: 140%;
-  /* or 20px */
-
   letter-spacing: -0.03em;
-
   color: #a3a3a3;
   margin: 0;
   margin-top: 73px;
