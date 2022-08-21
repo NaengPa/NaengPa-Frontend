@@ -12,6 +12,7 @@ import styled from "styled-components";
 import ScrollToTop from "../components/ScrollToTop";
 import Login from "../pages/LoginPage/login";
 import SignIn from "../pages/SignIn/signIn";
+import WriteArticle from "../pages/CommunityPage/WriteArticle";
 
 const RootRoute = () => {
   return (
@@ -30,6 +31,7 @@ const RootRoute = () => {
           <Route path="/resultlist" element={<ResultList />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signin" element={<SignIn></SignIn>} />
+          <Route path="/write" element={<WriteArticle />} />
         </Routes>
       </BrowserRouter>
     </RouteWrapper>

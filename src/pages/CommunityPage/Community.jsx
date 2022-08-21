@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import CommunityArticle from "./CommunityArticle";
+import WriteBtn from "./WriteBtn";
 
 const CommunityWrapper = styled.div`
   padding: 10vh 16px 64px 16px;
+  /* position: relative; */
 `;
 
 const CommunityTitle = styled.span`
@@ -20,6 +22,7 @@ function Community() {
       <CommunityArticle />
       <CommunityArticle />
       <CommunityArticle />
+      <WriteBtn />
     </CommunityWrapper>
   );
 }
