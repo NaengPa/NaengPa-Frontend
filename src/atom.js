@@ -13,3 +13,8 @@ export const myFrigeAtom = atom({
   key: "viewedFrige",
   default: [],
 });
+
+export const articleImgAtom = atom({
+  key: "articleImg",
+  default: [],
+});

@@ -11,7 +11,7 @@ const Button = styled.button`
 
 const BtnContainer = styled.div`
   position: sticky;
-  bottom: 94px;
+  bottom: 56px;
   transform: translateX(340px);
   filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.25));
 `;

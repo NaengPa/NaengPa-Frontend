@@ -14,6 +14,7 @@ const FrigeSearchContainer = styled.div`
   padding: 70px 27px 0px 27px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
   background-color: white;
+  height: 100vh;
 `;
 
 const FrigeTitle = styled.p`
