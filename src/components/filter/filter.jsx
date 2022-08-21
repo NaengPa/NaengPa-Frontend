@@ -4,7 +4,7 @@ import { ReactComponent as XButton } from "../../assets/x.svg";
 import FilterCategory from "./filterCategory";
 import { motion } from "framer-motion";
 
-const Filter = ({ handleClose, show }) => {
+const Filter = ({ handleClose, show, handleFilterClick }) => {
   const [clicked, setClicked] = useState(false);
 
   const handleClick = () => {
@@ -47,21 +47,19 @@ const Filter = ({ handleClose, show }) => {
     {
       title: "이건 빼고 싶어요",
       category: [
-        "모든 고기류",
-        "모든 해산물",
-        "갑각류",
-        "고수",
-        "마라",
-        "복숭아",
         "오이",
-        "우유",
-        "땅콩",
-        "땅콩",
-        "땅콩",
-        "땅콩",
-        "땅콩",
-        "땅콩",
-        "땅콩",
+        "연겨자",
+        "은행",
+        "월계수잎",
+        "생강",
+        "쑥갓",
+        "깻잎",
+        "바질",
+        "로즈마리",
+        "라임",
+        "민트",
+        "청양고추",
+        "카레가루",
       ],
     },
   ];
@@ -77,7 +75,10 @@ const Filter = ({ handleClose, show }) => {
         </FilterHeader>
         <FilterMain>
           {filterItem.map((item) => (
-            <FilterCategory filterItem={item}></FilterCategory>
+            <FilterCategory
+              handleFilterClick={handleFilterClick}
+              filterItem={item}
+            ></FilterCategory>
           ))}
         </FilterMain>
       </FilterContainer>
@@ -98,6 +99,7 @@ const Container = styled(motion.div)`
   transform: translateX(25%);
   transition: all 300ms ease-in;
   overflow: scroll;
+  min-height: 100vh;
 `;
 
 const FilterContainer = styled(motion.div)`

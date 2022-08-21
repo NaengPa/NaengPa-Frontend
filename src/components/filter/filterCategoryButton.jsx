@@ -1,17 +1,22 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-const FilterCategoryButton = ({ item }) => {
+const FilterCategoryButton = ({ item, filterItem, handleFilterClick }) => {
   const [buttonClick, setButtonClick] = useState(false);
-  const handleClick = () => {
+  const handleClick = (e) => {
     if (buttonClick === false) {
       setButtonClick(true);
     } else {
       setButtonClick(false);
     }
+    handleFilterClick(e);
   };
   return (
-    <ButtonWrapper buttonClick={buttonClick} onClick={handleClick}>
+    <ButtonWrapper
+      filterItem={filterItem.title}
+      buttonClick={buttonClick}
+      onClick={handleClick}
+    >
       {item}
     </ButtonWrapper>
   );
@@ -30,10 +35,16 @@ const ButtonWrapper = styled.button`
   border: 1px solid
     ${(props) =>
       props.buttonClick
-        ? props.theme.colors.MAIN_COLOR
+        ? props.filterItem === "이건 빼고 싶어요"
+          ? props.theme.colors.PINK_700
+          : props.theme.colors.MAIN_COLOR
         : props.theme.colors.GREY_50};
   white-space: nowrap;
   background-color: ${(props) =>
-    props.buttonClick ? props.theme.colors.MAIN_COLOR : "transparent"};
+    props.buttonClick
+      ? props.filterItem === "이건 빼고 싶어요"
+        ? props.theme.colors.PINK_700
+        : props.theme.colors.MAIN_COLOR
+      : "transparent"};
   border-radius: 50px;
 `;

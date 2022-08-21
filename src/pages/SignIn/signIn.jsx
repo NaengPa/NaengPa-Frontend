@@ -1,12 +1,76 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { getEmailCheck, getNicknameCheck } from "../../common/doubleCheck";
 import GoBackButton from "../../components/goBackButton";
 
 const SignIn = () => {
-  const handleSubmit = useForm();
-  const submitEvent = (e) => {
+  const [emailState, setEmailState] = useState(true);
+  const [nickNameState, setNickNameState] = useState(true);
+  const [passwordState, setPasswordState] = useState(true);
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [passwordConfirmState, setPasswordConfirmState] = useState(true);
+  const [emailCheckState, setEmailCheckState] = useState();
+  const [nickNameCheckState, setNickNameCheckState] = useState();
+
+  const navigate = useNavigate();
+
+  console.log(passwordState, passwordConfirmState, emailState, nickNameState);
+  const handleSubmit = (e) => {
     e.preventDefault();
+  };
+
+  const handleEmailBlur = async (e) => {
+    const result = await getEmailCheck(e.target.value);
+    if (
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+        e.target.value
+      )
+    ) {
+      setEmailState("good");
+    } else if (
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+        e.target.value
+      ) === false
+    ) {
+      setEmailState(false);
+    }
+    setEmailCheckState(result);
+  };
+
+  const handleNicknameBlur = async (e) => {
+    const result = await getNicknameCheck(e.target.value);
+    if (e.target.value.length > 0) {
+      setNickNameState("good");
+    } else {
+      setNickNameState(false);
+    }
+    setNickNameCheckState(result);
+  };
+
+  const handlePasswordBlur = (e) => {
+    setCurrentPassword(e.target.value);
+    if (/^[a-zA-Z\\d`~!@#$%^&*()-_=+]{6,16}$/.test(e.target.value)) {
+      setPasswordState("good");
+    } else if (e.target.value.length === 0) {
+      setPasswordState("zero");
+    } else {
+      setPasswordState(false);
+    }
+  };
+
+  const onChangePasswordConfirm = (e) => {
+    if (e.target.value === currentPassword) {
+      setPasswordConfirmState("good");
+    } else {
+      setPasswordConfirmState(false);
+    }
+  };
+
+  const onClickSignIn = () => {
+    console.log("adad");
+    navigate("/login");
   };
   return (
     <Container>
@@ -16,25 +80,109 @@ const SignIn = () => {
         <Empty></Empty>
       </Header>
       <LoginForm onSubmit={handleSubmit}>
-        <LoginWrapper>
-          <LoginTitle>이메일</LoginTitle>
-          <LoginInput placeholder="이메일 주소 입력" type={"text"}></LoginInput>
-        </LoginWrapper>
+        <EmailWrapper>
+          <EmailTitle>이메일</EmailTitle>
+          <EmailInput
+            emailState={emailState}
+            placeholder="이메일 주소 입력"
+            type={"text"}
+            onBlur={handleEmailBlur}
+          ></EmailInput>
+          {emailCheckState ? (
+            <EmailDuplicationErrorMessage>
+              이미 사용중인 이메일 주소에요.
+            </EmailDuplicationErrorMessage>
+          ) : (
+            ""
+          )}
+          {!emailState ? (
+            <EmailErrorMessage>
+              올바른 이메일 형식으로 입력해 주세요.
+            </EmailErrorMessage>
+          ) : (
+            ""
+          )}
+        </EmailWrapper>
         <NickNameWrapper>
           <NickNameTitle>닉네임</NickNameTitle>
           <NickNameInput
+            nickNameState={nickNameState}
+            onBlur={handleNicknameBlur}
             placeholder="닉네임 입력"
             type={"text"}
           ></NickNameInput>
+          {nickNameCheckState ? (
+            <NickNameDuplicationErrorMessage>
+              이미 사용 중인 닉네임이에요.
+            </NickNameDuplicationErrorMessage>
+          ) : (
+            ""
+          )}
+          {!nickNameState ? (
+            <NickNameErrorMessage>
+              한글 1글자(영문 2글자) 이상의 닉네임으로 입력해 주세요.
+            </NickNameErrorMessage>
+          ) : (
+            ""
+          )}
         </NickNameWrapper>
         <PasswordWrapper>
           <PasswordTitle>비밀번호</PasswordTitle>
           <PasswordInput
+            passwordState={passwordState}
+            onBlur={handlePasswordBlur}
             placeholder="비밀번호 입력"
             type={"password"}
           ></PasswordInput>
+          {!passwordState ? (
+            <PasswordErrorMessage>
+              영문, 숫자, 기호(!@#$%^&*+=-)를 조합하여 6~16 글자 사이의
+              비밀번호를 입력해 주세요.
+            </PasswordErrorMessage>
+          ) : (
+            ""
+          )}
+          {passwordState === "zero" ? (
+            <PasswordErrorMessage>
+              비밀번호를 입력해 주세요.
+            </PasswordErrorMessage>
+          ) : (
+            ""
+          )}
         </PasswordWrapper>
-        <SignInButton>회원가입</SignInButton>
+        <PasswordConfirmWrapper>
+          <PasswordConfirmTitle>비밀번호 확인</PasswordConfirmTitle>
+          <PasswordConfirmInput
+            passwordConfirmState={passwordConfirmState}
+            onChange={onChangePasswordConfirm}
+            placeholder="비밀번호 재입력"
+            type={"password"}
+          ></PasswordConfirmInput>
+          {!passwordConfirmState ? (
+            <PasswordConfirmErrorMessage>
+              비밀번호를 다시 확인해 주세요.
+            </PasswordConfirmErrorMessage>
+          ) : (
+            ""
+          )}
+        </PasswordConfirmWrapper>
+        <SignInButton
+          onClick={onClickSignIn}
+          disabled={
+            passwordState &&
+            passwordConfirmState === "good" &&
+            emailState &&
+            nickNameState === "good"
+              ? false
+              : true
+          }
+          passwordState={passwordState}
+          passwordConfirmState={passwordConfirmState}
+          emailState={emailState}
+          nickNameState={nickNameState}
+        >
+          회원가입
+        </SignInButton>
       </LoginForm>
       <Empty></Empty>
     </Container>
@@ -52,11 +200,9 @@ const Container = styled.div`
   justify-content: space-between;
   input {
     outline: none;
-    border: none;
     width: 100%;
     font-weight: 500;
     padding: 13.5px 0;
-    border-bottom: 1px solid ${({ theme }) => theme.colors.GREY_30};
   }
   input::placeholder {
     color: ${({ theme }) => theme.colors.GREY_30};
@@ -80,15 +226,54 @@ const MainTitle = styled.div`
 const Empty = styled.div``;
 
 const LoginForm = styled.form``;
-const LoginWrapper = styled.div`
+const EmailWrapper = styled.div`
   margin-bottom: 32px;
 `;
 
-const LoginTitle = styled.div`
+const EmailTitle = styled.div`
   font-size: 13px;
 `;
 
-const LoginInput = styled.input``;
+const EmailInput = styled.input`
+  border: none;
+  border-bottom: 1px solid ${(props) => props.theme.colors.GREY_30};
+`;
+
+const EmailDuplicationErrorMessage = styled.div`
+  font-size: 13px;
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.ORANGE_900};
+`;
+
+const EmailErrorMessage = styled.div`
+  font-size: 13px;
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.ORANGE_900};
+`;
+
+const NickNameErrorMessage = styled.div`
+  font-size: 13px;
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.ORANGE_900};
+`;
+
+const NickNameDuplicationErrorMessage = styled.div`
+  font-size: 13px;
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.ORANGE_900};
+`;
+
+const PasswordErrorMessage = styled.div`
+  font-size: 13px;
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.ORANGE_900};
+`;
+
+const PasswordConfirmErrorMessage = styled.div`
+  font-size: 13px;
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.ORANGE_900};
+`;
 
 const PasswordWrapper = styled.div`
   margin-bottom: 32px;
@@ -98,7 +283,23 @@ const PasswordTitle = styled.div`
   font-size: 13px;
 `;
 
-const PasswordInput = styled.input``;
+const PasswordInput = styled.input`
+  border: none;
+  border-bottom: 1px solid ${(props) => props.theme.colors.GREY_30};
+`;
+
+const PasswordConfirmWrapper = styled.div`
+  margin-bottom: 32px;
+`;
+
+const PasswordConfirmTitle = styled.div`
+  font-size: 13px;
+`;
+
+const PasswordConfirmInput = styled.input`
+  border: none;
+  border-bottom: 1px solid ${(props) => props.theme.colors.GREY_30};
+`;
 
 const NickNameWrapper = styled.div`
   margin-bottom: 40px;
@@ -108,15 +309,32 @@ const NickNameTitle = styled.div`
   font-size: 13px;
 `;
 
-const NickNameInput = styled.input``;
+const NickNameInput = styled.input`
+  border: none;
+  border-bottom: 1px solid ${(props) => props.theme.colors.GREY_30};
+`;
 
 const SignInButton = styled.button`
   text-align: center;
   margin-top: 32px;
   font-weight: 600;
-  color: ${({ theme }) => theme.colors.WHITE};
   padding: 15px 0;
   width: 100%;
   border-radius: 5px;
-  background-color: ${({ theme }) => theme.colors.MAIN_COLOR};
+  color: ${(props) =>
+    props.passwordState &&
+    props.passwordConfirmState === "good" &&
+    props.emailState &&
+    props.nickNameState === "good"
+      ? props.theme.colors.WHITE
+      : props.theme.colors.GREY_10};
+
+  background-color: ${(props) =>
+    props.passwordState &&
+    props.passwordConfirmState === "good" &&
+    props.emailState &&
+    props.nickNameState === "good"
+      ? props.theme.colors.MAIN_COLOR
+      : props.theme.colors.GREY_30};
+  transition: all 300ms ease-in-out;
 `;

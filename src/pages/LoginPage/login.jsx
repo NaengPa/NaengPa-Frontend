@@ -1,14 +1,27 @@
 import React from "react";
 import styled from "styled-components";
-import { useForm } from "react-hook-form";
 import FindAndSignIn from "./findAndSignIn";
 import { ReactComponent as Kakao } from "../../assets/kakao.svg";
 import GoBackButton from "../../components/goBackButton";
 import { useState } from "react";
+import { getKakaoLogin } from "../../common/kakaoLogin";
+import { useEffect } from "react";
 
 const Login = () => {
   const [emailState, setEmailState] = useState(false);
   const [passwordState, setPasswordState] = useState(false);
+
+  useEffect(() => {
+    const KakaoUrl = window.location.search.split("=")[1];
+    console.log(KakaoUrl);
+    // if (!window.location.search) return;
+    const postUrl = async () => {
+      const result = await getKakaoLogin(KakaoUrl);
+      console.log(result);
+      localStorage.setItem("token", result);
+    };
+    postUrl();
+  });
 
   const onChangeEmail = (e) => {
     const inputLen = e.target.value.length;
@@ -21,6 +34,7 @@ const Login = () => {
   };
 
   const onChangePassword = (e) => {
+    console.log(typeof e.target.value);
     const inputLen = e.target.value.length;
     if (inputLen > 2) {
       setPasswordState(true);
@@ -71,7 +85,7 @@ const Login = () => {
           <FindAndSignIn></FindAndSignIn>
         </LoginForm>
       </MainContainer>
-      <KakaoLoginButton>
+      <KakaoLoginButton href="https://kauth.kakao.com/oauth/authorize?client_id=e01c4cdbad44d2771897f26308c77ef1&redirect_uri=http://localhost:3000/login&response_type=code">
         <StyledMyIcon></StyledMyIcon>
       </KakaoLoginButton>
     </Container>
@@ -131,9 +145,19 @@ const PasswordTitle = styled.div`
   font-size: 13px;
 `;
 
-const LoginInput = styled.input``;
+const LoginInput = styled.input`
+  &:focus {
+    border-bottom: 1px solid ${({ theme }) => theme.colors.MAIN_COLOR};
+  }
+  caret-color: ${({ theme }) => theme.colors.MAIN_COLOR};
+`;
 
-const PasswordInput = styled.input``;
+const PasswordInput = styled.input`
+  &:focus {
+    border-bottom: 1px solid ${({ theme }) => theme.colors.MAIN_COLOR};
+  }
+  caret-color: ${({ theme }) => theme.colors.MAIN_COLOR};
+`;
 
 const LoginButton = styled.button`
   margin-top: 32px;
@@ -142,14 +166,15 @@ const LoginButton = styled.button`
     props.passwordState && props.emailState
       ? props.theme.colors.WHITE
       : props.theme.colors.GREY_10};
-  padding: 15px 0;
-  width: 100%;
-  border-radius: 5px;
+
   background-color: ${(props) =>
     props.passwordState && props.emailState
       ? props.theme.colors.MAIN_COLOR
       : props.theme.colors.GREY_30};
   transition: all 300ms ease-in-out;
+  padding: 15px 0;
+  width: 100%;
+  border-radius: 5px;
 `;
 
 const KakaoLoginButton = styled.a`

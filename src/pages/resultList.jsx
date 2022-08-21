@@ -82,9 +82,21 @@ const ResultList = () => {
   const handleClose = () => {
     setShow(false);
   };
+
+  const handleFilterClick = (e) => {
+    console.log(e.target.__reactProps$zti5yfw5qig.children);
+  };
   return (
     <ResultListWrapper ref={homeRef}>
-      {show ? <Filter show={show} handleClose={handleClose}></Filter> : ""}
+      {show ? (
+        <Filter
+          handleFilterClick={handleFilterClick}
+          show={show}
+          handleClose={handleClose}
+        ></Filter>
+      ) : (
+        ""
+      )}
       {/* <Filter show={show} handleClose={handleClose}></Filter> */}
       <FilterOp show={show}></FilterOp>
       <HeaderContainer>

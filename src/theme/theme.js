@@ -7,6 +7,8 @@ const colors = {
   GREY_50: "#688191",
   GREY_60: "#415867",
   WHITE: "#FFFFFF",
+  ORANGE_900: "#FF6F00",
+  PINK_700: "#D80070",
 };
 const mediaScreen = {};
 const fontSize = {};
