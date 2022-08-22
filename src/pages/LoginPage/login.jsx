@@ -6,21 +6,33 @@ import GoBackButton from "../../components/goBackButton";
 import { useState } from "react";
 import { getKakaoLogin } from "../../common/kakaoLogin";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { pageStateAtom } from "../../atom";
+import { useRecoilState } from "recoil";
 
 const Login = () => {
   const [emailState, setEmailState] = useState(false);
   const [passwordState, setPasswordState] = useState(false);
+  const [pageState, setPageState] = useRecoilState(pageStateAtom);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const KakaoUrl = window.location.search.split("=")[1];
-    console.log(KakaoUrl);
     // if (!window.location.search) return;
     const postUrl = async () => {
       const result = await getKakaoLogin(KakaoUrl);
-      console.log(result);
+      // console.log(result);
+      console.log(KakaoUrl);
+      // console.log(pageState);
       localStorage.setItem("token", result);
+      if (KakaoUrl !== undefined) {
+        navigate(-3);
+        console.log("ho");
+      }
     };
-    postUrl();
+    if (KakaoUrl !== undefined) {
+      postUrl();
+    }
   });
 
   const onChangeEmail = (e) => {

@@ -116,7 +116,7 @@ function MyPage() {
   const handleModal = () => {
     setIsModalOpen((prev) => !prev);
   };
-
+  console.log("hihi");
   return (
     <>
       {isModalOpen ? (

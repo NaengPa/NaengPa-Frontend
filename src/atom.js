@@ -13,3 +13,8 @@ export const myFrigeAtom = atom({
   key: "viewedFrige",
   default: [],
 });
+
+export const pageStateAtom = atom({
+  key: "pageState",
+  default: [],
+});
