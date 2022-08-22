@@ -5,7 +5,7 @@ import { viewedRecipeAtom } from "../../atom";
 import axios from "axios";
 import ViewedRecipeImgItem from "./ViewedRecipeImgItem";
 import { Link } from "react-router-dom";
-import { post_GetCurRecipeList } from "../../common/axios";
+import { getCurRecipeList } from "../../common/axios";
 
 const ViewedRecipeImgListContainer = styled.div`
   width: 100%;
@@ -36,13 +36,11 @@ function ViewedRecipeImgList({ item }) {
   const [viewedRecipeData, setViewedRecipeData] = useState([]);
 
   useEffect(() => {
-    (async () => {
-      let promise = new Promise((resolve, reject) => {
-        resolve(post_GetCurRecipeList(numberLimitViewedRecipe));
-      });
-      let result = await promise;
+    const getCurRecipeLists = async () => {
+      const result = await getCurRecipeList(numberLimitViewedRecipe);
       setViewedRecipeData(result);
-    })();
+    };
+    getCurRecipeLists();
   }, []);
 
   return (

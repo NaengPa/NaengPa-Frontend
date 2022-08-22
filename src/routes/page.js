@@ -16,7 +16,7 @@ const pages = [
   {
     pathname: "/:recipeId/detail",
     element: <Detail></Detail>,
-    isPublic: false,
+    isPublic: true,
   },
   { pathname: "/search", element: <Search></Search>, isPublic: true },
   { pathname: "/mypage", element: <MyPage></MyPage>, isPublic: false },
