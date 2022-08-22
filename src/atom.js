@@ -14,12 +14,11 @@ export const myFrigeAtom = atom({
   default: [],
 });
 
-
 export const pageStateAtom = atom({
   key: "pageState",
-    default: [],
-  )};
-  
+  default: [],
+});
+
 export const articleImgAtom = atom({
   key: "articleImg",
   default: [],
