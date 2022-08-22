@@ -1,37 +1,39 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Main from "../pages/MainPage/Main";
-import Detail from "../pages/DetailPage/Detail";
-import Search from "../pages/SearchPage/Search";
-import MyPage from "../pages/MyPage/MyPage";
-import Community from "../pages/CommunityPage/Community";
-import Frige from "../pages/FrigePage/Frige";
-import MyFrige from "../pages/MyFrigePage/MyFrige";
-import ResultList from "../pages/resultList";
+import pages from "./page";
 import Navigation from "../components/navigation";
 import styled from "styled-components";
 import ScrollToTop from "../components/ScrollToTop";
-import Login from "../pages/LoginPage/login";
-import SignIn from "../pages/SignIn/signIn";
-import WriteArticle from "../pages/CommunityPage/WriteArticle";
+
+import ProtectedRoute from "./protectedRoute";
 
 const RootRoute = () => {
+  const token = localStorage.getItem("token");
   return (
     <RouteWrapper>
       <BrowserRouter basename={process.env.PUBLIC_URL}>
         <ScrollToTop />
         <Navigation></Navigation>
         <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/:recipeId/detail" element={<Detail />} />
-          <Route path="/search" element={<Search />} />
-          <Route path="/mypage" element={<MyPage />} />
-          <Route path="/community" element={<Community />} />
-          <Route path="/frige" element={<Frige />} />
-          <Route path="/myfrige" element={<MyFrige />} />
-          <Route path="/resultlist" element={<ResultList />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signin" element={<SignIn></SignIn>} />
-          <Route path="/write" element={<WriteArticle />} />
+
+          {pages.map((r) => {
+            const isAuthenticated = r.isPublic || token;
+            return (
+              <Route
+                key={r.pathname}
+                path={r.pathname}
+                element={
+                  <ProtectedRoute
+                    token={token}
+                    pathname={r.pathname}
+                    isAuthenticated={isAuthenticated}
+                  >
+                    {r.element}
+                  </ProtectedRoute>
+                }
+              />
+            );
+          })}/>
+
         </Routes>
       </BrowserRouter>
     </RouteWrapper>
