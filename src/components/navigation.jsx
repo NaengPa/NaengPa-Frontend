@@ -41,7 +41,12 @@ const Navigation = () => {
       </Link>
       <Link to={{ pathname: "/community" }} onClick={forceUpdate}>
         <StyledMyIconCommunity
-          isActive={window.location.pathname === "/community" ? true : false}
+          isActive={
+            window.location.pathname === "/community" ||
+            window.location.pathname === "/write"
+              ? true
+              : false
+          }
         />
       </Link>
       <Link to={{ pathname: "/mypage" }} onClick={forceUpdate}>

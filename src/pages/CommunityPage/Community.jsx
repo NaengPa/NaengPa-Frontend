@@ -1,8 +1,15 @@
 import styled from "styled-components";
 import CommunityArticle from "./CommunityArticle";
+import WriteBtn from "./WriteBtn";
 
 const CommunityWrapper = styled.div`
-  padding: 10vh 16px 64px 16px;
+  padding: 10vh 16px 16px 16px;
+  overflow-y: scroll;
+  max-height: 100vh;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  community write text input 생성 및 스타일  width: 100%;
 `;
 
 const CommunityTitle = styled.span`
@@ -20,6 +27,7 @@ function Community() {
       <CommunityArticle />
       <CommunityArticle />
       <CommunityArticle />
+      <WriteBtn />
     </CommunityWrapper>
   );
 }
