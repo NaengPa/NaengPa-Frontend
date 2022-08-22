@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { ReactComponent as XButton } from "../../assets/x.svg";
 import FilterCategory from "./filterCategory";
 import { motion } from "framer-motion";
+import filterItem from "../../Constant/constant";
 
 const Filter = ({ handleClose, show, handleFilterClick }) => {
   const [clicked, setClicked] = useState(false);
@@ -23,6 +24,7 @@ const Filter = ({ handleClose, show, handleFilterClick }) => {
       window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
     };
   }, []); // 화면이 스크롤이 안되고 화면외에 클릭안되게
+
   const modalRef = useRef(); //화면 외부 클릭하면 창이 닫히게
   useEffect(() => {
     document.addEventListener("mousedown", clickModalOutside);
@@ -38,31 +40,7 @@ const Filter = ({ handleClose, show, handleFilterClick }) => {
       setClicked(true);
     }
   };
-  const filterItem = [
-    { title: "실력은 이 정도예요", category: ["요알못", "요잘알"] },
-    {
-      title: "이 나라 음식이 더 끌려요",
-      category: ["한식", "중식", "일식", "양식", "퓨전"],
-    },
-    {
-      title: "이건 빼고 싶어요",
-      category: [
-        "오이",
-        "연겨자",
-        "은행",
-        "월계수잎",
-        "생강",
-        "쑥갓",
-        "깻잎",
-        "바질",
-        "로즈마리",
-        "라임",
-        "민트",
-        "청양고추",
-        "카레가루",
-      ],
-    },
-  ];
+
   return (
     <Container show ref={modalRef}>
       <FilterContainer

@@ -6,7 +6,7 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { ReactComponent as Search } from "../../assets/search.svg";
 import { myFrigeAtom } from "../../atom";
-import { get_GetIngredients } from "../../common/axios";
+import { getIngredients } from "../../common/axios";
 import AllFrigeList from "./AllFrigeList";
 
 const FrigeSearchContainer = styled.div`
@@ -141,7 +141,7 @@ function Frige() {
 
   useEffect(() => {
     async function get() {
-      const result = await get_GetIngredients();
+      const result = await getIngredients();
       setIrdnt(result);
     }
     get();

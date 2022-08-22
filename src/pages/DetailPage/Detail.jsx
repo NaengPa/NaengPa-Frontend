@@ -12,7 +12,7 @@ import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
 import GoBackButton from "../../components/goBackButton";
 import Header from "../../components/Header";
-import { get_GetRecipeDetail } from "../../common/axios";
+import { getRecipeDetail } from "../../common/axios";
 
 const RecipePhotoContainer = styled.div`
   position: relative;
@@ -124,13 +124,11 @@ function Detail() {
   const { recipeId } = useParams();
 
   useEffect(() => {
-    (async () => {
-      let promise = new Promise((resolve, reject) => {
-        resolve(get_GetRecipeDetail(recipeId));
-      });
-      let result = await promise;
+    const getRecipeDetails = async () => {
+      const result = await getRecipeDetail(recipeId);
       setRecipeDetail(result);
-    })();
+    };
+    getRecipeDetails();
   }, [recipeId]);
 
   const recipeName = recipeDetail?.recipeInfo?.recipeNmKo;

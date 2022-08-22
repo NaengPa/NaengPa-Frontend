@@ -7,11 +7,12 @@ import { ReactComponent as Heart } from "../assets/shape.svg";
 import { ReactComponent as ArrowRight } from "../assets/upButton.svg";
 import { useScroll } from "../hooks/useScroll";
 import { selectedIngredientAtom } from "../atom";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import FoodButtonAlone from "../components/foodButtonAlone";
 import { useNavigate } from "react-router-dom";
-import { post_GetRecipeList } from "../common/axios";
+import { getRecipeList } from "../common/axios";
 import Filter from "../components/filter/filter";
+import filterItem from "../Constant/constant";
 
 const ResultList = () => {
   const homeRef = useRef(0);
@@ -23,30 +24,19 @@ const ResultList = () => {
   const [foodData, setFoodData] = useState([]);
   const [foodList, setFoodList] = useState([...selectedIngredient]);
   const [show, setShow] = useState(false);
+  const [filterFoodData, setFilterFoodData] = useState([]);
   const [filtered, setFiltered] = useState();
 
   useEffect(() => {
     window.scrollTo(0, 1);
-    (async () => {
-      let promise = new Promise((resolve, reject) => {
-        resolve(post_GetRecipeList(selectedIngredient));
-      });
-      let result = await promise;
-      console.log(result);
+    const getRecipeLists = async () => {
+      const result = await getRecipeList(selectedIngredient);
       setFoodData(result.recipeInfos);
       setFiltered(result.filterInfo);
-    })();
+    };
+    getRecipeLists();
   }, []);
   const { scrollY } = useScroll();
-  // const observeroption = {
-  //   root: null,
-  //   rootmargin: "0px",
-  //   threshold: 0.3,
-  // };
-  // const observerCallback = (entries, observer) => {
-  //   entries.forEach((entry) => {});
-  // };
-  // const observer = new IntersectionObserver(observerCallback, observeroption);
 
   const handleByPopular = () => {
     setFoodData(
@@ -70,21 +60,44 @@ const ResultList = () => {
   };
 
   const navigate = useNavigate();
+
   const clickHistoryData = (e) => {
     navigate(`/${e.target.id}/detail`, { replace: false, state: e.target.id });
   };
+
   const handleScroll = () => {
     document.getElementById("root").scrollIntoView({ behavior: "smooth" });
   };
+
   const handleShow = () => {
     setShow(true);
   };
+
   const handleClose = () => {
     setShow(false);
   };
 
   const handleFilterClick = (e) => {
-    console.log(e.target.__reactProps$zti5yfw5qig.children);
+    const itemName = e.target.innerText;
+    console.log(itemName);
+    if (filterItem[1].category.includes(itemName)) {
+      setFilterFoodData((prev) =>
+        [...foodData].filter((item) => item.nationNm === itemName)
+      );
+    } else if (filterItem[0].category.includes(itemName)) {
+      setFilterFoodData((prev) =>
+        [...foodData].filter((item) => item.levelNm === itemName)
+      );
+    } else if (filterItem[2].category.includes(itemName)) {
+      setFilterFoodData((prev) =>
+        [...foodData].filter(
+          (item) =>
+            item.irdnts.filter((item) => item.irdntNm === itemName).length === 0
+        )
+      );
+      console.log(filterFoodData);
+      console.log(foodData);
+    }
   };
   return (
     <ResultListWrapper ref={homeRef}>
@@ -142,22 +155,24 @@ const ResultList = () => {
           </button>
         </SortingLetter>
         <ListContainer>
-          {foodData.map((item) => (
-            <TextWrapper
-              key={item.recipeId}
-              onClick={clickHistoryData}
-              id={item.recipeId}
-            >
-              <img src={item.imgUrl} alt="" />
-              <SummaryAndLike>
-                <ListSpan>{item.summary}</ListSpan>
-                <IconWrapper>
-                  <StyledMyIcon></StyledMyIcon>
-                  <span>{item.likeCnt}</span>
-                </IconWrapper>
-              </SummaryAndLike>
-            </TextWrapper>
-          ))}
+          {(filterFoodData.length > 0 ? filterFoodData : foodData).map(
+            (item) => (
+              <TextWrapper
+                key={item.recipeId}
+                onClick={clickHistoryData}
+                id={item.recipeId}
+              >
+                <img src={item.imgUrl} alt="" />
+                <SummaryAndLike>
+                  <ListSpan>{item.summary}</ListSpan>
+                  <IconWrapper>
+                    <StyledMyIcon></StyledMyIcon>
+                    <span>{item.likeCnt}</span>
+                  </IconWrapper>
+                </SummaryAndLike>
+              </TextWrapper>
+            )
+          )}
         </ListContainer>
       </MainContainer>
       <UpButton scrollY={scrollY} onClick={handleScroll}>
@@ -238,6 +253,7 @@ const FoodListWrapper = styled.div`
   }
 `;
 const MainContainer = styled.div`
+  min-height: 100vh;
   padding: 24px;
   padding-top: 240px;
   padding-bottom: 50px;

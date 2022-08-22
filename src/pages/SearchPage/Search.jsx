@@ -9,7 +9,7 @@ import { myFrigeAtom, selectedIngredientAtom } from "../../atom";
 import FrigeButton from "../../components/frigeButton";
 import { useNavigate } from "react-router-dom";
 import SearchButton from "../../components/searchButton";
-import { get_GetIngredients } from "../../common/axios";
+import { getIngredients } from "../../common/axios";
 
 function SearchIndex() {
   const [searchInput, setSearchInput] = useState("");
@@ -20,13 +20,11 @@ function SearchIndex() {
   const [data, setData] = useState([]);
   const [filterData, setFilterData] = useState([]);
   useEffect(() => {
-    (async () => {
-      let promise = new Promise((resolve, reject) => {
-        resolve(get_GetIngredients());
-      });
-      let result = await promise;
+    const getIngredient = async () => {
+      const result = await getIngredients();
       setData(result);
-    })();
+    };
+    getIngredient();
   }, []);
 
   useEffect(() => {

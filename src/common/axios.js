@@ -1,7 +1,7 @@
 import axios from "axios";
 let baseURL = process.env.REACT_APP_SERVER_API_KEY;
 
-export async function post_GetRecipeList(data) {
+export async function getRecipeList(data) {
   try {
     const response = await axios({
       method: "POST",
@@ -17,7 +17,7 @@ export async function post_GetRecipeList(data) {
   }
 }
 
-export async function get_GetIngredients() {
+export async function getIngredients() {
   try {
     let data = [];
     const response = await axios({
@@ -34,7 +34,7 @@ export async function get_GetIngredients() {
   }
 }
 
-export async function get_GetRecipeDetail(recipeId) {
+export async function getRecipeDetail(recipeId) {
   try {
     const response = await axios({
       method: "get",
@@ -47,7 +47,7 @@ export async function get_GetRecipeDetail(recipeId) {
   }
 }
 
-export async function post_GetCurRecipeList(numberLimitViewedRecipe) {
+export async function getCurRecipeList(numberLimitViewedRecipe) {
   try {
     const response = await axios({
       method: "POST",
