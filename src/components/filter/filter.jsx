@@ -24,7 +24,6 @@ const Filter = ({ handleClose, show, handleFilterClick }) => {
       window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
     };
   }, []); // 화면이 스크롤이 안되고 화면외에 클릭안되게
-
   const modalRef = useRef(); //화면 외부 클릭하면 창이 닫히게
   useEffect(() => {
     document.addEventListener("mousedown", clickModalOutside);
@@ -72,12 +71,13 @@ const Container = styled(motion.div)`
   height: calc(100vh - 64px); //calc 할떄는 내부에서 꼭 스페이스바를 해줘야된다.
   background-color: transparent;
   width: 80%;
-  position: sticky;
+  position: fixed;
   top: 0;
   transform: translateX(25%);
   transition: all 300ms ease-in;
   overflow: scroll;
   min-height: 100vh;
+  width: 350px;
 `;
 
 const FilterContainer = styled(motion.div)`

@@ -80,6 +80,7 @@ const ResultList = () => {
   const handleFilterClick = (e) => {
     const itemName = e.target.innerText;
     console.log(itemName);
+    console.log(foodData);
     if (filterItem[1].category.includes(itemName)) {
       setFilterFoodData((prev) =>
         [...foodData].filter((item) => item.nationNm === itemName)
@@ -92,7 +93,11 @@ const ResultList = () => {
       setFilterFoodData((prev) =>
         [...foodData].filter(
           (item) =>
-            item.irdnts.filter((item) => item.irdntNm === itemName).length === 0
+            item.irdnts.filter(
+              (item) =>
+                (item.irdntNm === "허브(민트)" ? "민트" : item.irdntNm) ===
+                itemName
+            ).length === 0
         )
       );
       console.log(filterFoodData);
@@ -110,7 +115,6 @@ const ResultList = () => {
       ) : (
         ""
       )}
-      {/* <Filter show={show} handleClose={handleClose}></Filter> */}
       <FilterOp show={show}></FilterOp>
       <HeaderContainer>
         <ButtonIconContainer>
