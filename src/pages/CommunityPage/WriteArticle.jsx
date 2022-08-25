@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import GoBackButton from "../../components/goBackButton";
-import ArticleUploadBtn from "./ArticleUploadBtn";
-import Divider from "./Divider";
-import ImgUploadSection from "./ImgUploadSection";
-import TextInput from "./TextInput";
+import ArticleUploadBtn from "../../components/ArticleUploadBtn";
+import Divider from "../../components/Divider";
+import ArticleImgUploadSection from "../../components/ArticleImgUploadSection";
+import ArticleTextInput from "../../components/ArticleTextInput";
 
 const WriteArticleWrapper = styled.div`
   padding: 10vh 16px 16px 16px;
@@ -37,9 +37,9 @@ function WriteArticle() {
         <Title>글쓰기</Title>
         <ArticleUploadBtn />
       </WriteArticleHeader>
-      <ImgUploadSection />
+      <ArticleImgUploadSection />
       <Divider />
-      <TextInput />
+      <ArticleTextInput />
     </WriteArticleWrapper>
   );
 }

@@ -62,3 +62,12 @@ export async function getCurRecipeList(numberLimitViewedRecipe) {
     throw new Error(error);
   }
 }
+
+export async function getArticle(email) {
+  try {
+    const response = await axios.get(`${baseURL}/board?email=${email}`);
+    return response.data;
+  } catch (error) {
+    throw new Error(error);
+  }
+}

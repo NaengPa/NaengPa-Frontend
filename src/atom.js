@@ -23,3 +23,8 @@ export const articleImgAtom = atom({
   key: "articleImg",
   default: [],
 });
+
+export const articleTextAtom = atom({
+  key: "articleText",
+  default: "",
+});
