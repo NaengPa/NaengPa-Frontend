@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { ReactComponent as Plus } from "../../assets/plus.svg";
+import { ReactComponent as Plus } from "../assets/plus.svg";
 
 const Button = styled.button`
   width: 54px;
@@ -10,13 +10,15 @@ const Button = styled.button`
 `;
 
 const BtnContainer = styled.div`
+  width: 54px;
+  height: 54px;
   position: sticky;
   bottom: 56px;
   transform: translateX(340px);
   filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.25));
 `;
 
-function WriteBtn() {
+function ArticleWriteBtn() {
   return (
     <BtnContainer>
       <Link to={{ pathname: "/write" }}>
@@ -27,4 +29,4 @@ function WriteBtn() {
     </BtnContainer>
   );
 }
-export default WriteBtn;
+export default ArticleWriteBtn;

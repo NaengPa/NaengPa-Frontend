@@ -1,8 +1,9 @@
 import styled from "styled-components";
-import { ReactComponent as Like } from "../../assets/Heart_InActive.svg";
-import { ReactComponent as Share } from "../../assets/share.svg";
-import { ReactComponent as Bookmark } from "../../assets/Bookmark_InActive.svg";
+import { ReactComponent as Like } from "../assets/Heart_InActive.svg";
+import { ReactComponent as Share } from "../assets/share.svg";
+import { ReactComponent as Bookmark } from "../assets/Bookmark_InActive.svg";
 import ReferredRecipeCard from "./ReferredRecipeCard";
+import { propTypes } from "react-bootstrap/esm/Image";
 
 const ArticleUserContainer = styled.div`
   margin-top: 16px;
@@ -70,30 +71,36 @@ const ArticleText = styled.span`
   margin-bottom: 16px;
 `;
 
-function CommunityArticle() {
+function CommunityArticle({
+  content,
+  email,
+  id,
+  imgUrl,
+  imgs,
+  likeYn,
+  likes,
+  nickname,
+  recipeId,
+}) {
   return (
     <>
       <ArticleUserContainer>
         <UserProfileImg src="https://image.ytn.co.kr/general/jpg/2021/0311/202103110915014429_d.jpg" />
-        <UserId>asdfasd</UserId>
+        <UserId>{nickname}</UserId>
       </ArticleUserContainer>
       <ArticleImg src="https://image.ytn.co.kr/general/jpg/2021/0311/202103110915014429_d.jpg" />
       <ArticleActionContainer>
         <LikeContainer>
           <Like />
-          <LikeCount>123</LikeCount>
+          <LikeCount>{likes}</LikeCount>
         </LikeContainer>
         <RightIconsContainer>
           <Share />
           <Bookmark />
         </RightIconsContainer>
       </ArticleActionContainer>
-      <ArticleText>
-        마침 집에 배도 있고 샤인머스캣을 선물로 받아서 오눅레시피 샤인머스캣과
-        배로 짓는 과일 샐러드 만들어 봤어요. 올리브유랑 후추가 달달하고 탱탱한
-        샤인머스캣이랑 너무 잘 어울렸어요.
-      </ArticleText>
-      <ReferredRecipeCard />
+      <ArticleText>{content}</ArticleText>
+      {recipeId !== 0 && <ReferredRecipeCard />}
     </>
   );
 }

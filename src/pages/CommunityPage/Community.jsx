@@ -1,15 +1,18 @@
 import styled from "styled-components";
-import CommunityArticle from "./CommunityArticle";
-import WriteBtn from "./WriteBtn";
+import CommunityArticle from "../../components/CommunityArticle";
+import ArticleWriteBtn from "../../components/ArticleWriteBtn";
+import { getArticle } from "../../common/axios";
+import { useEffect } from "react";
+import { useState } from "react";
 
 const CommunityWrapper = styled.div`
   padding: 10vh 16px 16px 16px;
   overflow-y: scroll;
-  max-height: 100vh;
+  height: 100vh;
   ::-webkit-scrollbar {
     display: none;
   }
-  community write text input 생성 및 스타일  width: 100%;
+  width: 100%;
 `;
 
 const CommunityTitle = styled.span`
@@ -21,13 +24,25 @@ const CommunityTitle = styled.span`
 `;
 
 function Community() {
+  const [article, setArticle] = useState([]);
+
+  useEffect(() => {
+    async function get() {
+      const result = await getArticle();
+      setArticle(result);
+    }
+    get();
+  }, []);
+
+  console.log(article);
   return (
     <CommunityWrapper>
       <CommunityTitle>내가 만든 냉파 레시피{"\n"}자랑해봐요</CommunityTitle>
-      <CommunityArticle />
-      <CommunityArticle />
-      <CommunityArticle />
-      <WriteBtn />
+      {article.map((item) => (
+        <CommunityArticle {...item} />
+      ))}
+
+      <ArticleWriteBtn />
     </CommunityWrapper>
   );
 }

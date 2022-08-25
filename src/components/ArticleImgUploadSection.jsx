@@ -1,9 +1,9 @@
 import { useRef } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { articleImgAtom } from "../../atom";
-import ImgPreviewList from "./ImgPreviewList";
-import { ReactComponent as ImgUploadIcon } from "../../assets/Picture.svg";
+import { articleImgAtom } from "../atom";
+import ArticleUploadImgPreviewList from "./ArticleUploadImgPreviewList";
+import { ReactComponent as ImgUploadIcon } from "../assets/Picture.svg";
 
 const ImgUploadSectionWrapper = styled.div`
   display: flex;
@@ -35,7 +35,7 @@ const ImgUploadCnt = styled.span`
   color: #132029;
 `;
 
-function ImgUploadSection() {
+function ArticleImgUploadSection() {
   const [imgList, setImgList] = useRecoilState(articleImgAtom);
   const ImgUploadInput = useRef();
   // const formData = new FormData();
@@ -66,9 +66,9 @@ function ImgUploadSection() {
         <ImgUploadIcon />
         <ImgUploadCnt>{imgList.length}/10</ImgUploadCnt>
       </ImgUploadBtn>
-      <ImgPreviewList />
+      <ArticleUploadImgPreviewList />
     </ImgUploadSectionWrapper>
   );
 }
 
-export default ImgUploadSection;
+export default ArticleImgUploadSection;

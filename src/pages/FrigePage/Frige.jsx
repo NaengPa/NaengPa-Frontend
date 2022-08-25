@@ -9,12 +9,15 @@ import { myFrigeAtom } from "../../atom";
 import { getIngredients } from "../../common/axios";
 import AllFrigeList from "./AllFrigeList";
 
+const FrigeWrapper = styled.div`
+  height: 100vh;
+`;
+
 const FrigeSearchContainer = styled.div`
   width: 100%;
   padding: 70px 27px 0px 27px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
   background-color: white;
-  height: 100vh;
 `;
 
 const FrigeTitle = styled.p`
@@ -159,7 +162,7 @@ function Frige() {
   );
 
   return (
-    <>
+    <FrigeWrapper>
       <FrigeSearchContainer>
         <FrigeTitle>셰프의 냉장고 재료를{"\n"}선택해주세요</FrigeTitle>
         <InputWrapper>
@@ -209,7 +212,7 @@ function Frige() {
         )}
       </Wrapper>
       <FrigeGradient />
-    </>
+    </FrigeWrapper>
   );
 }
 
