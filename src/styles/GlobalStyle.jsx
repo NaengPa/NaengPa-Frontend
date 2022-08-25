@@ -1,7 +1,5 @@
 import { createGlobalStyle } from "styled-components";
 import "./font/SUIT-Variable.css";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
 const GlobalStyle = createGlobalStyle`
 * {

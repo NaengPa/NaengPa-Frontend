@@ -12,9 +12,9 @@ const Button = styled.button`
 const BtnContainer = styled.div`
   width: 54px;
   height: 54px;
-  position: sticky;
-  bottom: 56px;
-  transform: translateX(340px);
+  position: absolute;
+  bottom: 72px;
+  right: 16px;
   filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.25));
 `;
 

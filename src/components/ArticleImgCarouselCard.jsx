@@ -1,23 +1,23 @@
 import styled from "styled-components";
 
-// const Container = styled.div`
-//   width: 100%;
-//   height: 310px;
-//   background: #b6c4cf;
-//   border-radius: 5px;
-//   /* object-fit: cover; */
-//   margin-top: 8px;
-//   border: 10px solid black;
-// `;
+const ArticleImgContainer = styled.div`
+  display: flex;
+`;
 
 const ArticleImg = styled.img`
+  /* height: 310px; */
   width: 100%;
-  height: 310px;
   object-fit: cover;
+  /* border: 1px solid black; */
+  flex: none;
 `;
 
 function ArticleImgCarouselCard({ imgUrl }) {
-  return <ArticleImg src={imgUrl} />;
+  return (
+    <ArticleImgContainer>
+      <ArticleImg src={imgUrl} />;
+    </ArticleImgContainer>
+  );
 }
 
 export default ArticleImgCarouselCard;
