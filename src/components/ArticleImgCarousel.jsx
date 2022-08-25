@@ -1,20 +1,37 @@
 import styled from "styled-components";
-
+import { Navigation, Pagination } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
 import ArticleImgCarouselCard from "./ArticleImgCarouselCard";
 
 const Container = styled.div`
-  background: coral;
-  width: 100%;
-  height: 310px;
+  margin: 8px 0;
+  border-radius: 5px;
   overflow: hidden;
+  .swiper-pagination-bullet {
+    background-color: aqua;
+  }
+  .swiper-pagination-bullet-active {
+    background-color: tomato;
+  }
 `;
 
 function ArticleImgCarousel({ imgs }) {
   return (
     <Container>
-      {imgs.map((item) => (
-        <ArticleImgCarouselCard imgUrl={item} />
-      ))}
+      <Swiper
+        modules={[Pagination]}
+        spaceBetween={50}
+        slidesPerView={1}
+        pagination={{ clickable: true }}
+      >
+        {imgs.map((item) => (
+          <SwiperSlide>
+            <ArticleImgCarouselCard imgUrl={item} />
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </Container>
   );
 }
