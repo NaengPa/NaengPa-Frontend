@@ -4,6 +4,7 @@ import { ReactComponent as Share } from "../assets/share.svg";
 import { ReactComponent as Bookmark } from "../assets/Bookmark_InActive.svg";
 import ReferredRecipeCard from "./ReferredRecipeCard";
 import { propTypes } from "react-bootstrap/esm/Image";
+import ArticleImgCarousel from "./ArticleImgCarousel";
 
 const ArticleUserContainer = styled.div`
   margin-top: 16px;
@@ -23,15 +24,6 @@ const UserId = styled.span`
   line-height: 20px;
   color: #132029;
   margin-left: 8px;
-`;
-
-const ArticleImg = styled.img`
-  width: 100%;
-  height: 310px;
-  background: #b6c4cf;
-  border-radius: 5px;
-  object-fit: cover;
-  margin-top: 8px;
 `;
 
 const ArticleActionContainer = styled.div`
@@ -88,7 +80,9 @@ function CommunityArticle({
         <UserProfileImg src="https://image.ytn.co.kr/general/jpg/2021/0311/202103110915014429_d.jpg" />
         <UserId>{nickname}</UserId>
       </ArticleUserContainer>
-      <ArticleImg src="https://image.ytn.co.kr/general/jpg/2021/0311/202103110915014429_d.jpg" />
+
+      <ArticleImgCarousel imgs={imgs} />
+
       <ArticleActionContainer>
         <LikeContainer>
           <Like />
