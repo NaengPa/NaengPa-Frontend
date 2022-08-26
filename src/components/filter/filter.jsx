@@ -4,8 +4,10 @@ import { ReactComponent as XButton } from "../../assets/x.svg";
 import FilterCategory from "./filterCategory";
 import { motion } from "framer-motion";
 import filterItem from "../../Constant/constant";
+import { useRecoilValue } from "recoil";
+import { navBarHeightAtom } from "../../atom";
 
-const Filter = ({ handleClose, show, handleFilterClick }) => {
+const Filter = ({ handleClose, show, handleFilterClick, filterFoodData }) => {
   const [clicked, setClicked] = useState(false);
 
   const handleClick = () => {
@@ -40,8 +42,10 @@ const Filter = ({ handleClose, show, handleFilterClick }) => {
     }
   };
 
+  const navBarHeight = useRecoilValue(navBarHeightAtom);
+
   return (
-    <Container show ref={modalRef}>
+    <Container navBarHeight={navBarHeight} show ref={modalRef}>
       <FilterContainer
         animate={{ x: clicked ? 400 : 0 }}
         transition={{ ease: "easeInOut", duration: 0.5 }}
@@ -53,6 +57,7 @@ const Filter = ({ handleClose, show, handleFilterClick }) => {
         <FilterMain>
           {filterItem.map((item) => (
             <FilterCategory
+              filterFoodData={filterFoodData}
               handleFilterClick={handleFilterClick}
               filterItem={item}
             ></FilterCategory>
@@ -68,7 +73,7 @@ export default Filter;
 const Container = styled(motion.div)`
   border-radius: 20px 0px 0px 20px;
   z-index: 9999;
-  height: calc(100vh - 64px); //calc 할떄는 내부에서 꼭 스페이스바를 해줘야된다.
+  ${(props) => `height: calc(100vh - ${props.navBarHeight}px)`}
   background-color: transparent;
   width: 80%;
   position: fixed;

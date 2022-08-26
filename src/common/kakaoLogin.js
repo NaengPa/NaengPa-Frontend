@@ -12,3 +12,17 @@ export async function getKakaoLogin(kakaoUrl) {
     throw new Error(error);
   }
 }
+
+export async function getLoginInfo(kakaoUrl) {
+  try {
+    const { data } = await axios({
+      method: "GET",
+      url: `${baseURL}/oauth/login`,
+      headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
+    });
+
+    return data;
+  } catch (error) {
+    throw new Error(error);
+  }
+}

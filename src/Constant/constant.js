@@ -1,7 +1,7 @@
 const filterItem = [
-  { title: "실력은 이 정도예요", category: ["요알못", "요잘알"] },
+  { title: "제 실력은 이 정도예요", category: ["요알못", "요잘알"] },
   {
-    title: "이 나라 음식이 더 끌려요",
+    title: "이 나라 음식이 끌려요",
     category: ["한식", "중식", "일식", "양식", "퓨전"],
   },
   {

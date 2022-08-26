@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { ReactComponent as Home } from "../assets/icon_home.svg";
@@ -7,19 +7,30 @@ import { ReactComponent as mypage } from "../assets/icon_mypage.svg";
 import { ReactComponent as refrigerator } from "../assets/icon_refrigerator.svg";
 import { ReactComponent as search } from "../assets/icon_search.svg";
 import { css } from "styled-components";
+import { useRecoilState } from "recoil";
+import { navBarHeightAtom } from "../atom";
+import { useRef } from "react";
 
 const Navigation = () => {
   const [, updateState] = useState();
   const forceUpdate = useCallback(() => updateState({}), []);
+  const [navBarHeight, setNavBarHeight] = useRecoilState(navBarHeightAtom);
+
+  const containerRef = useRef();
+  const values = containerRef.current?.offsetHeight;
+  setNavBarHeight(values);
 
   return (
-    <Container>
-      <Link to={{ pathname: "/" }} onClick={forceUpdate}>
+    <Container ref={containerRef}>
+      <Link className="link" to={{ pathname: "/" }} onClick={forceUpdate}>
         <StyledMyIconHome
           isActive={window.location.pathname === "/" ? true : false}
         />
+        <HomeText isActive={window.location.pathname === "/" ? true : false}>
+          홈
+        </HomeText>
       </Link>
-      <Link to={{ pathname: "/search" }} onClick={forceUpdate}>
+      <Link className="link" to={{ pathname: "/search" }} onClick={forceUpdate}>
         <StyledMyIconSearch
           isActive={
             window.location.pathname === "/search" ||
@@ -28,8 +39,22 @@ const Navigation = () => {
               : false
           }
         />
+        <SearchText
+          isActive={
+            window.location.pathname === "/search" ||
+            window.location.pathname.indexOf("/detail") !== -1
+              ? true
+              : false
+          }
+        >
+          검색
+        </SearchText>
       </Link>
-      <Link to={{ pathname: "/myfrige" }} onClick={forceUpdate}>
+      <Link
+        className="link"
+        to={{ pathname: "/myfrige" }}
+        onClick={forceUpdate}
+      >
         <StyledMyIconRefrigerator
           isActive={
             window.location.pathname === "/myfrige" ||
@@ -38,8 +63,22 @@ const Navigation = () => {
               : false
           }
         />
+        <FrigeText
+          isActive={
+            window.location.pathname === "/myfrige" ||
+            window.location.pathname === "/frige"
+              ? true
+              : false
+          }
+        >
+          내 냉장고
+        </FrigeText>
       </Link>
-      <Link to={{ pathname: "/community" }} onClick={forceUpdate}>
+      <Link
+        className="link"
+        to={{ pathname: "/community" }}
+        onClick={forceUpdate}
+      >
         <StyledMyIconCommunity
           isActive={
             window.location.pathname === "/community" ||
@@ -48,11 +87,26 @@ const Navigation = () => {
               : false
           }
         />
+        <CommunityText
+          isActive={
+            window.location.pathname === "/community" ||
+            window.location.pathname === "/write"
+              ? true
+              : false
+          }
+        >
+          커뮤니티
+        </CommunityText>
       </Link>
-      <Link to={{ pathname: "/mypage" }} onClick={forceUpdate}>
+      <Link className="link" to={{ pathname: "/mypage" }} onClick={forceUpdate}>
         <StyledMyIconMypage
           isActive={window.location.pathname === "/mypage" ? true : false}
         />
+        <MyPageText
+          isActive={window.location.pathname === "/mypage" ? true : false}
+        >
+          마이페이지
+        </MyPageText>
       </Link>
     </Container>
   );
@@ -62,7 +116,7 @@ export default Navigation;
 const Container = styled.div`
   width: 100%;
   position: fixed;
-  padding: 22px 30px;
+  padding: 8px 16px;
   left: 50%;
   transform: translateX(-50%);
   bottom: 0;
@@ -73,6 +127,61 @@ const Container = styled.div`
   align-items: center;
   z-index: 1056;
   max-width: 420px;
+  .link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+`;
+
+const HomeText = styled.div`
+  color: ${(props) =>
+    props.isActive
+      ? props.theme.colors.MAIN_COLOR
+      : props.theme.colors.GREY_30};
+  font-size: 10px;
+  margin-top: 4px;
+  font-weight: 600;
+`;
+
+const SearchText = styled.div`
+  color: ${(props) =>
+    props.isActive
+      ? props.theme.colors.MAIN_COLOR
+      : props.theme.colors.GREY_30};
+  font-size: 10px;
+  margin-top: 4px;
+  font-weight: 600;
+`;
+
+const FrigeText = styled.div`
+  color: ${(props) =>
+    props.isActive
+      ? props.theme.colors.MAIN_COLOR
+      : props.theme.colors.GREY_30};
+  font-size: 10px;
+  margin-top: 4px;
+  font-weight: 600;
+`;
+
+const CommunityText = styled.div`
+  color: ${(props) =>
+    props.isActive
+      ? props.theme.colors.MAIN_COLOR
+      : props.theme.colors.GREY_30};
+  font-size: 10px;
+  margin-top: 4px;
+  font-weight: 600;
+`;
+
+const MyPageText = styled.div`
+  color: ${(props) =>
+    props.isActive
+      ? props.theme.colors.MAIN_COLOR
+      : props.theme.colors.GREY_30};
+  font-size: 10px;
+  margin-top: 4px;
+  font-weight: 600;
 `;
 
 const StyledMyIconHome = styled(Home)`
