@@ -18,9 +18,6 @@ const ProtectedRoute = ({ isAuthenticated, children, pathname, token }) => {
     return <Navigate to="/login" />;
   }
 
-  // if (window.location.search.split("=")[0] === `/login?code`) {
-  //   return <Navigate to={pageState} />;
-  // }
   return children;
 };
 

@@ -195,14 +195,15 @@ const ResultListWrapper = styled.div`
 `;
 
 const FilterOp = styled.div`
-  display: ${({ show }) => (show ? "block" : "none")};
-  position: sticky;
+  /* display: ${({ show }) => (show ? "block" : "none")}; */
+  visibility: ${({ show }) => (show ? "visible" : "hidden")};
+  position: fixed;
+  width: 400px;
   top: 0;
-  left: 0;
+  left: 35%;
   background-color: black;
   opacity: 0.5;
-  z-index: 999;
-  width: 100%;
+  z-index: 1000;
   height: 100vh;
 `;
 
