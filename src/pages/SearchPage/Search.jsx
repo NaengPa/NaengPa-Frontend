@@ -107,35 +107,36 @@ function SearchIndex() {
           })}
         </SearchListContainer>
       </SearchContainer>
-      <MyFrigeContainer>
-        <SelectTitle>내 냉장고에서도 골라보세요</SelectTitle>
-        <SelectItemArea>
-          {viewMyFrigeAtom.length === 0
-            ? "하단의 냉장고 버튼을 눌러서 냉장고를 채워주세요"
-            : viewMyFrigeAtom.map((item) => (
-                <FrigeButton handleAdd={handleAdd} item={item}></FrigeButton>
-              ))}
-        </SelectItemArea>
-      </MyFrigeContainer>
-      <IngredientContainer>
-        <SelectTitle>이 재료들로 요리해요</SelectTitle>
-        {/* TODO: 선택한 재료가 있는 경우/없는 경우*/}
-        <FoodButtonContainer>
-          {selectedIngredient === []
-            ? ""
-            : selectedIngredient.map((item) => (
-                <FoodButton
-                  key={item.id}
-                  handleDelete={handleDelete}
-                  item={item}
-                ></FoodButton>
-              ))}
-        </FoodButtonContainer>
-        <SelectedItemWrap></SelectedItemWrap>
-      </IngredientContainer>
-      <RecipeSearchButton data={data} onClick={moveToNext}>
-        레시피 검색하기
-      </RecipeSearchButton>
+      <MainContainer>
+        <MyFrigeContainer>
+          <SelectTitle>내 냉장고에서도 골라보세요</SelectTitle>
+          <SelectItemArea>
+            {viewMyFrigeAtom.length === 0
+              ? "하단의 냉장고 버튼을 눌러서 냉장고를 채워주세요"
+              : viewMyFrigeAtom.map((item) => (
+                  <FrigeButton handleAdd={handleAdd} item={item}></FrigeButton>
+                ))}
+          </SelectItemArea>
+        </MyFrigeContainer>
+        <IngredientContainer>
+          <SelectTitle>이 재료들로 요리해요</SelectTitle>
+          {/* TODO: 선택한 재료가 있는 경우/없는 경우*/}
+          <FoodButtonContainer>
+            {selectedIngredient === []
+              ? ""
+              : selectedIngredient.map((item) => (
+                  <FoodButton
+                    key={item.id}
+                    handleDelete={handleDelete}
+                    item={item}
+                  ></FoodButton>
+                ))}
+          </FoodButtonContainer>
+        </IngredientContainer>
+        <RecipeSearchButton data={data} onClick={moveToNext}>
+          레시피 검색하기
+        </RecipeSearchButton>
+      </MainContainer>
     </StyledContainer>
   );
 }
@@ -145,11 +146,15 @@ const StyledContainer = styled.div`
   padding-left: 27px;
   padding-right: 27px;
   padding-bottom: 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
 `;
 
 const RefridgeTitle = styled.h2`
   margin-top: 34px;
-  margin-bottom: 19px;
+  margin-bottom: 16px;
   font-weight: 600;
   font-size: 24px;
   line-height: 30px;
@@ -160,35 +165,33 @@ const RefridgeTitle = styled.h2`
 `;
 
 const SelectTitle = styled.h3`
-  color: #a6a6a6;
-  margin-bottom: 6px;
+  color: ${({ theme }) => theme.colors.GREY_50};
+  margin-bottom: 8px;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 17px;
   letter-spacing: -0.165px;
 `;
-const SelectedItemWrap = styled.div`
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-`;
+
 const SelectItemArea = styled.h3`
   display: flex;
   flex-wrap: wrap;
   height: 165px;
   padding: 17px 19px;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 17px;
   letter-spacing: -0.165px;
-  color: #9ba1af;
-  background: #eef1f7;
+  color: ${({ theme }) => theme.colors.GREY_40};
+  background: ${({ theme }) => theme.colors.GREY_10};
   border-radius: 10px;
+  margin: 0;
 `;
 const FoodButtonContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   min-height: 120px;
-  background: #eef1f7;
+  background: ${({ theme }) => theme.colors.GREY_10};
   width: 100%;
   padding: 21px 14px;
   -ms-overflow-style: none;
@@ -199,9 +202,13 @@ const SearchContainer = styled.div`
   padding-bottom: 37px;
 `;
 
-const MyFrigeContainer = styled.div``;
+const MyFrigeContainer = styled.div`
+  margin-bottom: 16px;
+`;
 
-const IngredientContainer = styled.div``;
+const IngredientContainer = styled.div`
+  margin-bottom: 16px;
+`;
 
 const StyledMyIconSearch = styled(inputSearchButton)`
   display: ${({ searchInput }) => (searchInput ? "none" : "block")};
@@ -236,31 +243,37 @@ const FormInput = styled.input`
   width: 100%;
   padding: 13px 15px;
   padding-left: ${({ searchInput }) => (searchInput === "" ? "37px" : "13px")};
-  background: #eef1f7;
+  background: ${({ theme }) => theme.colors.GREY_10};
   border-radius: 10px;
   height: 42px;
   font-size: 14px;
   font-weight: 500;
   ::placeholder {
-    color: #9ba1af;
+    color: ${({ theme }) => theme.colors.GREY_50};
   }
 `;
 
 const RecipeSearchButton = styled.div`
-  margin-bottom: 21px;
-  padding: 10px 20px;
-  height: 57px;
+  margin-bottom: 16px;
+  padding: 15px 16px 15px 16px;
   box-shadow: 0px 3px 10px #a9d0ff;
-  line-height: 65px;
   font-weight: 600;
   font-size: 16px;
-  line-height: 37px;
   letter-spacing: -0.165px;
   color: #fff;
-  background: ${({ data }) => (data.length > 0 ? "#2e8cfe" : "#A9A9A9")};
+  background: ${(props) =>
+    props.data.length > 0
+      ? props.theme.colors.MAIN_COLOR
+      : props.theme.colors.GREY_30};
   border-radius: 10px;
   box-sizing: border-box;
   pointer-events: ${({ data }) => (data.length > 0 ? "auto" : "none")};
   cursor: pointer;
   text-align: center;
+`;
+
+const MainContainer = styled.div`
+  display: flex;
+  position: relative;
+  flex-direction: column;
 `;

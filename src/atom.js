@@ -28,3 +28,8 @@ export const articleTextAtom = atom({
   key: "articleText",
   default: "",
 });
+
+export const navBarHeightAtom = atom({
+  key: "navBarHeight",
+  default: "",
+});

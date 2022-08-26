@@ -4,7 +4,7 @@ import FindAndSignIn from "./findAndSignIn";
 import { ReactComponent as Kakao } from "../../assets/kakao.svg";
 import GoBackButton from "../../components/goBackButton";
 import { useState } from "react";
-import { getKakaoLogin } from "../../common/kakaoLogin";
+import { getKakaoLogin, getLoginInfo } from "../../common/kakaoLogin";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { pageStateAtom } from "../../atom";
@@ -21,17 +21,21 @@ const Login = () => {
     // if (!window.location.search) return;
     const postUrl = async () => {
       const result = await getKakaoLogin(KakaoUrl);
-      // console.log(result);
-      console.log(KakaoUrl);
-      // console.log(pageState);
       localStorage.setItem("token", result);
       if (KakaoUrl !== undefined) {
         navigate(-3);
         console.log("ho");
       }
     };
+
+    // const getInfo = async () => {
+    //   const result = await getLoginInfo(localStorage?.getItem("token"));
+    //   console.log(result);
+    // };
+
     if (KakaoUrl !== undefined) {
       postUrl();
+      // getInfo();
     }
   });
 

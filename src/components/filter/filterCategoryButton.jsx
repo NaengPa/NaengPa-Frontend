@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-const FilterCategoryButton = ({ item, filterItem, handleFilterClick }) => {
+const FilterCategoryButton = ({
+  item,
+  filterItem,
+  handleFilterClick,
+  filterFoodData,
+}) => {
   const [buttonClick, setButtonClick] = useState(false);
   const handleClick = (e) => {
     if (buttonClick === false) {
@@ -16,6 +21,7 @@ const FilterCategoryButton = ({ item, filterItem, handleFilterClick }) => {
       filterItem={filterItem.title}
       buttonClick={buttonClick}
       onClick={handleClick}
+      filterFoodData={filterFoodData}
     >
       {item}
     </ButtonWrapper>
@@ -47,4 +53,6 @@ const ButtonWrapper = styled.button`
         : props.theme.colors.MAIN_COLOR
       : "transparent"};
   border-radius: 50px;
+  pointer-events: ${({ filterFoodData }) =>
+    filterFoodData.clicked ? "none" : "all"};
 `;

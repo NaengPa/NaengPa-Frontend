@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import FilterCategoryButton from "./filterCategoryButton";
 
-const FilterCategory = ({ filterItem, handleFilterClick }) => {
+const FilterCategory = ({ filterItem, handleFilterClick, filterFoodData }) => {
   return (
     <Container>
       <CategoryWrapper>
@@ -10,6 +10,7 @@ const FilterCategory = ({ filterItem, handleFilterClick }) => {
         <CategoryButtonContainer>
           {filterItem.category.map((item) => (
             <FilterCategoryButton
+              filterFoodData={filterFoodData}
               handleFilterClick={handleFilterClick}
               filterItem={filterItem}
               item={item}
