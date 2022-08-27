@@ -116,7 +116,7 @@ export default Navigation;
 const Container = styled.div`
   width: 100%;
   position: fixed;
-  padding: 8px 16px;
+  padding: 8px 16px 8px 25.5px;
   left: 50%;
   transform: translateX(-50%);
   bottom: 0;

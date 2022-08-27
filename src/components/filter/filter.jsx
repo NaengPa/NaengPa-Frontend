@@ -73,7 +73,7 @@ export default Filter;
 const Container = styled(motion.div)`
   border-radius: 20px 0px 0px 20px;
   z-index: 9999;
-  ${(props) => `height: calc(100vh - ${props.navBarHeight}px)`}
+  height: ${(props) => `calc(100vh - ${props.navBarHeight}px)`};
   background-color: transparent;
   width: 80%;
   position: fixed;
@@ -81,14 +81,14 @@ const Container = styled(motion.div)`
   transform: translateX(25%);
   transition: all 300ms ease-in;
   overflow: scroll;
-  min-height: 100vh;
   width: 350px;
 `;
 
 const FilterContainer = styled(motion.div)`
   transform: translateX(100%);
   transition: all 300ms ease-in;
-  background-color: white;
+  height: 100%;
+  background-color: ${({ theme }) => theme.colors.WHITE};
 `;
 
 const FilterHeader = styled.header`
