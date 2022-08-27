@@ -86,17 +86,21 @@ const ResultList = () => {
     const itemName = e.target.innerText;
     console.log(itemName);
     console.log(foodData);
-    if (filterItem[1].category.includes(itemName)) {
+    if (filterItem[1].category.filter((item) => item.title === itemName)) {
       setFilterFoodData({
         data: [...foodData].filter((item) => item.nationNm === itemName),
         clicked: true,
       });
-    } else if (filterItem[0].category.includes(itemName)) {
+    } else if (
+      filterItem[0].category.filter((item) => item.title === itemName)
+    ) {
       setFilterFoodData({
         data: [...foodData].filter((item) => item.levelNm === itemName),
         clicked: true,
       });
-    } else if (filterItem[2].category.includes(itemName)) {
+    } else if (
+      filterItem[2].category.filter((item) => item.title === itemName)
+    ) {
       setFilterFoodData({
         data: [...foodData].filter(
           (item) =>

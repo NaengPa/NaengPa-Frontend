@@ -9,10 +9,20 @@ import { navBarHeightAtom } from "../../atom";
 
 const Filter = ({ handleClose, show, handleFilterClick, filterFoodData }) => {
   const [clicked, setClicked] = useState(false);
+  const [filterItemState, setFilterItemState] = useState(filterItem);
 
-  const handleClick = () => {
+  console.log(filterItemState);
+  const handleClick = (e) => {
     handleClose();
     setClicked(true);
+  };
+
+  const handleFilter = (first, second) => {
+    const filterItemCopy = [...filterItemState];
+    filterItemCopy[first].category[second].isClicked === false
+      ? (filterItemCopy[first].category[second].isClicked = true)
+      : (filterItemCopy[first].category[second].isClicked = false);
+    setFilterItemState(filterItemCopy);
   };
   useEffect(() => {
     document.body.style.cssText = `
@@ -55,8 +65,10 @@ const Filter = ({ handleClose, show, handleFilterClick, filterFoodData }) => {
           <StyledMyIcon onClick={handleClick}></StyledMyIcon>
         </FilterHeader>
         <FilterMain>
-          {filterItem.map((item) => (
+          {filterItemState.map((item, index) => (
             <FilterCategory
+              handleFilter={handleFilter}
+              firstIndex={index}
               filterFoodData={filterFoodData}
               handleFilterClick={handleFilterClick}
               filterItem={item}
