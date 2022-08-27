@@ -6,24 +6,29 @@ const FilterCategoryButton = ({
   filterItem,
   handleFilterClick,
   filterFoodData,
+  secondIndex,
+  firstIndex,
+  handleFilter,
 }) => {
-  const [buttonClick, setButtonClick] = useState(false);
+  // const [buttonClick, setButtonClick] = useState(false);
   const handleClick = (e) => {
-    if (buttonClick === false) {
-      setButtonClick(true);
-    } else {
-      setButtonClick(false);
-    }
+    // if (buttonClick === false) {
+    //   setButtonClick(true);
+    // } else {
+    //   setButtonClick(false);
+    // }
+    console.log(item);
     handleFilterClick(e);
+    handleFilter(firstIndex, secondIndex);
   };
   return (
     <ButtonWrapper
       filterItem={filterItem.title}
-      buttonClick={buttonClick}
+      buttonClick={item.isClicked}
       onClick={handleClick}
       filterFoodData={filterFoodData}
     >
-      {item}
+      {item.title}
     </ButtonWrapper>
   );
 };
@@ -53,6 +58,4 @@ const ButtonWrapper = styled.button`
         : props.theme.colors.MAIN_COLOR
       : "transparent"};
   border-radius: 50px;
-  pointer-events: ${({ filterFoodData }) =>
-    filterFoodData.clicked ? "none" : "all"};
 `;
