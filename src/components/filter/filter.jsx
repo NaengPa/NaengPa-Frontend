@@ -19,6 +19,9 @@ const Filter = ({ handleClose, show, handleFilterClick, filterFoodData }) => {
 
   const handleFilter = (first, second) => {
     const filterItemCopy = [...filterItemState];
+    console.log(first, "ㅇㅁㅇㅁ");
+    if (first !== 2) {
+    }
     filterItemCopy[first].category[second].isClicked === false
       ? (filterItemCopy[first].category[second].isClicked = true)
       : (filterItemCopy[first].category[second].isClicked = false);
