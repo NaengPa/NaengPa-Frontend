@@ -27,7 +27,7 @@ client.interceptors.request.use(
 export async function getKakaoLogin(kakaoUrl) {
   try {
     const { data } = await axios({
-      method: "GET",
+      method: "POST",
       url: `${baseURL}/oauth/kakao?code=${kakaoUrl}`,
     });
     return data;
@@ -40,7 +40,7 @@ export async function getLoginInfo(value) {
   console.log(localStorage.getItem("token"));
   console.log(value);
   try {
-    const response = await client.get(`${baseURL}/oauth/login`);
+    const response = await client.post(`${baseURL}/oauth/login`);
     // const { data } = await axios({
     //   method: "GET",
     //   url: `${baseURL}/oauth/login`,
