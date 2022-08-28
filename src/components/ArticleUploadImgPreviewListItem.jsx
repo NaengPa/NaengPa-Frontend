@@ -1,7 +1,7 @@
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { ReactComponent as DeleteBtnIcon } from "../assets/delete.svg";
-import { articleImgAtom } from "../atom";
+import { articleImgAtom, articlePreviewImgAtom } from "../atom";
 
 const UploadImgPreviewListItemContainer = styled.div`
   display: flex;
@@ -33,9 +33,15 @@ const DeleteBtn = styled.button`
 
 function ArticleUploadImgPreviewListItem({ imgData, idx }) {
   const setImgList = useSetRecoilState(articleImgAtom);
+  const setPreviewImgList = useSetRecoilState(articlePreviewImgAtom);
 
   const onDeleteClick = (event) => {
     setImgList((prev) => {
+      const copiedList = [...prev];
+      copiedList.splice(idx, 1);
+      return copiedList;
+    });
+    setPreviewImgList((prev) => {
       const copiedList = [...prev];
       copiedList.splice(idx, 1);
       return copiedList;

@@ -71,3 +71,45 @@ export async function getArticle(email) {
     throw new Error(error);
   }
 }
+
+export async function postArticle(newArticle) {
+  try {
+    console.log(newArticle);
+    const response = await axios({
+      method: "POST",
+      url: `${baseURL}/board`,
+      data: newArticle,
+      headers: { contentType: "application/json" },
+    });
+    return response;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+export async function deleteArticle(id, email) {
+  try {
+    const response = await axios({
+      method: "DELETE",
+      url: `${baseURL}/board?id=${id}&email=${email}`,
+      headers: { contentType: "application/json" },
+    });
+    return response;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+export async function likeArticle(data) {
+  try {
+    const response = await axios({
+      method: "POST",
+      url: `${baseURL}/board/like`,
+      data: data,
+      headers: { contentType: "application/json" },
+    });
+    return response;
+  } catch (error) {
+    throw new Error(error);
+  }
+}

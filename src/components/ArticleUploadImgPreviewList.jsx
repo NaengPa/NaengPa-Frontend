@@ -1,5 +1,5 @@
 import { useRecoilValue } from "recoil";
-import { articleImgAtom } from "../atom";
+import { articleImgAtom, articlePreviewImgAtom } from "../atom";
 import ArticleUploadImgPreviewListItem from "./ArticleUploadImgPreviewListItem";
 import styled from "styled-components";
 
@@ -14,10 +14,10 @@ const UploadImgPreviewListWrapper = styled.div`
 `;
 
 function ArticleUploadImgPreviewList() {
-  const imgList = useRecoilValue(articleImgAtom);
+  const imgPreviewList = useRecoilValue(articlePreviewImgAtom);
   return (
     <UploadImgPreviewListWrapper>
-      {imgList.map((item, idx) => {
+      {imgPreviewList.map((item, idx) => {
         return (
           <ArticleUploadImgPreviewListItem imgData={item} key={idx} idx={idx} />
         ); //TODO: unique한 key 부여하기
