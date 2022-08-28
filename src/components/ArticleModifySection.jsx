@@ -1,11 +1,10 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { Link } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { ReactComponent as Edit } from "../assets/Write.svg";
 import { ReactComponent as Xicon } from "../assets/X_InActive.svg";
 import { articleDeleteAtom, articleDeleteIdAtom } from "../atom";
-import ArticleDeleteModal from "./ArticleDeleteModal";
 
 const RightIconsContainer = styled.div`
   display: flex;
@@ -17,10 +16,8 @@ const DeleteBtn = styled.button`
 `;
 
 function ArticleModifySection({ id }) {
-  const [deleteArticleId, setDeleteArticleId] =
-    useRecoilState(articleDeleteIdAtom);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] =
-    useRecoilState(articleDeleteAtom);
+  const setDeleteArticleId = useSetRecoilState(articleDeleteIdAtom);
+  const setIsDeleteModalOpen = useSetRecoilState(articleDeleteAtom);
   const deleteBtn = useRef();
 
   const onDeleteIconClick = () => {

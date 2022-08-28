@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { selectedIngredientAtom } from "../../atom";
 
@@ -42,11 +41,6 @@ const UnSelectedIngredientTag = styled.div`
 `;
 
 function IngredientTagList({ recipeIrdnts }) {
-  const data = ["토마토", "계란", "식빵", "파슬리", "호밀빵", "후추"];
-
-  //   useEffect(() => {
-  //     setSelectedIngredientAtom(["토마토", "계란", "식빵"]);
-  //   }, [setSelectedIngredientAtom]);
   const selectedIngredient = useRecoilValue(selectedIngredientAtom);
 
   return (

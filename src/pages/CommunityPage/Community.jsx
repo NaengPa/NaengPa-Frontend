@@ -3,12 +3,8 @@ import CommunityArticle from "../../components/CommunityArticle";
 import ArticleWriteBtn from "../../components/ArticleWriteBtn";
 import { getArticle } from "../../common/axios";
 import { useEffect } from "react";
-import { useRecoilState } from "recoil";
-import {
-  articleAtom,
-  articleDeleteAtom,
-  articleDeleteIdAtom,
-} from "../../atom";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { articleAtom, articleDeleteAtom } from "../../atom";
 import ArticleDeleteModal from "../../components/ArticleDeleteModal";
 
 const CommunityWrapper = styled.div`
@@ -31,10 +27,7 @@ const CommunityTitle = styled.span`
 
 function Community() {
   const [article, setArticle] = useRecoilState(articleAtom);
-  const [deleteArticleId, setDeleteArticleId] =
-    useRecoilState(articleDeleteIdAtom);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] =
-    useRecoilState(articleDeleteAtom);
+  const isDeleteModalOpen = useRecoilValue(articleDeleteAtom);
 
   useEffect(() => {
     async function get() {
@@ -47,12 +40,7 @@ function Community() {
   console.log(article);
   return (
     <>
-      {isDeleteModalOpen ? (
-        <ArticleDeleteModal
-          isDeleteModalOpen={isDeleteModalOpen}
-          setIsDeleteModalOpen={setIsDeleteModalOpen}
-        />
-      ) : null}
+      {isDeleteModalOpen ? <ArticleDeleteModal /> : null}
       <CommunityWrapper>
         <CommunityTitle>내가 만든 냉파 레시피{"\n"}자랑해봐요</CommunityTitle>
         {article.map((item) => (

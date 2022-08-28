@@ -1,6 +1,5 @@
-import { useState } from "react";
-import { useRecoilState } from "recoil";
-import styled from "styled-components";
+import { useRecoilState, useSetRecoilState } from "recoil";
+
 import {
   articleImgAtom,
   articlePreviewImgAtom,
@@ -11,10 +10,7 @@ import { postArticle } from "../common/axios";
 function ArticleUploadBtn() {
   const [text, setText] = useRecoilState(articleTextAtom);
   const [imgList, setImgList] = useRecoilState(articleImgAtom);
-  const [previewImgList, setPreviewImgList] = useRecoilState(
-    articlePreviewImgAtom
-  );
-  const addtext = () => {};
+  const setPreviewImgList = useSetRecoilState(articlePreviewImgAtom);
 
   const onClick = (event) => {
     event.preventDefault();

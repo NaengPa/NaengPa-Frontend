@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useState } from "react";
-
 import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
@@ -158,7 +157,7 @@ function Frige() {
   };
 
   const filteredIrdntList = [...irdnt].filter(
-    (item) => searchText != "" && item.includes(searchText)
+    (item) => searchText !== "" && item.includes(searchText)
   );
 
   return (

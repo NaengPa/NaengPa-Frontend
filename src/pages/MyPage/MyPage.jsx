@@ -4,7 +4,7 @@ import { ReactComponent as CalenderIcon } from "../../assets/calender.svg";
 import { ReactComponent as SavedRecipeIcon } from "../../assets/saved_recipe.svg";
 import { ReactComponent as CreateRecipeIcon } from "../../assets/create_recipe.svg";
 import { ReactComponent as ProfileIcon } from "../../assets/profile.svg";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import ErrorModal from "./ErrorModal";
 
 const MyPageWrapper = styled.div`
@@ -112,11 +112,11 @@ const IconContainer = styled.div`
 
 function MyPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const outSection = useRef();
+
   const handleModal = () => {
     setIsModalOpen((prev) => !prev);
   };
-  console.log("hihi");
+
   return (
     <>
       {isModalOpen ? (

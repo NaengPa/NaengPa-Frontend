@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { viewedRecipeAtom } from "../../atom";
-import axios from "axios";
 import ViewedRecipeImgItem from "./ViewedRecipeImgItem";
 import { Link } from "react-router-dom";
 import { getCurRecipeList } from "../../common/axios";
@@ -26,7 +25,7 @@ const ViewedRecipePhotoGradient = styled.div`
 `;
 
 function ViewedRecipeImgList({ item }) {
-  const [viewedRecipe, setViewedRecipe] = useRecoilState(viewedRecipeAtom);
+  const viewedRecipe = useRecoilValue(viewedRecipeAtom);
   const limitViewedRecipe = [...new Set(viewedRecipe)].splice(0, 5);
   const numberLimitViewedRecipe = [];
   for (let x of limitViewedRecipe) {

@@ -1,9 +1,6 @@
 import styled from "styled-components";
 import { ReactComponent as Chevron } from "../../assets/chevron_right.svg";
-import { useRecoilValue } from "recoil";
-import { viewedRecipeAtom } from "../../atom";
 import ViewedRecipeImgList from "./ViewedRecipeImgList";
-import { useEffect } from "react";
 
 const RecentlyViewedRecipeHeader = styled.div`
   width: 100%;

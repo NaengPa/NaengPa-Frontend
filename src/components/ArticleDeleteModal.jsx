@@ -1,5 +1,4 @@
-import { getDefaultNormalizer } from "@testing-library/react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { articleAtom, articleDeleteAtom, articleDeleteIdAtom } from "../atom";
 import { deleteArticle } from "../common/axios";
@@ -84,9 +83,9 @@ const CancelBtn = styled.button`
 function ArticleDeleteModal() {
   const [deleteArticleId, setDeleteArticleId] =
     useRecoilState(articleDeleteIdAtom);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] =
-    useRecoilState(articleDeleteAtom);
+  const setIsDeleteModalOpen = useSetRecoilState(articleDeleteAtom);
   const [article, setArticle] = useRecoilState(articleAtom);
+
   const handleModal = (e) => {
     setDeleteArticleId("");
     setIsDeleteModalOpen(false);
@@ -108,6 +107,7 @@ function ArticleDeleteModal() {
     });
     handleModal();
   };
+
   return (
     <DeleteModalWrapper>
       <DeleteModalDimmer onClick={handleModal} />

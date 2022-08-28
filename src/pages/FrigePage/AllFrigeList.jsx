@@ -1,6 +1,6 @@
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { myFrigeAtom, selectedIngredientAtom } from "../../atom";
+import { myFrigeAtom } from "../../atom";
 
 const IngredientItem = styled.button`
   height: 37px;

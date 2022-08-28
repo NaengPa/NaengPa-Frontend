@@ -1,14 +1,11 @@
 import styled from "styled-components";
-import { ReactComponent as Share } from "../../assets/share.svg";
-import { ReactComponent as Bookmark } from "../../assets/bookmark.svg";
-import { ReactComponent as Like } from "../../assets/like.svg";
 import IngredientTagList from "./IngredientTagList";
 import RecipeDetailItemList from "./RecipeDetailItemList";
 import RecipeReviewList from "./RecipeReviewList";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { viewedRecipeAtom } from "../../atom";
 import { useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useState } from "react";
 import GoBackButton from "../../components/goBackButton";
 import Header from "../../components/Header";
@@ -40,26 +37,6 @@ const RecipePhotoGradient = styled.div`
     rgba(0, 0, 0, 0) 0%,
     rgba(0, 0, 0, 0.37) 100%
   );
-`;
-
-const SnsContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 14px;
-`;
-
-const LikeWrapper = styled.div`
-  display: flex;
-  align-items: center;
-`;
-const LikeCount = styled.p`
-  margin: 0px 0px 0px 4px;
-`;
-
-const BtnContainer = styled.div`
-  display: flex;
-  gap: 10px;
 `;
 
 const ContentsContainer = styled.div`
@@ -109,14 +86,8 @@ const Border = styled.div`
   margin: 32px 0px 20px 0px;
 `;
 
-const FixedGoBackButton = styled(GoBackButton)`
-  display: flex;
-  align-items: center;
-  margin-left: 26px;
-`;
-
 function Detail() {
-  const [viewedRecipe, setViewedRecipe] = useRecoilState(viewedRecipeAtom);
+  const setViewedRecipe = useSetRecoilState(viewedRecipeAtom);
   const [recipeDetail, setRecipeDetail] = useState([]);
   useEffect(() => {
     setViewedRecipe((prev) => [recipeId, ...prev]);

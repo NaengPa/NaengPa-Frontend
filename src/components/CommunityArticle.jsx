@@ -3,7 +3,6 @@ import { ReactComponent as Like } from "../assets/Heart_InActive.svg";
 import { ReactComponent as Share } from "../assets/share.svg";
 
 import ReferredRecipeCard from "./ReferredRecipeCard";
-import { propTypes } from "react-bootstrap/esm/Image";
 import ArticleImgCarousel from "./ArticleImgCarousel";
 import ArticleModifySection from "./ArticleModifySection";
 
