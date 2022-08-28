@@ -1,7 +1,7 @@
 import { getDefaultNormalizer } from "@testing-library/react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { articleAtom } from "../atom";
+import { articleAtom, articleDeleteAtom, articleDeleteIdAtom } from "../atom";
 import { deleteArticle } from "../common/axios";
 
 const DeleteModalWrapper = styled.div`
@@ -81,19 +81,23 @@ const CancelBtn = styled.button`
   color: #ffffff;
 `;
 
-function ArticleDeleteModal({ isDeleteModalOpen, setIsDeleteModalOpen }) {
+function ArticleDeleteModal() {
+  const [deleteArticleId, setDeleteArticleId] =
+    useRecoilState(articleDeleteIdAtom);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] =
+    useRecoilState(articleDeleteAtom);
   const [article, setArticle] = useRecoilState(articleAtom);
   const handleModal = (e) => {
-    setIsDeleteModalOpen("");
+    setDeleteArticleId("");
+    setIsDeleteModalOpen(false);
   };
-  console.log(article);
+
   const onDeleteBtnClick = (e) => {
-    deleteArticle(isDeleteModalOpen, "test123@gmail.com");
-    console.log(article);
+    deleteArticle(deleteArticleId, "test123@gmail.com");
     setArticle(() => {
       let targetArticle;
       article.forEach((item) => {
-        if (item.id === isDeleteModalOpen) {
+        if (item.id === deleteArticleId) {
           targetArticle = article.indexOf(item);
         }
       });

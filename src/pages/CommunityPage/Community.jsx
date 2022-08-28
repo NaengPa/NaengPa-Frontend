@@ -4,7 +4,11 @@ import ArticleWriteBtn from "../../components/ArticleWriteBtn";
 import { getArticle } from "../../common/axios";
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
-import { articleAtom, articleDeleteAtom } from "../../atom";
+import {
+  articleAtom,
+  articleDeleteAtom,
+  articleDeleteIdAtom,
+} from "../../atom";
 import ArticleDeleteModal from "../../components/ArticleDeleteModal";
 
 const CommunityWrapper = styled.div`
@@ -27,6 +31,8 @@ const CommunityTitle = styled.span`
 
 function Community() {
   const [article, setArticle] = useRecoilState(articleAtom);
+  const [deleteArticleId, setDeleteArticleId] =
+    useRecoilState(articleDeleteIdAtom);
   const [isDeleteModalOpen, setIsDeleteModalOpen] =
     useRecoilState(articleDeleteAtom);
 

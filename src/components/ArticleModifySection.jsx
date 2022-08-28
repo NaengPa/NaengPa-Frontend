@@ -4,7 +4,7 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { ReactComponent as Edit } from "../assets/Write.svg";
 import { ReactComponent as Xicon } from "../assets/X_InActive.svg";
-import { articleDeleteAtom } from "../atom";
+import { articleDeleteAtom, articleDeleteIdAtom } from "../atom";
 import ArticleDeleteModal from "./ArticleDeleteModal";
 
 const RightIconsContainer = styled.div`
@@ -17,6 +17,8 @@ const DeleteBtn = styled.button`
 `;
 
 function ArticleModifySection({ id }) {
+  const [deleteArticleId, setDeleteArticleId] =
+    useRecoilState(articleDeleteIdAtom);
   const [isDeleteModalOpen, setIsDeleteModalOpen] =
     useRecoilState(articleDeleteAtom);
   const deleteBtn = useRef();
@@ -27,26 +29,18 @@ function ArticleModifySection({ id }) {
 
   const onDeleteBtnClick = (event) => {
     event.preventDefault();
-    setIsDeleteModalOpen(id);
+    setDeleteArticleId(id);
+    setIsDeleteModalOpen((prev) => !prev);
   };
 
   return (
-    <>
-      <RightIconsContainer>
-        <Link to={{ pathname: "/edit" }}>
-          <Edit />
-        </Link>
-        <DeleteBtn ref={deleteBtn} onClick={onDeleteBtnClick} />
-        <Xicon onClick={onDeleteIconClick} />
-      </RightIconsContainer>
-      {/* 
-      {isDeleteModalOpen ? (
-        <ArticleDeleteModal
-          isDeleteModalOpen={isDeleteModalOpen}
-          setIsDeleteModalOpen={setIsDeleteModalOpen}
-        />
-      ) : null} */}
-    </>
+    <RightIconsContainer>
+      <Link to={{ pathname: "/edit" }}>
+        <Edit />
+      </Link>
+      <DeleteBtn ref={deleteBtn} onClick={onDeleteBtnClick} />
+      <Xicon onClick={onDeleteIconClick} />
+    </RightIconsContainer>
   );
 }
 export default ArticleModifySection;
