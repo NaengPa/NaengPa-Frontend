@@ -10,6 +10,8 @@ const FilterCategoryButton = ({
   firstIndex,
   handleFilter,
 }) => {
+  console.log(firstIndex);
+  console.log("add");
   // const [buttonClick, setButtonClick] = useState(false);
   const handleClick = (e) => {
     // if (buttonClick === false) {
@@ -17,7 +19,7 @@ const FilterCategoryButton = ({
     // } else {
     //   setButtonClick(false);
     // }
-    console.log(item);
+    console.log(item, firstIndex, secondIndex);
     handleFilterClick(e);
     handleFilter(firstIndex, secondIndex);
   };

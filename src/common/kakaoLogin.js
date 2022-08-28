@@ -40,7 +40,11 @@ export async function getLoginInfo(value) {
   console.log(localStorage.getItem("token"));
   console.log(value);
   try {
-    const response = await client.post(`${baseURL}/oauth/login`);
+ feature/moseung
+    const response = await client.put(`${baseURL}/oauth/login`);
+=======
+
+ develop
     // const { data } = await axios({
     //   method: "GET",
     //   url: `${baseURL}/oauth/login`,
