@@ -10,8 +10,6 @@ const FilterCategoryButton = ({
   firstIndex,
   handleFilter,
 }) => {
-  console.log(firstIndex);
-  console.log("add");
   // const [buttonClick, setButtonClick] = useState(false);
   const handleClick = (e) => {
     // if (buttonClick === false) {
