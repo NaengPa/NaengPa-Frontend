@@ -4,7 +4,7 @@ import FindAndSignIn from "./findAndSignIn";
 import { ReactComponent as Kakao } from "../../assets/kakao.svg";
 import GoBackButton from "../../components/goBackButton";
 import { useState } from "react";
-import { getKakaoLogin } from "../../common/kakaoLogin";
+import { getKakaoLogin, getLoginInfo } from "../../common/kakaoLogin";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { pageStateAtom } from "../../atom";
@@ -21,16 +21,20 @@ const Login = () => {
     // if (!window.location.search) return;
     const postUrl = async () => {
       const result = await getKakaoLogin(KakaoUrl);
-      // console.log(result);
-      console.log(KakaoUrl);
-      // console.log(pageState);
+      console.log(result);
       localStorage.setItem("token", result);
       if (KakaoUrl !== undefined) {
-        navigate(-3);
+        // navigate(-3);
         console.log("ho");
       }
+      const getInfo = async () => {
+        const result = await getLoginInfo(localStorage?.getItem("token"));
+        console.log(result);
+      };
+      getInfo();
     };
-    if (KakaoUrl !== undefined) {
+
+    if (KakaoUrl) {
       postUrl();
     }
   });
@@ -97,7 +101,7 @@ const Login = () => {
           <FindAndSignIn></FindAndSignIn>
         </LoginForm>
       </MainContainer>
-      <KakaoLoginButton href="https://kauth.kakao.com/oauth/authorize?client_id=e01c4cdbad44d2771897f26308c77ef1&redirect_uri=http://localhost:3000/login&response_type=code">
+      <KakaoLoginButton href="https://kauth.kakao.com/oauth/authorize?client_id=e01c4cdbad44d2771897f26308c77ef1&redirect_uri=https://naengdev.netlify.app/login&response_type=code">
         <StyledMyIcon></StyledMyIcon>
       </KakaoLoginButton>
     </Container>

@@ -39,7 +39,13 @@ export const articleTextAtom = atom({
   default: "",
 });
 
+
 export const articleDeleteAtom = atom({
   key: "articleDelete",
+  default: "",
+});
+
+export const navBarHeightAtom = atom({
+  key: "navBarHeight",
   default: "",
 });

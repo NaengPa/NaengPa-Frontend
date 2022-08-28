@@ -4,13 +4,25 @@ import { ReactComponent as XButton } from "../../assets/x.svg";
 import FilterCategory from "./filterCategory";
 import { motion } from "framer-motion";
 import filterItem from "../../Constant/constant";
+import { useRecoilValue } from "recoil";
+import { navBarHeightAtom } from "../../atom";
 
-const Filter = ({ handleClose, show, handleFilterClick }) => {
+const Filter = ({ handleClose, show, handleFilterClick, filterFoodData }) => {
   const [clicked, setClicked] = useState(false);
+  const [filterItemState, setFilterItemState] = useState(filterItem);
 
-  const handleClick = () => {
+  console.log(filterItemState);
+  const handleClick = (e) => {
     handleClose();
     setClicked(true);
+  };
+
+  const handleFilter = (first, second) => {
+    const filterItemCopy = [...filterItemState];
+    filterItemCopy[first].category[second].isClicked === false
+      ? (filterItemCopy[first].category[second].isClicked = true)
+      : (filterItemCopy[first].category[second].isClicked = false);
+    setFilterItemState(filterItemCopy);
   };
   useEffect(() => {
     document.body.style.cssText = `
@@ -40,8 +52,10 @@ const Filter = ({ handleClose, show, handleFilterClick }) => {
     }
   };
 
+  const navBarHeight = useRecoilValue(navBarHeightAtom);
+
   return (
-    <Container show ref={modalRef}>
+    <Container navBarHeight={navBarHeight} show ref={modalRef}>
       <FilterContainer
         animate={{ x: clicked ? 400 : 0 }}
         transition={{ ease: "easeInOut", duration: 0.5 }}
@@ -51,8 +65,11 @@ const Filter = ({ handleClose, show, handleFilterClick }) => {
           <StyledMyIcon onClick={handleClick}></StyledMyIcon>
         </FilterHeader>
         <FilterMain>
-          {filterItem.map((item) => (
+          {filterItemState.map((item, index) => (
             <FilterCategory
+              handleFilter={handleFilter}
+              firstIndex={index}
+              filterFoodData={filterFoodData}
               handleFilterClick={handleFilterClick}
               filterItem={item}
             ></FilterCategory>
@@ -68,7 +85,7 @@ export default Filter;
 const Container = styled(motion.div)`
   border-radius: 20px 0px 0px 20px;
   z-index: 9999;
-  height: calc(100vh - 64px); //calc 할떄는 내부에서 꼭 스페이스바를 해줘야된다.
+  height: ${(props) => `calc(100vh - ${props.navBarHeight}px)`};
   background-color: transparent;
   width: 80%;
   position: fixed;
@@ -76,14 +93,14 @@ const Container = styled(motion.div)`
   transform: translateX(25%);
   transition: all 300ms ease-in;
   overflow: scroll;
-  min-height: 100vh;
   width: 350px;
 `;
 
 const FilterContainer = styled(motion.div)`
   transform: translateX(100%);
   transition: all 300ms ease-in;
-  background-color: white;
+  height: 100%;
+  background-color: ${({ theme }) => theme.colors.WHITE};
 `;
 
 const FilterHeader = styled.header`

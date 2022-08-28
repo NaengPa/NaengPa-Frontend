@@ -1,23 +1,34 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-const FilterCategoryButton = ({ item, filterItem, handleFilterClick }) => {
-  const [buttonClick, setButtonClick] = useState(false);
+const FilterCategoryButton = ({
+  item,
+  filterItem,
+  handleFilterClick,
+  filterFoodData,
+  secondIndex,
+  firstIndex,
+  handleFilter,
+}) => {
+  // const [buttonClick, setButtonClick] = useState(false);
   const handleClick = (e) => {
-    if (buttonClick === false) {
-      setButtonClick(true);
-    } else {
-      setButtonClick(false);
-    }
+    // if (buttonClick === false) {
+    //   setButtonClick(true);
+    // } else {
+    //   setButtonClick(false);
+    // }
+    console.log(item);
     handleFilterClick(e);
+    handleFilter(firstIndex, secondIndex);
   };
   return (
     <ButtonWrapper
       filterItem={filterItem.title}
-      buttonClick={buttonClick}
+      buttonClick={item.isClicked}
       onClick={handleClick}
+      filterFoodData={filterFoodData}
     >
-      {item}
+      {item.title}
     </ButtonWrapper>
   );
 };
