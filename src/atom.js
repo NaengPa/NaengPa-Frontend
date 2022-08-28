@@ -19,12 +19,27 @@ export const pageStateAtom = atom({
   default: [],
 });
 
+export const articleAtom = atom({
+  key: "article",
+  default: [],
+});
+
 export const articleImgAtom = atom({
   key: "articleImg",
   default: [],
 });
 
+export const articlePreviewImgAtom = atom({
+  key: "articlePreviewImg",
+  default: [],
+});
+
 export const articleTextAtom = atom({
   key: "articleText",
+  default: "",
+});
+
+export const articleDeleteAtom = atom({
+  key: "articleDelete",
   default: "",
 });

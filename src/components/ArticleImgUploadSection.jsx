@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { articleImgAtom } from "../atom";
+import { articleImgAtom, articlePreviewImgAtom } from "../atom";
 import ArticleUploadImgPreviewList from "./ArticleUploadImgPreviewList";
 import { ReactComponent as ImgUploadIcon } from "../assets/Picture.svg";
 
@@ -37,12 +37,20 @@ const ImgUploadCnt = styled.span`
 
 function ArticleImgUploadSection() {
   const [imgList, setImgList] = useRecoilState(articleImgAtom);
+  const [previewImgList, setPreviewImgList] = useRecoilState(
+    articlePreviewImgAtom
+  );
   const ImgUploadInput = useRef();
-  // const formData = new FormData();
   const onImgChange = (event) => {
     event.preventDefault();
     [...event.target.files].forEach((element) => {
-      setImgList((prev) => [...prev, element]);
+      let reader = new FileReader();
+      reader.readAsDataURL(element);
+      reader.onloadend = () => {
+        setPreviewImgList((prev) => [...prev, element]);
+        setImgList((prev) => [...prev, reader.result]);
+      };
+      console.log(previewImgList);
     });
     event.target.value = "";
   };

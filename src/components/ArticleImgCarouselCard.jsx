@@ -15,7 +15,7 @@ const ArticleImg = styled.img`
 function ArticleImgCarouselCard({ imgUrl }) {
   return (
     <ArticleImgContainer>
-      <ArticleImg src={imgUrl} />;
+      <ArticleImg src={imgUrl} />
     </ArticleImgContainer>
   );
 }

@@ -3,10 +3,12 @@ import CommunityArticle from "../../components/CommunityArticle";
 import ArticleWriteBtn from "../../components/ArticleWriteBtn";
 import { getArticle } from "../../common/axios";
 import { useEffect } from "react";
-import { useState } from "react";
+import { useRecoilState } from "recoil";
+import { articleAtom, articleDeleteAtom } from "../../atom";
+import ArticleDeleteModal from "../../components/ArticleDeleteModal";
 
 const CommunityWrapper = styled.div`
-  padding: 10vh 16px 16px 16px;
+  padding: 10vh 16px 56px 16px;
   overflow-y: scroll;
   height: 100vh;
   ::-webkit-scrollbar {
@@ -24,7 +26,9 @@ const CommunityTitle = styled.span`
 `;
 
 function Community() {
-  const [article, setArticle] = useState([]);
+  const [article, setArticle] = useRecoilState(articleAtom);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] =
+    useRecoilState(articleDeleteAtom);
 
   useEffect(() => {
     async function get() {
@@ -33,17 +37,24 @@ function Community() {
     }
     get();
   }, []);
-
+  console.log(isDeleteModalOpen);
   console.log(article);
   return (
-    <CommunityWrapper>
-      <CommunityTitle>내가 만든 냉파 레시피{"\n"}자랑해봐요</CommunityTitle>
-      {article.map((item) => (
-        <CommunityArticle {...item} />
-      ))}
-
-      <ArticleWriteBtn />
-    </CommunityWrapper>
+    <>
+      {isDeleteModalOpen ? (
+        <ArticleDeleteModal
+          isDeleteModalOpen={isDeleteModalOpen}
+          setIsDeleteModalOpen={setIsDeleteModalOpen}
+        />
+      ) : null}
+      <CommunityWrapper>
+        <CommunityTitle>내가 만든 냉파 레시피{"\n"}자랑해봐요</CommunityTitle>
+        {article.map((item) => (
+          <CommunityArticle {...item} key={item.id} />
+        ))}
+        <ArticleWriteBtn />
+      </CommunityWrapper>
+    </>
   );
 }
 

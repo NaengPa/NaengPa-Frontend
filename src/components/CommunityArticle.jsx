@@ -1,13 +1,21 @@
 import styled from "styled-components";
 import { ReactComponent as Like } from "../assets/Heart_InActive.svg";
 import { ReactComponent as Share } from "../assets/share.svg";
-import { ReactComponent as Bookmark } from "../assets/Bookmark_InActive.svg";
+
 import ReferredRecipeCard from "./ReferredRecipeCard";
 import { propTypes } from "react-bootstrap/esm/Image";
 import ArticleImgCarousel from "./ArticleImgCarousel";
+import ArticleModifySection from "./ArticleModifySection";
 
-const ArticleUserContainer = styled.div`
+const ArticleHeader = styled.div`
   margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+const UserContainer = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const UserProfileImg = styled.img`
@@ -47,11 +55,6 @@ const LikeCount = styled.span`
   color: #132029;
 `;
 
-const RightIconsContainer = styled.div`
-  display: flex;
-  gap: 8px;
-`;
-
 const ArticleText = styled.span`
   display: flex;
   width: 100%;
@@ -76,10 +79,13 @@ function CommunityArticle({
 }) {
   return (
     <>
-      <ArticleUserContainer>
-        <UserProfileImg src="https://image.ytn.co.kr/general/jpg/2021/0311/202103110915014429_d.jpg" />
-        <UserId>{nickname}</UserId>
-      </ArticleUserContainer>
+      <ArticleHeader>
+        <UserContainer>
+          <UserProfileImg src="https://image.ytn.co.kr/general/jpg/2021/0311/202103110915014429_d.jpg" />
+          <UserId>{nickname}</UserId>
+        </UserContainer>
+        <ArticleModifySection id={id} />
+      </ArticleHeader>
 
       <ArticleImgCarousel imgs={imgs} />
 
@@ -88,10 +94,7 @@ function CommunityArticle({
           <Like />
           <LikeCount>{likes}</LikeCount>
         </LikeContainer>
-        <RightIconsContainer>
-          <Share />
-          <Bookmark />
-        </RightIconsContainer>
+        <Share />
       </ArticleActionContainer>
       <ArticleText>{content}</ArticleText>
       {recipeId !== 0 && <ReferredRecipeCard />}
