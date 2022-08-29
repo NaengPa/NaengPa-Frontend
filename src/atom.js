@@ -1,4 +1,5 @@
 import { atom } from "recoil";
+import filterItem from "./Constant/constant";
 export const selectedIngredientAtom = atom({
   key: "selectedIngredient",
   default: [],
@@ -47,4 +48,9 @@ export const articleDeleteAtom = atom({
 export const navBarHeightAtom = atom({
   key: "navBarHeight",
   default: "",
+});
+
+export const filterStateAtom = atom({
+  key: "filterState",
+  default: filterItem,
 });

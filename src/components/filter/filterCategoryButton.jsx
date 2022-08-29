@@ -17,7 +17,7 @@ const FilterCategoryButton = ({
     // } else {
     //   setButtonClick(false);
     // }
-    console.log(item.isClicked);
+    // console.log(item.isClicked);
     handleFilterClick(e, item.isClicked);
     handleFilter(firstIndex, secondIndex);
   };

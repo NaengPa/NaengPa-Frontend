@@ -6,7 +6,7 @@ import GoBackButton from "../components/goBackButton";
 import { ReactComponent as Heart } from "../assets/shape.svg";
 import { ReactComponent as ArrowRight } from "../assets/upButton.svg";
 import { useScroll } from "../hooks/useScroll";
-import { selectedIngredientAtom } from "../atom";
+import { filterStateAtom, selectedIngredientAtom } from "../atom";
 import { useRecoilState } from "recoil";
 import FoodButtonAlone from "../components/foodButtonAlone";
 import { useNavigate } from "react-router-dom";
@@ -26,6 +26,7 @@ const ResultList = () => {
   const [show, setShow] = useState(false);
   const [filterFoodData, setFilterFoodData] = useState([]);
   const [filtered, setFiltered] = useState();
+  const [filterItemState, setFilterItemState] = useRecoilState(filterStateAtom);
 
   useEffect(() => {
     window.scrollTo(0, 1);
@@ -36,6 +37,9 @@ const ResultList = () => {
       console.log(result);
     };
     getRecipeLists();
+    return () => {
+      setFilterItemState(filterItem);
+    };
   }, []);
   const { scrollY } = useScroll();
 
@@ -78,15 +82,24 @@ const ResultList = () => {
     setShow(false);
   };
 
-  console.log(filterFoodData);
-  console.log(foodData);
+  // console.log(filterFoodData);
+  // console.log(foodData);
 
   const handleFilterClick = (e, isClicked) => {
     const itemName = e.target.innerText;
-    // console.log(itemName);
-    // console.log(foodData);
-    if (filterItem[1].category.filter((item) => item.title === itemName)) {
+    // console.log(itemName, filterItem[2]);
+    // console.log(
+    //   filterItem[2].category.filter((item) => item.title === itemName)
+    // );
+    // console.log(
+    //   filterItem[1].category.filter((item) => item.title === itemName)
+    // );
+    if (
+      filterItem[1].category.filter((item) => item.title === itemName).length >
+      0
+    ) {
       //1번쨰 로직
+      console.log("adad");
       if (!isClicked) {
         const filter = [...foodData].filter(
           (item) => item.nationNm === itemName
@@ -101,17 +114,22 @@ const ResultList = () => {
       }
     } else if (
       //2번쨰 로직
-      filterItem[0].category.filter((item) => item.title === itemName)
+      filterItem[0].category.filter((item) => item.title === itemName).length >
+      0
     ) {
+      console.log("adad");
       setFilterFoodData(
         [...foodData].filter((item) => item.levelNm === itemName)
       );
     } else if (
       //3번쨰 로직
-      filterItem[2].category.filter((item) => item.title === itemName)
+      filterItem[2].category.filter((item) => item.title === itemName).length >
+      0
     ) {
       if (!isClicked) {
-        const filter = [...foodData].filter(
+        const filter = [
+          ...(filterFoodData.length > 0 ? filterFoodData : foodData),
+        ].filter(
           (item) =>
             item.irdnts.filter(
               (item) =>
@@ -119,6 +137,8 @@ const ResultList = () => {
                 itemName
             ).length === 0
         );
+        console.log(isClicked);
+        console.log(filter);
         setFilterFoodData(filter);
       } else if (isClicked) {
         const filteredData = [...foodData].filter(
@@ -130,6 +150,8 @@ const ResultList = () => {
             ).length !== 0
         );
         const filter = [...filterFoodData, ...filteredData];
+        console.log(isClicked);
+        console.log(filter);
         setFilterFoodData(filter);
       }
     }
