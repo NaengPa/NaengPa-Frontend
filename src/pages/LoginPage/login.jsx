@@ -30,6 +30,13 @@ const Login = () => {
     }
   });
 
+  console.log(window.location.href.split(":")[0]);
+
+  const redirectUri =
+    window.location.href.split(":")[1] === "//localhost"
+      ? "http://localhost:3000/login"
+      : "https://naengdev.netlify.app/login";
+
   const onChangeEmail = (e) => {
     const inputLen = e.target.value.length;
     if (inputLen > 2) {
@@ -92,7 +99,9 @@ const Login = () => {
           <FindAndSignIn></FindAndSignIn>
         </LoginForm>
       </MainContainer>
-      <KakaoLoginButton href="https://kauth.kakao.com/oauth/authorize?client_id=e01c4cdbad44d2771897f26308c77ef1&redirect_uri=http://localhost:3000/login&response_type=code">
+      <KakaoLoginButton
+        href={`https://kauth.kakao.com/oauth/authorize?client_id=e01c4cdbad44d2771897f26308c77ef1&redirect_uri=${redirectUri}&response_type=code`}
+      >
         <StyledMyIcon></StyledMyIcon>
       </KakaoLoginButton>
     </Container>
@@ -108,6 +117,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
   input {
     outline: none;
     border: none;

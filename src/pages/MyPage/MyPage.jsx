@@ -126,12 +126,12 @@ function MyPage() {
 
   useEffect(() => {
     const getInfo = async () => {
-      const result = await getLoginInfo();
+      const result = await getLoginInfo(localStorage.getItem("token"));
       setUserInfo(result);
       console.log(result);
     };
     getInfo();
-  });
+  }, []);
   return (
     <>
       {isModalOpen ? (
