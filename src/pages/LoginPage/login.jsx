@@ -21,17 +21,8 @@ const Login = () => {
     // if (!window.location.search) return;
     const postUrl = async () => {
       const result = await getKakaoLogin(KakaoUrl);
-      console.log(result);
       localStorage.setItem("token", result);
-      if (KakaoUrl !== undefined) {
-        // navigate(-3);
-        console.log("ho");
-      }
-      const getInfo = async () => {
-        const result = await getLoginInfo(localStorage?.getItem("token"));
-        console.log(result);
-      };
-      getInfo();
+      navigate(-3);
     };
 
     if (KakaoUrl) {
@@ -101,7 +92,7 @@ const Login = () => {
           <FindAndSignIn></FindAndSignIn>
         </LoginForm>
       </MainContainer>
-      <KakaoLoginButton href="https://kauth.kakao.com/oauth/authorize?client_id=e01c4cdbad44d2771897f26308c77ef1&redirect_uri=https://naengdev.netlify.app/login&response_type=code">
+      <KakaoLoginButton href="https://kauth.kakao.com/oauth/authorize?client_id=e01c4cdbad44d2771897f26308c77ef1&redirect_uri=http://localhost:3000/login&response_type=code">
         <StyledMyIcon></StyledMyIcon>
       </KakaoLoginButton>
     </Container>

@@ -113,7 +113,6 @@ function Main() {
     <MainBg>
       <Container>
         <Logout onClick={handleLogout}>로그아웃</Logout>
-        <Link to={"/login"}>로그인</Link>
         {viewedRecipe.length > 0 ? (
           <Burger src="images/burger.png" />
         ) : (
@@ -121,7 +120,6 @@ function Main() {
         )}
 
         <TitleWrapper>
-          <Subtitle>🍽</Subtitle>
           <Subtitle>오래된 재료는 비우고 행복은 채우는</Subtitle>
           <Title>냉장고 파먹기</Title>
         </TitleWrapper>

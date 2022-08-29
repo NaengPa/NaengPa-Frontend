@@ -8,13 +8,18 @@
   </head>
   <body>
     <script>
-      const a = 1;
-      const b = 1;
-      const c = 1;
-      const d = 1;
+      const a = undefined || true;
+      console.log(a, !a);
 
-      console.log(a && b && c && d === 1 ? "good" : "bad");
-      console.log("true" === true);
+      const afaf = (a) => {
+        if (!a) {
+          console.log("hihi");
+        }
+        if (true) {
+          ("fafa");
+        }
+      };
+      afaf(a);
     </script>
   </body>
 </html>

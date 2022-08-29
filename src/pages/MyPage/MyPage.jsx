@@ -3,9 +3,10 @@ import { ReactComponent as BadgeIcon } from "../../assets/badge.svg";
 import { ReactComponent as CalenderIcon } from "../../assets/calender.svg";
 import { ReactComponent as SavedRecipeIcon } from "../../assets/saved_recipe.svg";
 import { ReactComponent as CreateRecipeIcon } from "../../assets/create_recipe.svg";
-import { ReactComponent as ProfileIcon } from "../../assets/profile.svg";
 import { useRef, useState } from "react";
 import ErrorModal from "./ErrorModal";
+import { getLoginInfo } from "../../common/kakaoLogin";
+import { useEffect } from "react";
 
 const MyPageWrapper = styled.div`
   background: #f8fbff;
@@ -38,6 +39,11 @@ const User = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  img {
+    width: 94px;
+    height: 94px;
+    border-radius: 50%;
+  }
 `;
 const UserProfileImg = styled.img``;
 const UserNameTitle = styled.span`
@@ -112,11 +118,20 @@ const IconContainer = styled.div`
 
 function MyPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [userInfo, setUserInfo] = useState();
   const outSection = useRef();
   const handleModal = () => {
     setIsModalOpen((prev) => !prev);
   };
-  console.log("hihi");
+
+  useEffect(() => {
+    const getInfo = async () => {
+      const result = await getLoginInfo();
+      setUserInfo(result);
+      console.log(result);
+    };
+    getInfo();
+  });
   return (
     <>
       {isModalOpen ? (
@@ -125,8 +140,8 @@ function MyPage() {
       <MyPageWrapper>
         <Background />
         <User>
-          <ProfileIcon />
-          <UserNameTitle>user01</UserNameTitle>
+          <img src={userInfo?.imgUrl} alt="" />
+          <UserNameTitle>{userInfo?.nickname}</UserNameTitle>
           <UserNameSubtitle>반가운 냉파 셰프</UserNameSubtitle>
           <UserDescriptionContainer>
             <UserDescription>혼밥</UserDescription>

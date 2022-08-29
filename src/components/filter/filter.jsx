@@ -19,12 +19,16 @@ const Filter = ({ handleClose, show, handleFilterClick, filterFoodData }) => {
 
   const handleFilter = (first, second) => {
     const filterItemCopy = [...filterItemState];
-    console.log(first, "ㅇㅁㅇㅁ");
-    if (first !== 2) {
+    console.log(first);
+    if (first !== 0) {
+      filterItemCopy[first].category[second].isClicked === false
+        ? (filterItemCopy[first].category[second].isClicked = true)
+        : (filterItemCopy[first].category[second].isClicked = false);
+    } else if (first === 0) {
+      filterItemCopy[0].category[0].isClicked = false;
+      filterItemCopy[0].category[1].isClicked = false;
+      filterItemCopy[0].category[second].isClicked = true;
     }
-    filterItemCopy[first].category[second].isClicked === false
-      ? (filterItemCopy[first].category[second].isClicked = true)
-      : (filterItemCopy[first].category[second].isClicked = false);
     setFilterItemState(filterItemCopy);
   };
   useEffect(() => {
@@ -88,7 +92,7 @@ export default Filter;
 const Container = styled(motion.div)`
   border-radius: 20px 0px 0px 20px;
   z-index: 9999;
-  height: ${(props) => `calc(100vh - ${props.navBarHeight}px)`};
+  height: ${(props) => `calc(100vh - ${props?.navBarHeight}px)`};
   background-color: transparent;
   width: 80%;
   position: fixed;
