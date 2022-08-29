@@ -4,12 +4,12 @@ import { ReactComponent as XButton } from "../../assets/x.svg";
 import FilterCategory from "./filterCategory";
 import { motion } from "framer-motion";
 import filterItem from "../../Constant/constant";
-import { useRecoilValue } from "recoil";
-import { navBarHeightAtom } from "../../atom";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { filterStateAtom, navBarHeightAtom } from "../../atom";
 
 const Filter = ({ handleClose, show, handleFilterClick, filterFoodData }) => {
   const [clicked, setClicked] = useState(false);
-  const [filterItemState, setFilterItemState] = useState(filterItem);
+  const [filterItemState, setFilterItemState] = useRecoilState(filterStateAtom);
 
   // console.log(filterItemState);
   const handleClick = (e) => {
@@ -18,8 +18,7 @@ const Filter = ({ handleClose, show, handleFilterClick, filterFoodData }) => {
   };
 
   const handleFilter = (first, second) => {
-    const filterItemCopy = [...filterItemState];
-    console.log(first);
+    const filterItemCopy = JSON.parse(JSON.stringify(filterItemState));
     if (first !== 0) {
       filterItemCopy[first].category[second].isClicked === false
         ? (filterItemCopy[first].category[second].isClicked = true)
@@ -32,7 +31,7 @@ const Filter = ({ handleClose, show, handleFilterClick, filterFoodData }) => {
     setFilterItemState(filterItemCopy);
   };
   useEffect(() => {
-    setFilterItemState(filterItem);
+    // setFilterItemState(filterItem);
     document.body.style.cssText = `
       position: fixed; 
       top: -${window.scrollY}px;
@@ -73,7 +72,7 @@ const Filter = ({ handleClose, show, handleFilterClick, filterFoodData }) => {
           <StyledMyIcon onClick={handleClick}></StyledMyIcon>
         </FilterHeader>
         <FilterMain>
-          {filterItemState.map((item, index) => (
+          {filterItemState?.map((item, index) => (
             <FilterCategory
               handleFilter={handleFilter}
               firstIndex={index}
