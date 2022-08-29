@@ -16,14 +16,13 @@ export async function getKakaoLogin(kakaoUrl) {
 }
 
 export async function getLoginInfo(value) {
-  console.log(localStorage.getItem("token"));
   console.log(value);
   try {
     const { data } = await axios({
       method: "GET",
       url: `${baseURL}/oauth/login`,
       headers: {
-        authorization: `Bearer ${localStorage.getItem("token")}`,
+        authorization: `Bearer ${value}`,
       },
     });
 

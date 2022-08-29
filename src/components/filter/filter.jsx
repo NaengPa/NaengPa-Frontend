@@ -11,7 +11,7 @@ const Filter = ({ handleClose, show, handleFilterClick, filterFoodData }) => {
   const [clicked, setClicked] = useState(false);
   const [filterItemState, setFilterItemState] = useState(filterItem);
 
-  console.log(filterItemState);
+  // console.log(filterItemState);
   const handleClick = (e) => {
     handleClose();
     setClicked(true);
@@ -32,6 +32,7 @@ const Filter = ({ handleClose, show, handleFilterClick, filterFoodData }) => {
     setFilterItemState(filterItemCopy);
   };
   useEffect(() => {
+    setFilterItemState(filterItem);
     document.body.style.cssText = `
       position: fixed; 
       top: -${window.scrollY}px;

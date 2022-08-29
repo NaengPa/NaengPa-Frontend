@@ -8,18 +8,9 @@
   </head>
   <body>
     <script>
-      const a = undefined || true;
-      console.log(a, !a);
-
-      const afaf = (a) => {
-        if (!a) {
-          console.log("hihi");
-        }
-        if (true) {
-          ("fafa");
-        }
-      };
-      afaf(a);
+      const a = [1, 2, 3];
+      const b = [4, 5, 6];
+      console.log([...a, ...b]);
     </script>
   </body>
 </html>

@@ -24,13 +24,8 @@ const ResultList = () => {
   const [foodData, setFoodData] = useState([]);
   const [foodList, setFoodList] = useState([...selectedIngredient]);
   const [show, setShow] = useState(false);
-  const [filterFoodData, setFilterFoodData] = useState({
-    data: [],
-    clicked: false,
-  });
+  const [filterFoodData, setFilterFoodData] = useState([]);
   const [filtered, setFiltered] = useState();
-
-  console.log(filterFoodData);
 
   useEffect(() => {
     window.scrollTo(0, 1);
@@ -38,6 +33,7 @@ const ResultList = () => {
       const result = await getRecipeList(selectedIngredient);
       setFoodData(result.recipeInfos);
       setFiltered(result.filterInfo);
+      console.log(result);
     };
     getRecipeLists();
   }, []);
@@ -82,44 +78,65 @@ const ResultList = () => {
     setShow(false);
   };
 
-  const handleFilterClick = (e) => {
+  console.log(filterFoodData);
+  console.log(foodData);
+
+  const handleFilterClick = (e, isClicked) => {
     const itemName = e.target.innerText;
-    console.log(itemName);
-    console.log(foodData);
+    // console.log(itemName);
+    // console.log(foodData);
     if (filterItem[1].category.filter((item) => item.title === itemName)) {
-      setFilterFoodData({
-        data: [...foodData].filter((item) => item.nationNm === itemName),
-        clicked: true,
-      });
+      //1번쨰 로직
+      if (!isClicked) {
+        const filter = [...foodData].filter(
+          (item) => item.nationNm === itemName
+        );
+        const filterOne = [...filterFoodData, ...filter];
+        setFilterFoodData(filterOne);
+      } else if (isClicked) {
+        const filter = [...filterFoodData].filter(
+          (item) => item.nationNm !== itemName
+        );
+        setFilterFoodData(filter);
+      }
     } else if (
+      //2번쨰 로직
       filterItem[0].category.filter((item) => item.title === itemName)
     ) {
-      setFilterFoodData({
-        data: [...foodData].filter((item) => item.levelNm === itemName),
-        clicked: true,
-      });
+      setFilterFoodData(
+        [...foodData].filter((item) => item.levelNm === itemName)
+      );
     } else if (
+      //3번쨰 로직
       filterItem[2].category.filter((item) => item.title === itemName)
     ) {
-      setFilterFoodData({
-        data: [...foodData].filter(
+      if (!isClicked) {
+        const filter = [...foodData].filter(
           (item) =>
             item.irdnts.filter(
               (item) =>
                 (item.irdntNm === "허브(민트)" ? "민트" : item.irdntNm) ===
                 itemName
             ).length === 0
-        ),
-        clicked: true,
-      });
-      console.log(filterFoodData);
-      console.log(foodData);
+        );
+        setFilterFoodData(filter);
+      } else if (isClicked) {
+        const filteredData = [...foodData].filter(
+          (item) =>
+            item.irdnts.filter(
+              (item) =>
+                (item.irdntNm === "허브(민트)" ? "민트" : item.irdntNm) ===
+                itemName
+            ).length !== 0
+        );
+        const filter = [...filterFoodData, ...filteredData];
+        setFilterFoodData(filter);
+      }
     }
   };
 
   const headerContainerRef = useRef();
   const headerContainerHeight = headerContainerRef.current?.offsetHeight;
-  console.log(headerContainerHeight);
 
   return (
     <ResultListWrapper ref={homeRef}>
@@ -179,25 +196,24 @@ const ResultList = () => {
           </button>
         </SortingLetter>
         <ListContainer>
-          {(filterFoodData.data.length > 0
-            ? filterFoodData.data
-            : foodData
-          ).map((item) => (
-            <TextWrapper
-              key={item.recipeId}
-              onClick={clickHistoryData}
-              id={item.recipeId}
-            >
-              <img src={item.imgUrl} alt="" />
-              <SummaryAndLike>
-                <ListSpan>{item.summary}</ListSpan>
-                <IconWrapper>
-                  <StyledMyIcon></StyledMyIcon>
-                  <span>{item.likeCnt}</span>
-                </IconWrapper>
-              </SummaryAndLike>
-            </TextWrapper>
-          ))}
+          {(filterFoodData.length > 0 ? filterFoodData : foodData).map(
+            (item) => (
+              <TextWrapper
+                key={item.recipeId}
+                onClick={clickHistoryData}
+                id={item.recipeId}
+              >
+                <img src={item.imgUrl} alt="" />
+                <SummaryAndLike>
+                  <ListSpan>{item.summary}</ListSpan>
+                  <IconWrapper>
+                    <StyledMyIcon></StyledMyIcon>
+                    <span>{item.likeCnt}</span>
+                  </IconWrapper>
+                </SummaryAndLike>
+              </TextWrapper>
+            )
+          )}
         </ListContainer>
       </MainContainer>
       <UpButton scrollY={scrollY} onClick={handleScroll}>
