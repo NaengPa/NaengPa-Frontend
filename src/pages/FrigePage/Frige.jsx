@@ -20,32 +20,50 @@ const FrigeSearchContainer = styled.div`
 `;
 
 const FrigeTitle = styled.p`
-  font-weight: 500;
+  font-style: normal;
+  font-weight: 600;
   font-size: 24px;
-  line-height: 120%;
-  letter-spacing: -0.05em;
+  line-height: 30px;
+  color: #132029;
+
   white-space: pre-wrap;
 `;
 
 const InputWrapper = styled.div`
   position: relative;
-  height: 44px;
   width: 100%;
-  background: #f1f1f1;
-  border-radius: 10px;
   display: flex;
   align-items: center;
   padding-left: 16px;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
+  height: 50px;
+  background: #eff3f8;
+  border-radius: 5px;
 `;
 
 const StyledInput = styled.input`
   position: absolute;
   width: 90%;
   height: 100%;
-  padding-left: 30px;
+  /* padding-left: 30px; */
   background: transparent;
+
   border: none;
+
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+
+  color: #1e313e;
+
+  ::placeholder {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    color: #698292;
+  }
   &:focus {
     outline: none;
   }
@@ -53,7 +71,7 @@ const StyledInput = styled.input`
 
 const IngredientItemList = styled.div`
   display: flex;
-  padding-bottom: 23px;
+  padding-bottom: 16px;
   height: 100%;
   flex-wrap: wrap;
   gap: 8px;
@@ -66,23 +84,30 @@ const AllFrigeListContainer = styled.div`
 `;
 
 const IngredientItem = styled.button`
-  height: 37px;
-  border: 1px solid #2e8cfe;
+  height: 36px;
+  border: 1px solid #b6c4cf;
   border-radius: 50px;
   display: flex;
   align-items: center;
   padding: 0;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 20px;
+  text-align: center;
+  letter-spacing: -0.005em;
+  color: #425867;
 `;
 
 const SelectedIngredientItem = styled.button`
-  background: #2e8cfe;
-  border: 1px solid #2e8cfe;
+  background: #0091ff;
+  border: 1px solid #0091ff;
   border-radius: 50px;
   display: flex;
   align-items: center;
-  height: 37px;
-  color: white;
+  height: 36px;
   padding: 0;
+  color: #ffffff;
 `;
 
 const IngredientName = styled.p`
@@ -95,21 +120,22 @@ const IngredientName = styled.p`
 
 const SelectionCompleteBtn = styled.button`
   bottom: 83px;
-  background: #2e8cfe;
-  border-radius: 10px;
   width: 100%;
-  height: 58px;
-  font-weight: 500;
+  align-items: center;
+  color: #ffffff;
+
+  font-style: normal;
+  font-weight: 600;
   font-size: 16px;
   line-height: 20px;
-  align-items: center;
   text-align: center;
-  letter-spacing: -0.03em;
   color: #ffffff;
-  box-shadow: 0px 3px 10px #a9d0ff;
+  height: 50px;
+  background: #0091ff;
+  border-radius: 5px;
 
   &:disabled {
-    background: #a9a9a9;
+    background: #b6c4cf;
     box-shadow: none;
   }
 `;
@@ -163,13 +189,14 @@ function Frige() {
   return (
     <FrigeWrapper>
       <FrigeSearchContainer>
-        <FrigeTitle>셰프의 냉장고 재료를{"\n"}선택해주세요</FrigeTitle>
+        <FrigeTitle>셰프의 냉장고 재료를{"\n"}선택해주세요 🥦</FrigeTitle>
         <InputWrapper>
-          <Search />
+          {!searchText && <Search />}
+
           <StyledInput
             value={searchText}
             onChange={onChange}
-            placeholder="찾으시는 재료의 검색도 가능해요"
+            placeholder="        재료를 검색해 주세요"
           ></StyledInput>
         </InputWrapper>
         <IngredientItemList>
