@@ -15,7 +15,7 @@ const DeleteBtn = styled.button`
   display: none;
 `;
 
-function ArticleModifySection({ id }) {
+function ArticleModifySection({ id, nickname, imgs, content }) {
   const setDeleteArticleId = useSetRecoilState(articleDeleteIdAtom);
   const setIsDeleteModalOpen = useSetRecoilState(articleDeleteAtom);
   const deleteBtn = useRef();
@@ -32,7 +32,10 @@ function ArticleModifySection({ id }) {
 
   return (
     <RightIconsContainer>
-      <Link to={{ pathname: "/edit" }}>
+      <Link
+        to={{ pathname: "/edit" }}
+        state={{ nickname: nickname, imgs: imgs, content: content }}
+      >
         <Edit />
       </Link>
       <DeleteBtn ref={deleteBtn} onClick={onDeleteBtnClick} />

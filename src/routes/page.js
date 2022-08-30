@@ -9,6 +9,7 @@ import ResultList from "../pages/resultList";
 import Login from "../pages/LoginPage/login";
 import SignIn from "../pages/SignIn/signIn";
 import WriteArticle from "../pages/CommunityPage/WriteArticle";
+import EditArticle from "../pages/CommunityPage/EditArticle";
 // import Navigation from "../components/navigation";
 // import styled from "styled-components";
 
@@ -23,6 +24,7 @@ const pages = [
   { pathname: "/mypage", element: <MyPage />, isPublic: false },
   { pathname: "/community", element: <Community />, isPublic: true },
   { pathname: "/write", element: <WriteArticle />, isPublic: true },
+  { pathname: "/edit", element: <EditArticle />, isPublic: true },
   { pathname: "/frige", element: <Frige />, isPublic: false },
   { pathname: "/myfrige", element: <MyFrige />, isPublic: true },
   {

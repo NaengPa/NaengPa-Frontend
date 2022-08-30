@@ -83,7 +83,12 @@ function CommunityArticle({
           <UserProfileImg src="https://image.ytn.co.kr/general/jpg/2021/0311/202103110915014429_d.jpg" />
           <UserId>{nickname}</UserId>
         </UserContainer>
-        <ArticleModifySection id={id} />
+        <ArticleModifySection
+          id={id}
+          nickname={nickname}
+          imgs={imgs}
+          content={content}
+        />
       </ArticleHeader>
 
       <ArticleImgCarousel imgs={imgs} />

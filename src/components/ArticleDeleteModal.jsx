@@ -90,9 +90,9 @@ function ArticleDeleteModal() {
     setDeleteArticleId("");
     setIsDeleteModalOpen(false);
   };
+  console.log(deleteArticleId);
 
   const onDeleteBtnClick = (e) => {
-    deleteArticle(deleteArticleId, "test123@gmail.com");
     setArticle(() => {
       let targetArticle;
       article.forEach((item) => {
@@ -100,11 +100,15 @@ function ArticleDeleteModal() {
           targetArticle = article.indexOf(item);
         }
       });
+
       const copiedArticle = [...article];
-      copiedArticle.splice(article.indexOf(targetArticle), 1);
+      copiedArticle.splice(article.indexOf(targetArticle) - 1, 1);
       console.log(copiedArticle);
       return copiedArticle;
+      //TODO 삭제하는 방식을 index로 하면 여러개 삭제할 경우 꼬이게됨. 다른 방법을 찾자
     });
+    deleteArticle(deleteArticleId, "test123@gmail.com");
+    setDeleteArticleId("");
     handleModal();
   };
 

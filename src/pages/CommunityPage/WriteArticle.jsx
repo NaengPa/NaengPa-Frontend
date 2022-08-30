@@ -7,7 +7,7 @@ import ArticleTextInput from "../../components/ArticleTextInput";
 
 const WriteArticleWrapper = styled.div`
   padding: 10vh 16px 16px 16px;
-  overflow-y: scroll;
+  overflow-y: hidden;
   height: 100vh;
   ::-webkit-scrollbar {
     display: none;
