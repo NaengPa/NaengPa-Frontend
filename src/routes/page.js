@@ -25,7 +25,7 @@ const pages = [
   { pathname: "/community", element: <Community />, isPublic: true },
   { pathname: "/write", element: <WriteArticle />, isPublic: true },
   { pathname: "/edit", element: <EditArticle />, isPublic: true },
-  { pathname: "/frige", element: <Frige />, isPublic: false },
+  { pathname: "/frige", element: <Frige />, isPublic: true },
   { pathname: "/myfrige", element: <MyFrige />, isPublic: true },
   {
     pathname: "/resultlist",

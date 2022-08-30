@@ -3,37 +3,41 @@ import styled from "styled-components";
 import { myFrigeAtom } from "../../atom";
 
 const IngredientItem = styled.button`
-  height: 37px;
-  border: 1px solid #a9a9a9;
-  border-radius: 50px;
+  height: 36px;
+
   display: flex;
   align-items: center;
-  color: #a9a9a9;
+
   padding: 0;
+  border: 1px solid #5cb1ff;
+  border-radius: 50px;
+  color: #5cb1ff;
 `;
 
 const SelectedIngredientItem = styled.button`
-  background: #2e8cfe;
-  border: 1px solid #2e8cfe;
+  background: #0091ff;
+  border: 1px solid #0091ff;
   border-radius: 50px;
   display: flex;
   align-items: center;
-  height: 37px;
-  color: white;
+  height: 36px;
   padding: 0;
+  color: #ffffff;
 `;
 
 const IngredientName = styled.p`
   margin: 10px 15px;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 120%;
-  letter-spacing: -0.03em;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 20px;
+  text-align: center;
+  letter-spacing: -0.005em;
 `;
 
 const AllFrigeListContainer = styled.div`
   width: 100%;
-  padding: 30px 27px 60px 27px;
+  padding: 30px 16px 60px 16px;
   flex-wrap: wrap;
   display: flex;
   gap: 8px;

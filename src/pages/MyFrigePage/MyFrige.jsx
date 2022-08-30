@@ -9,30 +9,21 @@ const MyFrigeContainer = styled.div`
   width: 100%;
   height: 100vh;
   padding: 0px 27px;
-`;
-
-const MyFrigeSubtitle = styled.p`
-  white-space: pre-wrap;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 140%;
-  letter-spacing: -0.03em;
-  color: #a3a3a3;
-  margin: 0;
-  margin-top: 73px;
+  margin-top: 84px;
 `;
 
 const MyFrigeTitle = styled.p`
+  font-style: normal;
   font-weight: 600;
-  font-size: 23px;
-  line-height: 29px;
-  margin: 0;
-  margin-bottom: 13px;
-  letter-spacing: -0.165px;
+  font-size: 24px;
+  line-height: 30px;
+  color: #132029;
+
+  white-space: pre-wrap;
 `;
 
 const MyFrigeListContainer = styled.div`
-  background: rgba(46, 140, 254, 0.06);
+  background: #eff3f8;
   border-radius: 10px;
   width: 100%;
   height: calc(100vh - 300px);
@@ -45,13 +36,14 @@ const MyFrigeListContainer = styled.div`
 `;
 
 const MyFrigeItem = styled.div`
-  background: #2e8cfe;
-  border: 1px solid #2e8cfe;
+  background: #0091ff;
+  border: 1px solid #0091ff;
   border-radius: 50px;
   display: flex;
   align-items: center;
-  height: 37px;
-  color: white;
+  height: 36px;
+  padding: 0;
+  color: #ffffff;
 `;
 
 const MyFrigeName = styled.p`
@@ -64,21 +56,22 @@ const MyFrigeName = styled.p`
 
 const SelectionCompleteBtn = styled.button`
   bottom: 83px;
-  background: #2e8cfe;
-  border-radius: 10px;
   width: 100%;
-  height: 58px;
-  font-weight: 500;
+  align-items: center;
+  color: #ffffff;
+
+  font-style: normal;
+  font-weight: 600;
   font-size: 16px;
   line-height: 20px;
-  align-items: center;
   text-align: center;
-  letter-spacing: -0.03em;
   color: #ffffff;
-  box-shadow: 0px 3px 10px #a9d0ff;
+  height: 50px;
+  background: #0091ff;
+  border-radius: 5px;
 
   &:disabled {
-    background: #a9a9a9;
+    background: #b6c4cf;
     box-shadow: none;
   }
 `;
@@ -110,10 +103,9 @@ function MyFrige() {
   return (
     <>
       <MyFrigeContainer>
-        <MyFrigeSubtitle>
-          오래된 재료는 비워지고{"\n"}행복은 채워질
-        </MyFrigeSubtitle>
-        <MyFrigeTitle>셰프의 냉장고 ❄️</MyFrigeTitle>
+        <MyFrigeTitle>
+          오래된 재료는 비워지고{"\n"}행복은 채워질 셰프의 냉장고 🥰
+        </MyFrigeTitle>
         <MyFrigeListContainer>
           {myFrige.map((item) => (
             <MyFrigeItem>
