@@ -1,11 +1,10 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { Link } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { ReactComponent as Edit } from "../assets/Write.svg";
 import { ReactComponent as Xicon } from "../assets/X_InActive.svg";
-import { articleDeleteAtom } from "../atom";
-import ArticleDeleteModal from "./ArticleDeleteModal";
+import { articleDeleteAtom, articleDeleteIdAtom } from "../atom";
 
 const RightIconsContainer = styled.div`
   display: flex;
@@ -16,9 +15,9 @@ const DeleteBtn = styled.button`
   display: none;
 `;
 
-function ArticleModifySection({ id }) {
-  const [isDeleteModalOpen, setIsDeleteModalOpen] =
-    useRecoilState(articleDeleteAtom);
+function ArticleModifySection({ id, nickname, imgs, content }) {
+  const setDeleteArticleId = useSetRecoilState(articleDeleteIdAtom);
+  const setIsDeleteModalOpen = useSetRecoilState(articleDeleteAtom);
   const deleteBtn = useRef();
 
   const onDeleteIconClick = () => {
@@ -27,26 +26,21 @@ function ArticleModifySection({ id }) {
 
   const onDeleteBtnClick = (event) => {
     event.preventDefault();
-    setIsDeleteModalOpen(id);
+    setDeleteArticleId(id);
+    setIsDeleteModalOpen((prev) => !prev);
   };
 
   return (
-    <>
-      <RightIconsContainer>
-        <Link to={{ pathname: "/edit" }}>
-          <Edit />
-        </Link>
-        <DeleteBtn ref={deleteBtn} onClick={onDeleteBtnClick} />
-        <Xicon onClick={onDeleteIconClick} />
-      </RightIconsContainer>
-      {/* 
-      {isDeleteModalOpen ? (
-        <ArticleDeleteModal
-          isDeleteModalOpen={isDeleteModalOpen}
-          setIsDeleteModalOpen={setIsDeleteModalOpen}
-        />
-      ) : null} */}
-    </>
+    <RightIconsContainer>
+      <Link
+        to={{ pathname: "/edit" }}
+        state={{ nickname: nickname, imgs: imgs, content: content }}
+      >
+        <Edit />
+      </Link>
+      <DeleteBtn ref={deleteBtn} onClick={onDeleteBtnClick} />
+      <Xicon onClick={onDeleteIconClick} />
+    </RightIconsContainer>
   );
 }
 export default ArticleModifySection;

@@ -42,6 +42,11 @@ export const articleTextAtom = atom({
 
 export const articleDeleteAtom = atom({
   key: "articleDelete",
+  default: false,
+});
+
+export const articleDeleteIdAtom = atom({
+  key: "articleDeleteId",
   default: "",
 });
 

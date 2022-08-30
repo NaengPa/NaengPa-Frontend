@@ -1,5 +1,5 @@
 import { useRecoilValue } from "recoil";
-import { articleImgAtom, articlePreviewImgAtom } from "../atom";
+import { articlePreviewImgAtom } from "../atom";
 import ArticleUploadImgPreviewListItem from "./ArticleUploadImgPreviewListItem";
 import styled from "styled-components";
 
@@ -15,6 +15,7 @@ const UploadImgPreviewListWrapper = styled.div`
 
 function ArticleUploadImgPreviewList() {
   const imgPreviewList = useRecoilValue(articlePreviewImgAtom);
+  console.log(imgPreviewList);
   return (
     <UploadImgPreviewListWrapper>
       {imgPreviewList.map((item, idx) => {

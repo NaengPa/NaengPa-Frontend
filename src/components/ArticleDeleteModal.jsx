@@ -1,7 +1,6 @@
-import { getDefaultNormalizer } from "@testing-library/react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { articleAtom } from "../atom";
+import { articleAtom, articleDeleteAtom, articleDeleteIdAtom } from "../atom";
 import { deleteArticle } from "../common/axios";
 
 const DeleteModalWrapper = styled.div`
@@ -81,29 +80,38 @@ const CancelBtn = styled.button`
   color: #ffffff;
 `;
 
-function ArticleDeleteModal({ isDeleteModalOpen, setIsDeleteModalOpen }) {
+function ArticleDeleteModal() {
+  const [deleteArticleId, setDeleteArticleId] =
+    useRecoilState(articleDeleteIdAtom);
+  const setIsDeleteModalOpen = useSetRecoilState(articleDeleteAtom);
   const [article, setArticle] = useRecoilState(articleAtom);
+
   const handleModal = (e) => {
-    setIsDeleteModalOpen("");
+    setDeleteArticleId("");
+    setIsDeleteModalOpen(false);
   };
-  console.log(article);
+  console.log(deleteArticleId);
+
   const onDeleteBtnClick = (e) => {
-    deleteArticle(isDeleteModalOpen, "test123@gmail.com");
-    console.log(article);
     setArticle(() => {
       let targetArticle;
       article.forEach((item) => {
-        if (item.id === isDeleteModalOpen) {
+        if (item.id === deleteArticleId) {
           targetArticle = article.indexOf(item);
         }
       });
+
       const copiedArticle = [...article];
-      copiedArticle.splice(article.indexOf(targetArticle), 1);
+      copiedArticle.splice(article.indexOf(targetArticle) - 1, 1);
       console.log(copiedArticle);
       return copiedArticle;
+      //TODO 삭제하는 방식을 index로 하면 여러개 삭제할 경우 꼬이게됨. 다른 방법을 찾자
     });
+    deleteArticle(deleteArticleId, "test123@gmail.com");
+    setDeleteArticleId("");
     handleModal();
   };
+
   return (
     <DeleteModalWrapper>
       <DeleteModalDimmer onClick={handleModal} />
