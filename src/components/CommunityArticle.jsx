@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ReactComponent as Like } from "../assets/Heart_InActive.svg";
+import { ReactComponent as Like } from "../assets/heartInactiveBlack.svg";
 import { ReactComponent as Share } from "../assets/share.svg";
 
 import ReferredRecipeCard from "./ReferredRecipeCard";

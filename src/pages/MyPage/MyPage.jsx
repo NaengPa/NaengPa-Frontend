@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { ReactComponent as BadgeIcon } from "../../assets/badge.svg";
 import { ReactComponent as CalenderIcon } from "../../assets/calender.svg";
-import { ReactComponent as SavedRecipeIcon } from "../../assets/saved_recipe.svg";
-import { ReactComponent as CreateRecipeIcon } from "../../assets/create_recipe.svg";
+import { ReactComponent as SavedRecipeIcon } from "../../assets/savedRecipe.svg";
+import { ReactComponent as CreatedRecipeIcon } from "../../assets/createdRecipe.svg";
 import { useRef, useState } from "react";
 import ErrorModal from "./ErrorModal";
 import { getLoginInfo } from "../../common/kakaoLogin";
@@ -119,7 +119,6 @@ const IconContainer = styled.div`
 function MyPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userInfo, setUserInfo] = useState();
-  const outSection = useRef();
   const handleModal = () => {
     setIsModalOpen((prev) => !prev);
   };
@@ -128,10 +127,10 @@ function MyPage() {
     const getInfo = async () => {
       const result = await getLoginInfo(localStorage.getItem("token"));
       setUserInfo(result);
-      console.log(result);
     };
     getInfo();
   }, []);
+
   return (
     <>
       {isModalOpen ? (
@@ -172,7 +171,7 @@ function MyPage() {
           <Btn onClick={handleModal}>
             <BtnTitle>내가 만든{"\n"}레시피</BtnTitle>
             <IconContainer>
-              <CreateRecipeIcon />
+              <CreatedRecipeIcon />
             </IconContainer>
           </Btn>
         </BtnContainer>

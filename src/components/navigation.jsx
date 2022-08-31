@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { ReactComponent as Home } from "../assets/icon_home.svg";
-import { ReactComponent as community } from "../assets/icon_community.svg";
-import { ReactComponent as mypage } from "../assets/icon_mypage.svg";
-import { ReactComponent as refrigerator } from "../assets/icon_refrigerator.svg";
-import { ReactComponent as search } from "../assets/icon_search.svg";
+import { ReactComponent as Home } from "../assets/navHome.svg";
+import { ReactComponent as community } from "../assets/navCommunity.svg";
+import { ReactComponent as mypage } from "../assets/navMypage.svg";
+import { ReactComponent as refrigerator } from "../assets/navRefrigerator.svg";
+import { ReactComponent as search } from "../assets/navSearch.svg";
 import { css } from "styled-components";
 import { useRecoilState } from "recoil";
 import { navBarHeightAtom } from "../atom";

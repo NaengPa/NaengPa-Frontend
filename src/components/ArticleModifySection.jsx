@@ -2,8 +2,8 @@ import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { ReactComponent as Edit } from "../assets/Write.svg";
-import { ReactComponent as Xicon } from "../assets/X_InActive.svg";
+import { ReactComponent as Edit } from "../assets/edit.svg";
+import { ReactComponent as ArticleDeleteIcon } from "../assets/articleDelete.svg";
 import { articleDeleteAtom, articleDeleteIdAtom } from "../atom";
 
 const RightIconsContainer = styled.div`
@@ -39,7 +39,7 @@ function ArticleModifySection({ id, nickname, imgs, content }) {
         <Edit />
       </Link>
       <DeleteBtn ref={deleteBtn} onClick={onDeleteBtnClick} />
-      <Xicon onClick={onDeleteIconClick} />
+      <ArticleDeleteIcon onClick={onDeleteIconClick} />
     </RightIconsContainer>
   );
 }

@@ -36,8 +36,7 @@ function Community() {
     }
     get();
   }, []);
-  console.log(isDeleteModalOpen);
-  console.log(article);
+
   return (
     <>
       {isDeleteModalOpen ? <ArticleDeleteModal /> : null}

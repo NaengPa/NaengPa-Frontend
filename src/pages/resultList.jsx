@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import AddFoodButton from "../components/addFoodButton";
 import FilterButton from "../components/filterButton";
-import GoBackButton from "../components/goBackButton";
-import { ReactComponent as Heart } from "../assets/shape.svg";
+import GoBackButton from "../components/GoBackButton";
+import { ReactComponent as HeartActive } from "../assets/heartActive.svg";
 import { ReactComponent as ArrowRight } from "../assets/upButton.svg";
 import { useScroll } from "../hooks/useScroll";
 import { filterStateAtom, selectedIngredientAtom } from "../atom";
@@ -381,7 +381,7 @@ const ListSpan = styled.div`
   font-weight: 600;
 `;
 
-const StyledMyIcon = styled(Heart)``;
+const StyledMyIcon = styled(HeartActive)``;
 
 const IconWrapper = styled.div`
   pointer-events: none;

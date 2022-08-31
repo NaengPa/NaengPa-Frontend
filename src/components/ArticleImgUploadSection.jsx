@@ -3,7 +3,7 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { articleImgAtom, articlePreviewImgAtom } from "../atom";
 import ArticleUploadImgPreviewList from "./ArticleUploadImgPreviewList";
-import { ReactComponent as ImgUploadIcon } from "../assets/Picture.svg";
+import { ReactComponent as ImgUploadIcon } from "../assets/camera.svg";
 
 const ImgUploadSectionWrapper = styled.div`
   display: flex;

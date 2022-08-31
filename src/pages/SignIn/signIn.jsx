@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { getEmailCheck, getNicknameCheck } from "../../common/doubleCheck";
-import GoBackButton from "../../components/goBackButton";
+import GoBackButton from "../../components/GoBackButton";
 
 const SignIn = () => {
   const [emailState, setEmailState] = useState(true);

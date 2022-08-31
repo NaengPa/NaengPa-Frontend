@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import FindAndSignIn from "./findAndSignIn";
 import { ReactComponent as Kakao } from "../../assets/kakao.svg";
-import GoBackButton from "../../components/goBackButton";
+import GoBackButton from "../../components/GoBackButton";
 import { useState } from "react";
 import { getKakaoLogin, getLoginInfo } from "../../common/kakaoLogin";
 import { useEffect } from "react";

@@ -1,4 +1,4 @@
-import { ReactComponent as ErrorModalIcon } from "../../assets/error_modal.svg";
+import { ReactComponent as ErrorModalIcon } from "../../assets/errorModalIcon.svg";
 import styled from "styled-components";
 
 const ErrorModalWrapper = styled.div`

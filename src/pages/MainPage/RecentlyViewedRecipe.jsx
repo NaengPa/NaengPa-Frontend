@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ReactComponent as Chevron } from "../../assets/chevron_right.svg";
+import { ReactComponent as Chevron } from "../../assets/chevronRight.svg";
 import ViewedRecipeImgList from "./ViewedRecipeImgList";
 
 const RecentlyViewedRecipeHeader = styled.div`

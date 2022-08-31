@@ -7,13 +7,12 @@ import { viewedRecipeAtom } from "../../atom";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-import GoBackButton from "../../components/goBackButton";
 import Header from "../../components/Header";
 import { getRecipeDetail } from "../../common/axios";
 
 const RecipePhotoContainer = styled.div`
   position: relative;
-  height: 470px;
+  height: 415px;
   overflow: hidden;
 `;
 
@@ -29,13 +28,13 @@ const RecipePhoto = styled.img`
 
 const RecipePhotoGradient = styled.div`
   width: 100%;
-  height: 70px;
+  height: 172px;
   position: absolute;
   bottom: 0;
   background: linear-gradient(
     180deg,
     rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0.37) 100%
+    rgba(0, 0, 0, 0.6) 100%
   );
 `;
 
@@ -111,7 +110,6 @@ function Detail() {
   return (
     <>
       <Header></Header>
-
       <RecipePhotoContainer>
         <RecipePhoto src={recipeImg} />
         <RecipePhotoGradient />
