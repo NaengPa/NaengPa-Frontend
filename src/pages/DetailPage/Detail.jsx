@@ -15,6 +15,7 @@ import { getRecipeDetail } from "../../common/axios";
 const RecipeDetailContainer = styled.div`
   width: 100%;
   max-width: 420px;
+  background-color: #ffffff;
 `;
 
 const RecipePhotoContainer = styled.div`

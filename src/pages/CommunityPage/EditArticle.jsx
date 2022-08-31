@@ -7,6 +7,7 @@ import ArticleEditInput from "../../components/ArticleEditInput";
 
 const EditArticleWrapper = styled.div`
   padding: 10vh 16px 16px 16px;
+  background-color: #ffffff;
   overflow-y: scroll;
   height: 100vh;
   ::-webkit-scrollbar {

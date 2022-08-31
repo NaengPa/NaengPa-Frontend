@@ -9,6 +9,7 @@ import ArticleDeleteModal from "../../components/ArticleDeleteModal";
 
 const CommunityWrapper = styled.div`
   padding: 10vh 16px 56px 16px;
+  background-color: #ffffff;
   overflow-y: scroll;
   height: 100vh;
   ::-webkit-scrollbar {
