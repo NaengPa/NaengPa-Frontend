@@ -11,33 +11,39 @@ const StyledIngredientTagList = styled.div`
 
 const SelectedIngredientTag = styled.div`
   align-items: center;
-  height: 30px;
-  background: #2e8cfe;
-  padding: 0px 18px;
-  border: 1px solid #2e8cfe;
+  background: ${(props) => props.theme.colors.MAIN_COLOR};
+  padding: 8px 16px;
+  border: 1px solid ${(props) => props.theme.colors.MAIN_COLOR};
   border-radius: 50px;
   display: flex;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 120%;
-  letter-spacing: -0.05em;
+  height: 36px;
+  background: ${(props) => props.theme.colors.MAIN_COLOR};
 
+  font-style: normal;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 20px;
+  text-align: center;
+  letter-spacing: -0.005em;
   color: #ffffff;
 `;
 
 const UnSelectedIngredientTag = styled.div`
   align-items: center;
-  height: 30px;
+  height: 36px;
   background: #ffffff;
-  border: 1px solid #a9a9a9;
+  border: 1px solid ${(props) => props.theme.colors.GREY_50};
   border-radius: 50px;
-  padding: 0px 18px;
+  padding: 8px 16px;
   display: flex;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 120%;
-  letter-spacing: -0.05em;
-  color: #a9a9a9;
+
+  font-style: normal;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 20px;
+  text-align: center;
+  letter-spacing: -0.005em;
+  color: ${(props) => props.theme.colors.GREY_50};
 `;
 
 function IngredientTagList({ recipeIrdnts }) {

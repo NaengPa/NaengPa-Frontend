@@ -5,6 +5,7 @@ import { ReactComponent as Arrow } from "../assets/arrow.svg";
 
 const HeaderBg = styled.div`
   width: 100%;
+  max-width: 420px;
   height: 40px;
   position: fixed;
   top: 0;
@@ -28,7 +29,7 @@ const HeaderTitle = styled.span`
   font-size: 16px;
   line-height: 20px;
   text-align: center;
-  color: ${(props) => props.theme.colors.GRAY_90};
+  color: ${(props) => props.theme.colors.GREY_90};
 `;
 
 const DummyComponent = styled(Arrow)`
