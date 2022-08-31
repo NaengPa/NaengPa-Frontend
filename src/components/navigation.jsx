@@ -120,7 +120,7 @@ const Container = styled.div`
   left: 50%;
   transform: translateX(-50%);
   bottom: 0;
-  height: 64px;
+  height: 56px;
   background-color: white;
   display: flex;
   justify-content: space-between;

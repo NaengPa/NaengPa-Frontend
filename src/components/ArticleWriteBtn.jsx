@@ -5,7 +5,7 @@ import { ReactComponent as Plus } from "../assets/plus.svg";
 const Button = styled.button`
   width: 54px;
   height: 54px;
-  background: #0091ff;
+  background: ${(props) => props.theme.colors.MAIN_COLOR};
   border-radius: 50%;
 `;
 

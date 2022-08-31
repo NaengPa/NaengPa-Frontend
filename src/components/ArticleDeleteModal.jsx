@@ -16,7 +16,7 @@ const DeleteModalWrapper = styled.div`
 const DeleteModalContainer = styled.div`
   width: 301px;
   height: 188px;
-  background: #fafbfc;
+  background: ${(props) => props.theme.colors.GREY_5};
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -32,7 +32,7 @@ const DeleteModalTitle = styled.span`
   font-size: 16px;
   line-height: 20px;
   text-align: center;
-  color: #132029;
+  color: ${(props) => props.theme.colors.GREY_90};
 `;
 
 const DeleteModalEmoji = styled.span`
@@ -59,7 +59,7 @@ const DeleteBtnContainer = styled.div`
 const DeleteBtn = styled.button`
   width: 120px;
   height: 40px;
-  background: #0091ff;
+  background: ${(props) => props.theme.colors.MAIN_COLOR};
   border-radius: 5px;
   font-weight: 600;
   font-size: 16px;
@@ -71,7 +71,7 @@ const DeleteBtn = styled.button`
 const CancelBtn = styled.button`
   width: 120px;
   height: 40px;
-  background: #b6c4cf;
+  background: ${(props) => props.theme.colors.GREY_30};
   border-radius: 5px;
   font-weight: 600;
   font-size: 16px;

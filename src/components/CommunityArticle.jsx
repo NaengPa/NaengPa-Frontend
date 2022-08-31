@@ -20,7 +20,7 @@ const UserContainer = styled.div`
 const UserProfileImg = styled.img`
   width: 40px;
   height: 40px;
-  background: #b6c4cf;
+  background: ${(props) => props.theme.colors.GREY_30};
   border-radius: 50%;
   object-fit: cover;
 `;
@@ -29,7 +29,7 @@ const UserId = styled.span`
   font-weight: 600;
   font-size: 16px;
   line-height: 20px;
-  color: #132029;
+  color: ${(props) => props.theme.colors.GREY_90};
   margin-left: 8px;
 `;
 
@@ -51,7 +51,7 @@ const LikeCount = styled.span`
   font-weight: 600;
   font-size: 14px;
   line-height: 17px;
-  color: #132029;
+  color: ${(props) => props.theme.colors.GREY_90};
 `;
 
 const ArticleText = styled.span`
@@ -61,7 +61,7 @@ const ArticleText = styled.span`
   font-size: 13px;
   line-height: 20px;
   letter-spacing: -0.005em;
-  color: #132029;
+  color: ${(props) => props.theme.colors.GREY_90};
   margin-bottom: 16px;
 `;
 

@@ -18,7 +18,7 @@ const StyledInput = styled.textarea`
     outline: none;
   }
   ::placeholder {
-    color: #b6c4cf;
+    color: ${(props) => props.theme.colors.GREY_30};
   }
 `;
 

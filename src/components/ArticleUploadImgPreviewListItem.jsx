@@ -24,7 +24,7 @@ const DeleteBtn = styled.button`
   height: 18px;
   min-width: 18px;
   min-height: 18px;
-  background: #0091ff;
+  background: ${(props) => props.theme.colors.MAIN_COLOR};
   border-radius: 50%;
   display: flex;
   align-items: center;

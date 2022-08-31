@@ -9,14 +9,14 @@ const IngredientItem = styled.button`
   align-items: center;
 
   padding: 0;
-  border: 1px solid #5cb1ff;
+  border: 1px solid ${(props) => props.theme.colors.PRIMARY_300};
   border-radius: 50px;
-  color: #5cb1ff;
+  color: ${(props) => props.theme.colors.PRIMARY_300};
 `;
 
 const SelectedIngredientItem = styled.button`
-  background: #0091ff;
-  border: 1px solid #0091ff;
+  background: ${(props) => props.theme.colors.MAIN_COLOR};
+  border: 1px solid ${(props) => props.theme.colors.MAIN_COLOR};
   border-radius: 50px;
   display: flex;
   align-items: center;
@@ -37,11 +37,14 @@ const IngredientName = styled.p`
 
 const AllFrigeListContainer = styled.div`
   width: 100%;
-  padding: 30px 16px 60px 16px;
+  padding: 0px 16px 16px 16px;
   flex-wrap: wrap;
   display: flex;
   gap: 8px;
   overflow-y: scroll;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 function AllFrigeList({ irdnt }) {

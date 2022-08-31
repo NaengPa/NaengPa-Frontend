@@ -26,7 +26,7 @@ const Title = styled.h1`
   font-weight: 600;
   font-size: 16px;
   line-height: 20px;
-  color: #132029;
+  color: ${(props) => props.theme.colors.GREY_90};
 `;
 
 function WriteArticle() {

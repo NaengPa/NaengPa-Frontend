@@ -21,7 +21,7 @@ const ImgUploadBtn = styled.div`
   align-items: center;
   min-width: 56px;
   height: 56px;
-  border: 1px solid #b6c4cf;
+  border: 1px solid ${(props) => props.theme.colors.GREY_30};
   border-radius: 5px;
   margin: 10px 8px 0 0;
   cursor: pointer;
@@ -32,7 +32,7 @@ const ImgUploadCnt = styled.span`
   font-size: 14px;
   line-height: 17px;
   text-align: center;
-  color: #132029;
+  color: ${(props) => props.theme.colors.GREY_90};
 `;
 
 function ArticleImgUploadSection() {

@@ -21,7 +21,7 @@ const CommunityTitle = styled.span`
   font-weight: 600;
   font-size: 24px;
   line-height: 30px;
-  color: #132029;
+  color: ${(props) => props.theme.colors.GREY_90};
   white-space: pre-wrap;
 `;
 

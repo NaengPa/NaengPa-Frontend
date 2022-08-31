@@ -3,7 +3,7 @@ import styled from "styled-components";
 const CardContainer = styled.div`
   width: 100%;
   height: 94px;
-  background: #eff3f8;
+  background: ${(props) => props.theme.colors.GREY_10};
   border-radius: 5px;
   display: flex;
   padding: 16px;
@@ -18,14 +18,14 @@ const Title = styled.span`
   font-weight: 600;
   font-size: 16px;
   line-height: 20px;
-  color: #132029;
+  color: ${(props) => props.theme.colors.GREY_90};
 `;
 const Subtitle = styled.span`
   font-weight: 600;
   font-size: 13px;
   line-height: 20px;
   letter-spacing: -0.005em;
-  color: #698292;
+  color: ${(props) => props.theme.colors.GREY_50};
 `;
 const RecipeImg = styled.img`
   width: 111px;

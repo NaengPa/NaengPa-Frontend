@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
@@ -10,12 +10,27 @@ import AllFrigeList from "./AllFrigeList";
 
 const FrigeWrapper = styled.div`
   height: 100vh;
+  overflow-y: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 `;
 
 const FrigeSearchContainer = styled.div`
   width: 100%;
-  padding: 70px 27px 0px 27px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+  padding: 40px 16px 0px 16px;
+  box-shadow: ${(props) =>
+    props.isInputFocused
+      ? "0px 4px 10px rgba(0, 0, 0, 0.05)"
+      : props.filteredIrdntList.length > 0
+      ? "0px 4px 10px rgba(0, 0, 0, 0.05)"
+      : "none"};
+  margin-bottom: ${(props) =>
+    props.isInputFocused
+      ? "24px"
+      : props.filteredIrdntList.length > 0
+      ? "24px"
+      : "16px"};
   background-color: white;
 `;
 
@@ -24,68 +39,77 @@ const FrigeTitle = styled.p`
   font-weight: 600;
   font-size: 24px;
   line-height: 30px;
-  color: #132029;
+  color: ${(props) => props.theme.colors.GREY_90};
 
   white-space: pre-wrap;
 `;
 
 const InputWrapper = styled.div`
-  position: relative;
   width: 100%;
   display: flex;
   align-items: center;
-  padding-left: 16px;
-  margin-bottom: 16px;
+  padding: 0 16px;
   height: 50px;
-  background: #eff3f8;
+  background: ${(props) => props.theme.colors.GREY_10};
   border-radius: 5px;
 `;
 
+const StyledSearch = styled(Search)`
+  display: ${(props) => (props.isInputFocused ? "none" : "flex")};
+`;
+
 const StyledInput = styled.input`
-  position: absolute;
-  width: 90%;
+  display: flex;
+  width: 100%;
   height: 100%;
-  /* padding-left: 30px; */
+
   background: transparent;
-
   border: none;
-
   font-style: normal;
   font-weight: 600;
   font-size: 14px;
   line-height: 17px;
-
-  color: #1e313e;
+  color: ${(props) => props.theme.colors.GREY_80};
 
   ::placeholder {
     font-style: normal;
     font-weight: 600;
     font-size: 14px;
     line-height: 17px;
-    color: #698292;
+    color: ${(props) => props.theme.colors.GREY_50};
   }
   &:focus {
     outline: none;
+    ::placeholder {
+      opacity: 0;
+    }
   }
 `;
 
 const IngredientItemList = styled.div`
   display: flex;
-  padding-bottom: 16px;
-  height: 100%;
+  padding: ${(props) =>
+    props.isInputFocused
+      ? props.filteredIrdntList.length > 0
+        ? "16px 0"
+        : "24px 0 0 0"
+      : props.filteredIrdntList.length > 0
+      ? "16px 0"
+      : "0"};
   flex-wrap: wrap;
   gap: 8px;
 `;
 
 const AllFrigeListContainer = styled.div`
   display: flex;
-  padding-bottom: 23px;
-  height: calc(100vh - 360px);
+  height: calc(100% - 322px - ${(props) => props.searchHeight}px);
+  box-sizing: border-box;
+  overflow-y: hidden;
 `;
 
 const IngredientItem = styled.button`
   height: 36px;
-  border: 1px solid #b6c4cf;
+  border: 1px solid ${(props) => props.theme.colors.GREY_30};
   border-radius: 50px;
   display: flex;
   align-items: center;
@@ -96,12 +120,12 @@ const IngredientItem = styled.button`
   line-height: 20px;
   text-align: center;
   letter-spacing: -0.005em;
-  color: #425867;
+  color: ${(props) => props.theme.colors.GREY_60};
 `;
 
 const SelectedIngredientItem = styled.button`
-  background: #0091ff;
-  border: 1px solid #0091ff;
+  background: ${(props) => props.theme.colors.MAIN_COLOR};
+  border: 1px solid ${(props) => props.theme.colors.MAIN_COLOR};
   border-radius: 50px;
   display: flex;
   align-items: center;
@@ -119,8 +143,11 @@ const IngredientName = styled.p`
 `;
 
 const SelectionCompleteBtn = styled.button`
-  bottom: 83px;
-  width: 100%;
+  z-index: 1;
+  bottom: 72px;
+  width: calc(100% - 32px);
+  max-width: calc(420px - 32px);
+  position: fixed;
   align-items: center;
   color: #ffffff;
 
@@ -131,41 +158,37 @@ const SelectionCompleteBtn = styled.button`
   text-align: center;
   color: #ffffff;
   height: 50px;
-  background: #0091ff;
+  background: ${(props) => props.theme.colors.MAIN_COLOR};
   border-radius: 5px;
 
   &:disabled {
-    background: #b6c4cf;
+    background: ${(props) => props.theme.colors.GREY_30};
     box-shadow: none;
   }
 `;
 
 const FrigeGradient = styled.div`
   z-index: 0;
-  width: 100%;
-  height: 170px;
-  position: absolute;
-  bottom: 64px;
-  background: linear-gradient(
-    181.02deg,
-    rgba(255, 255, 255, 0) 13.62%,
-    #ffffff 55.49%
-  );
-`;
-
-const Wrapper = styled.div`
-  z-index: 1;
-  width: 100%;
-  padding: 0 27px;
+  width: calc(100% - 32px);
+  max-width: calc(420px - 32px);
+  height: 178px;
   position: fixed;
-  max-width: 420px;
-  bottom: 80px;
+  bottom: 56px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) -10.29%,
+    #ffffff 55.59%
+  );
+  pointer-events: none;
 `;
 
 function Frige() {
   const [searchText, setSearchText] = useState("");
   const [myFrige, setMyFrige] = useRecoilState(myFrigeAtom);
   const [irdnt, setIrdnt] = useState([]);
+  const [isInputFocused, setIsInputFocused] = useState(false);
+  const [searchHeight, setSearchHeight] = useState("");
+  const searchRef = useRef();
 
   useEffect(() => {
     async function get() {
@@ -186,20 +209,34 @@ function Frige() {
     (item) => searchText !== "" && item.includes(searchText)
   );
 
+  useEffect(() => {
+    setSearchHeight(searchRef.current.offsetHeight);
+  }, [filteredIrdntList]);
+
   return (
     <FrigeWrapper>
-      <FrigeSearchContainer>
+      <FrigeSearchContainer
+        filteredIrdntList={filteredIrdntList}
+        isInputFocused={isInputFocused}
+      >
         <FrigeTitle>셰프의 냉장고 재료를{"\n"}선택해주세요 🥦</FrigeTitle>
         <InputWrapper>
-          {!searchText && <Search />}
+          {!searchText && <StyledSearch isInputFocused={isInputFocused} />}
 
           <StyledInput
             value={searchText}
             onChange={onChange}
-            placeholder="        재료를 검색해 주세요"
+            placeholder="재료를 검색해 주세요"
+            onFocus={() => setIsInputFocused(true)}
+            onBlur={() => setIsInputFocused(false)}
           ></StyledInput>
         </InputWrapper>
-        <IngredientItemList>
+
+        <IngredientItemList
+          filteredIrdntList={filteredIrdntList}
+          isInputFocused={isInputFocused}
+          ref={searchRef}
+        >
           {filteredIrdntList.map((item) => (
             <div>
               {myFrige.indexOf(item) === -1 ? (
@@ -222,13 +259,9 @@ function Frige() {
                 </SelectedIngredientItem>
               )}
             </div>
+            //TODO 유니크한 키 부여하기
           ))}
         </IngredientItemList>
-      </FrigeSearchContainer>
-      <AllFrigeListContainer>
-        <AllFrigeList irdnt={irdnt} />
-      </AllFrigeListContainer>
-      <Wrapper>
         {myFrige.length === 0 ? (
           <SelectionCompleteBtn disabled>선택 완료</SelectionCompleteBtn>
         ) : (
@@ -236,8 +269,12 @@ function Frige() {
             <SelectionCompleteBtn>선택 완료</SelectionCompleteBtn>
           </Link>
         )}
-      </Wrapper>
-      <FrigeGradient />
+
+        <FrigeGradient />
+      </FrigeSearchContainer>
+      <AllFrigeListContainer searchHeight={searchHeight}>
+        <AllFrigeList irdnt={irdnt} />
+      </AllFrigeListContainer>
     </FrigeWrapper>
   );
 }

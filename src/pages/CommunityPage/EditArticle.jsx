@@ -27,7 +27,7 @@ const Title = styled.h1`
   font-weight: 600;
   font-size: 16px;
   line-height: 20px;
-  color: #132029;
+  color: ${(props) => props.theme.colors.GREY_90};
 `;
 
 const UserContainer = styled.div`
@@ -39,7 +39,7 @@ const UserContainer = styled.div`
 const UserProfileImg = styled.img`
   width: 40px;
   height: 40px;
-  background: #b6c4cf;
+  background: ${(props) => props.theme.colors.GREY_30};
   border-radius: 50%;
   object-fit: cover;
 `;
@@ -48,7 +48,7 @@ const UserId = styled.span`
   font-weight: 600;
   font-size: 16px;
   line-height: 20px;
-  color: #132029;
+  color: ${(props) => props.theme.colors.GREY_90};
   margin-left: 8px;
 `;
 
