@@ -4,10 +4,8 @@ import { myFrigeAtom } from "../../atom";
 
 const IngredientItem = styled.button`
   height: 36px;
-
   display: flex;
   align-items: center;
-
   padding: 0;
   border: 1px solid ${(props) => props.theme.colors.PRIMARY_300};
   border-radius: 50px;

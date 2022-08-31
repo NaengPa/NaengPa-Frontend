@@ -41,7 +41,9 @@ function Community() {
     <>
       {isDeleteModalOpen ? <ArticleDeleteModal /> : null}
       <CommunityWrapper>
-        <CommunityTitle>내가 만든 냉파 레시피{"\n"}자랑해봐요</CommunityTitle>
+        <CommunityTitle>
+          내가 만든 냉파 레시피{"\n"}자랑해봐요 👀
+        </CommunityTitle>
         {article.map((item) => (
           <CommunityArticle {...item} key={item.id} />
         ))}

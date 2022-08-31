@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { ReactComponent as Like } from "../assets/heartInactiveBlack.svg";
-import { ReactComponent as Share } from "../assets/share.svg";
+import { ReactComponent as Share } from "../assets/shareBlack.svg";
 
 import ReferredRecipeCard from "./ReferredRecipeCard";
 import ArticleImgCarousel from "./ArticleImgCarousel";

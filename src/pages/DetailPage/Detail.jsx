@@ -7,8 +7,15 @@ import { viewedRecipeAtom } from "../../atom";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
+import { ReactComponent as Like } from "../../assets/heartInactiveWhite.svg";
+import { ReactComponent as Share } from "../../assets/shareWhite.svg";
 import Header from "../../components/Header";
 import { getRecipeDetail } from "../../common/axios";
+
+const RecipeDetailContainer = styled.div`
+  width: 100%;
+  max-width: 420px;
+`;
 
 const RecipePhotoContainer = styled.div`
   position: relative;
@@ -36,31 +43,36 @@ const RecipePhotoGradient = styled.div`
     rgba(0, 0, 0, 0) 0%,
     rgba(0, 0, 0, 0.6) 100%
   );
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 16px;
+  gap: 8px;
 `;
 
 const ContentsContainer = styled.div`
-  padding: 19px 27px 0 27px;
+  padding: 16px 16px 0 16px;
   display: flex;
   flex-direction: column;
 `;
 
 const RecipeTitle = styled.p`
+  font-style: normal;
   font-weight: 600;
-  font-size: 22px;
-  line-height: 120%;
-  letter-spacing: -0.02em;
+  font-size: 24px;
+  line-height: 30px;
+  color: ${(props) => props.theme.colors.GREY_90};
   margin: 0px;
   margin-bottom: 6px;
 `;
 
 const RecipeShortDescription = styled.p`
   margin: 0;
-  font-weight: 500;
+  font-style: normal;
+  font-weight: 600;
   font-size: 14px;
-  line-height: 120%;
-  letter-spacing: -0.02em;
-
-  color: #a6a6a6;
+  line-height: 17px;
+  color: ${(props) => props.theme.colors.GREY_30};
 `;
 
 const IngredientContainer = styled.div`
@@ -69,20 +81,15 @@ const IngredientContainer = styled.div`
   margin-top: 24px;
 `;
 
-const Subtitle = styled.p`
+const Subtitle = styled.span`
+  font-style: normal;
   font-weight: 600;
-  font-size: 14px;
-  line-height: 120%;
-  letter-spacing: -0.02em;
+  font-size: 13px;
+  line-height: 20px;
+  letter-spacing: -0.005em;
+  color: ${(props) => props.theme.colors.GREY_50};
   margin: 0;
   margin-bottom: 9px;
-`;
-
-const Border = styled.div`
-  background: rgba(35, 35, 35, 0.37);
-  width: 100%;
-  height: 1px;
-  margin: 32px 0px 20px 0px;
 `;
 
 function Detail() {
@@ -108,11 +115,14 @@ function Detail() {
   const recipeDescription = recipeDetail?.recipeCrses;
 
   return (
-    <>
+    <RecipeDetailContainer>
       <Header></Header>
       <RecipePhotoContainer>
         <RecipePhoto src={recipeImg} />
-        <RecipePhotoGradient />
+        <RecipePhotoGradient>
+          <Like />
+          <Share />
+        </RecipePhotoGradient>
       </RecipePhotoContainer>
       <ContentsContainer>
         <RecipeTitle>{recipeName}</RecipeTitle>
@@ -124,7 +134,7 @@ function Detail() {
       </ContentsContainer>
       <RecipeDetailItemList recipeDescription={recipeDescription} />
       <RecipeReviewList />
-    </>
+    </RecipeDetailContainer>
   );
 }
 

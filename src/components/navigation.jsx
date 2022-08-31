@@ -189,7 +189,7 @@ const StyledMyIconHome = styled(Home)`
     props.isActive &&
     css`
       path {
-        stroke: #2e8cfe;
+        stroke: ${(props) => props.theme.colors.MAIN_COLOR};
       }
     `}
 `;
@@ -198,7 +198,7 @@ const StyledMyIconCommunity = styled(community)`
     props.isActive &&
     css`
       path {
-        stroke: #2e8cfe;
+        stroke: ${(props) => props.theme.colors.MAIN_COLOR};
       }
     `}
 `;
@@ -207,7 +207,7 @@ const StyledMyIconMypage = styled(mypage)`
     props.isActive &&
     css`
       path {
-        stroke: #2e8cfe;
+        stroke: ${(props) => props.theme.colors.MAIN_COLOR};
       }
     `}
 `;
@@ -216,7 +216,7 @@ const StyledMyIconRefrigerator = styled(refrigerator)`
     props.isActive &&
     css`
       path {
-        stroke: #2e8cfe;
+        stroke: ${(props) => props.theme.colors.MAIN_COLOR};
       }
     `}
 `;
@@ -225,7 +225,7 @@ const StyledMyIconSearch = styled(search)`
     props.isActive &&
     css`
       path {
-        stroke: #2e8cfe;
+        stroke: ${(props) => props.theme.colors.MAIN_COLOR};
       }
     `}
 `;

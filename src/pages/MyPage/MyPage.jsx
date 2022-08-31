@@ -4,7 +4,7 @@ import { ReactComponent as CalenderIcon } from "../../assets/calender.svg";
 import { ReactComponent as SavedRecipeIcon } from "../../assets/savedRecipe.svg";
 import { ReactComponent as CreatedRecipeIcon } from "../../assets/createdRecipe.svg";
 import { useRef, useState } from "react";
-import ErrorModal from "./ErrorModal";
+import ErrorModal from "../../components/ErrorModal";
 import { getLoginInfo } from "../../common/kakaoLogin";
 import { useEffect } from "react";
 
@@ -22,7 +22,7 @@ const Background = styled.div`
   height: 521px;
   left: 0px;
   top: -195px;
-  background: #2e8cfe;
+  background: ${(props) => props.theme.colors.MAIN_COLOR};
   border-radius: 187.5px;
   z-index: 10;
 `;
@@ -71,7 +71,7 @@ const UserDescriptionContainer = styled.div`
 const UserDescription = styled.div`
   height: 31px;
   padding: 7px 15px;
-  background: #2e8cfe;
+  background: ${(props) => props.theme.colors.MAIN_COLOR};
   border-radius: 50px;
   font-weight: 500;
   font-size: 14px;

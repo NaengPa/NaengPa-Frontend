@@ -5,8 +5,8 @@ const RecipeDetailPhotoContainer = styled.div`
   height: 181px;
   width: 100%;
   overflow: hidden;
-  border-radius: 10px;
-  margin-bottom: 10px;
+  border-radius: 5px;
+  margin-bottom: 16px;
 `;
 
 const RecipeDetailPhoto = styled.img`
@@ -21,17 +21,19 @@ const RecipeDetailPhoto = styled.img`
 const ItemContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 12px 0px 0px 0px;
+  margin: 16px 0px 0px 0px;
   border-bottom: 0.5px solid rgba(46, 140, 254, 0.3);
 `;
 
 const RecipeDescriptionText = styled.p`
+  font-style: normal;
   font-weight: 500;
-  font-size: 14px;
-  line-height: 120%;
+  font-size: 13px;
+  line-height: 20px;
   letter-spacing: -0.01em;
-
-  margin-top: 3px;
+  color: ${(props) => props.theme.colors.GREY_50};
+  /* margin-top: 1.5px; */
+  margin: 0;
 `;
 
 const RecipeNoContainer = styled.div`
@@ -43,17 +45,19 @@ const RecipeNoContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding: 5px 10px;
-  margin-right: 10px;
+  margin-right: 8px;
   white-space: nowrap;
   font-weight: 700;
   font-size: 14px;
   line-height: 17px;
   letter-spacing: -0.165px;
-  color: #2e8cfe;
+  color: ${(props) => props.theme.colors.MAIN_COLOR};
 `;
 
 const RecipeDescriptionContainer = styled.div`
   display: flex;
+  align-items: center;
+  margin-bottom: 8px;
 `;
 
 function RecipeDetailItem({ description, src, no }) {

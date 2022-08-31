@@ -1,23 +1,25 @@
 import RecipeDetailItem from "./RecipeDetailItem";
 import styled from "styled-components";
 
-const StyledText = styled.p`
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 120%;
-  letter-spacing: -0.02em;
-  margin: 25px 0px 0px 0px;
+const Subtitle = styled.span`
+  font-style: normal;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 20px;
+  letter-spacing: -0.005em;
+  color: ${(props) => props.theme.colors.GREY_50};
+  margin: 0;
+  margin-bottom: 9px;
 `;
 
 const RecipeDetailItemListContainer = styled.div`
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
-  padding: 0 27px;
+  padding: 0 16px;
 `;
 
 function RecipeDetailItemList({ recipeDescription }) {
   return (
     <RecipeDetailItemListContainer>
-      <StyledText>레시피</StyledText>
+      <Subtitle>레시피</Subtitle>
       {recipeDescription?.map((item) => {
         return (
           <RecipeDetailItem

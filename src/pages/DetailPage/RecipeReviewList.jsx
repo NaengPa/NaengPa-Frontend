@@ -1,29 +1,38 @@
 import styled from "styled-components";
+import CreateRecipeReview from "./CreateRecipeReview";
 
-const StyledText = styled.p`
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 120%;
-  letter-spacing: -0.02em;
-  margin: 25px 23px 0px 23px;
+const Subtitle = styled.span`
+  font-style: normal;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 20px;
+  letter-spacing: -0.005em;
+  color: ${(props) => props.theme.colors.GREY_50};
+  margin: 0;
+  margin-bottom: 9px;
 `;
 
 const RecipeReviewPhotoSwiper = styled.div`
-  gap: 10px;
+  gap: 8px;
   display: flex;
   overflow-x: scroll;
-  padding-left: 23px;
-  margin: 12px 0px 16px 0px;
+  /* padding-left: 16px; */
+  margin: 8px 0px 0px 0px;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const RecipeReviewPhoto = styled.img`
-  height: 123px;
-  width: 158px;
+  width: 160px;
+  height: 90px;
   object-fit: cover;
+  border-radius: 5px;
 `;
 
 const RecipeReviewListContainer = styled.div`
-  padding-bottom: 70px;
+  padding: 24px 16px 0 16px;
+  padding-bottom: 80px;
 `;
 
 const reviewMockData = [
@@ -68,8 +77,9 @@ const reviewMockData = [
 function RecipeReviewList() {
   return (
     <RecipeReviewListContainer>
-      <StyledText>다른 분들은 이렇게 만들었어요</StyledText>
+      <Subtitle>다른 분들은 이렇게 만들었어요</Subtitle>
       <RecipeReviewPhotoSwiper>
+        <CreateRecipeReview />
         {reviewMockData.map((item) => {
           return (
             <div>
