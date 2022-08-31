@@ -7,7 +7,6 @@ import RecentlyViewedRecipe from "./RecentlyViewedRecipe";
 
 const Container = styled.div`
   position: relative;
-  /* height: 100vh; */
   display: flex;
   flex-direction: column;
   padding: 0px 27px;
@@ -25,7 +24,8 @@ const Subtitle = styled.p`
 const TitleWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 300px;
+  margin-top: 32vh;
+  z-index: 1;
 `;
 
 const Title = styled.p`
@@ -49,11 +49,11 @@ const SearchBtn = styled.button`
   gap: 8px;
   border-radius: 10px;
   margin: 0;
+  font-style: normal;
   font-weight: 500;
-  font-size: 18px;
-  line-height: 22px;
-  letter-spacing: -0.165px;
-
+  font-size: 14px;
+  line-height: 120%;
+  letter-spacing: -0.02em;
   color: #9ba1af;
 `;
 
@@ -86,6 +86,7 @@ const Carrot = styled.img`
   position: absolute;
   top: 50px;
   right: -20px;
+  z-index: 0;
 `;
 
 const Burger = styled.img`
