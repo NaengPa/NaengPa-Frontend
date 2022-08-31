@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { ReactComponent as Filter } from "../assets/Filter.svg";
+import { ReactComponent as Filter } from "../assets/filter.svg";
 
 const FilterButton = ({ handleShow }) => {
   return (

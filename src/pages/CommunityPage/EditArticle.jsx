@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import GoBackButton from "../../components/goBackButton";
+import GoBackButton from "../../components/GoBackButton";
 import ArticleUploadBtn from "../../components/ArticleUploadBtn";
 import { useLocation } from "react-router-dom";
 import ArticleImgCarousel from "../../components/ArticleImgCarousel";
@@ -54,7 +54,6 @@ const UserId = styled.span`
 
 function EditArticle() {
   const location = useLocation();
-  console.log(location);
   const nickname = location.state.nickname;
   const imgs = location.state.imgs;
   const content = location.state.content;

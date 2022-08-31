@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { ReactComponent as Cookie } from "../assets/Arrow-Right.svg";
+import { ReactComponent as Arrow } from "../assets/arrow.svg";
 import { useNavigate } from "react-router-dom";
 
 const GoBackButton = ({ ...rest }) => {
@@ -17,6 +17,6 @@ export default GoBackButton;
 
 const Wrapper = styled.div``;
 
-const StyledMyIcon = styled(Cookie)`
+const StyledMyIcon = styled(Arrow)`
   cursor: pointer;
 `;
