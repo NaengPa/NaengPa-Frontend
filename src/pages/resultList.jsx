@@ -22,11 +22,13 @@ const ResultList = () => {
     selectedIngredientAtom
   );
   const [foodData, setFoodData] = useState([]);
+  const [filteredButton, setFilteredButton] = useState([]);
   const [foodList, setFoodList] = useState([...selectedIngredient]);
   const [show, setShow] = useState(false);
   const [filterFoodData, setFilterFoodData] = useState([]);
   const [filtered, setFiltered] = useState();
   const [filterItemState, setFilterItemState] = useRecoilState(filterStateAtom);
+  const [filterClick, setFilterClick] = useState(0); // 필터결과가 하나도 없을떄 핸들링 해주기위해 만든 상태
 
   useEffect(() => {
     window.scrollTo(0, 1);
@@ -82,79 +84,207 @@ const ResultList = () => {
     setShow(false);
   };
 
-  // console.log(filterFoodData);
-  // console.log(foodData);
+  // useEffect(() => {
+  //   filteredButton.flatMap((items) => {
+  //     if (
+  //       filterItem[1].category.filter((item) => item.title === items)
+  //         .length > 0
+  //     ) {//1번쨰 로직
 
-  const handleFilterClick = (e, isClicked) => {
-    const itemName = e.target.innerText;
-    // console.log(itemName, filterItem[2]);
-    // console.log(
-    //   filterItem[2].category.filter((item) => item.title === itemName)
-    // );
-    // console.log(
-    //   filterItem[1].category.filter((item) => item.title === itemName)
-    // );
-    if (
-      filterItem[1].category.filter((item) => item.title === itemName).length >
-      0
-    ) {
-      //1번쨰 로직
-      console.log("adad");
-      if (!isClicked) {
-        const filter = [...foodData].filter(
-          (item) => item.nationNm === itemName
-        );
-        const filterOne = [...filterFoodData, ...filter];
-        setFilterFoodData(filterOne);
-      } else if (isClicked) {
-        const filter = [...filterFoodData].filter(
-          (item) => item.nationNm !== itemName
-        );
-        setFilterFoodData(filter);
-      }
-    } else if (
-      //2번쨰 로직
-      filterItem[0].category.filter((item) => item.title === itemName).length >
-      0
-    ) {
-      console.log("adad");
-      setFilterFoodData(
-        [...foodData].filter((item) => item.levelNm === itemName)
-      );
-    } else if (
-      //3번쨰 로직
-      filterItem[2].category.filter((item) => item.title === itemName).length >
-      0
-    ) {
-      if (!isClicked) {
-        const filter = [
-          ...(filterFoodData.length > 0 ? filterFoodData : foodData),
-        ].filter(
-          (item) =>
-            item.irdnts.filter(
+  //       if (!isClicked) {
+  //         const filter = [
+  //           ...(filterFoodData.length > 0 ? filterFoodData : foodData),
+  //         ].filter(
+  //           //이건 맞음
+  //           (item) => item.nationNm === itemName
+  //         );
+  //         const filterOne =
+  //           filterItemState[1].category.filter(
+  //             (item) => item.isClicked === true
+  //           ).length > 0
+  //             ? [...filterFoodData, ...filter]
+  //             : filter; //1번 인덱스에서 발생할때는 이게 맞거든 ?근데 3번이나 1번을
+  //         setFilterFoodData(filterOne);
+  //         console.log(isClicked);
+  //       } else if (isClicked) {
+  //         const filter = filterFoodData.filter(
+  //           (item) => item.nationNm !== itemName
+  //         );
+  //         setFilterFoodData(filter);
+  //         console.log("false");
+  //       }
+  //     } else if (
+  //       //2번쨰 로직
+  //       filterItem[0].category.filter((item) => item.title === itemName)
+  //         .length > 0
+  //     ) {
+  //       if (!isClicked) {
+  //         const filter = [
+  //           ...(filterFoodData.length > 0 ? filterFoodData : foodData),
+  //         ].filter(
+  //           //이건 맞음
+  //           (item) => item.levelNm === itemName
+  //         );
+  //         const filterOne =
+  // filterItemState[0].category.filter(
+  //   (item) => item.isClicked === true
+  // ).length > 0
+  //             ? [...filterFoodData, ...filter]
+  //             : filter; //1번 인덱스에서 발생할때는 이게 맞거든 ?근데 3번이나 1번을
+  //         setFilterFoodData(filterOne);
+  //       } else if (isClicked) {
+  //         const filter = filterFoodData.filter(
+  //           (item) => item.levelNm !== itemName
+  //         );
+  //         setFilterFoodData(filter);
+  //         console.log("false");
+  //       }
+  //     } else if (
+  //       //3번쨰 로직
+  //       filterItem[2].category.filter((item) => item.title === itemName)
+  //         .length > 0
+  //     ) {
+  //       if (!isClicked) {
+  //         const filter = [
+  //           ...(filterFoodData.length > 0 ? filterFoodData : foodData),
+  //         ].filter(
+  //           (item) =>
+  //             item.irdnts.filter(
+  //               (item) =>
+  //                 (item.irdntNm === "허브(민트)" ? "민트" : item.irdntNm) ===
+  //                 itemName
+  //             ).length === 0
+  //         );
+  //         console.log(isClicked);
+  //         console.log(filter);
+  //         setFilterFoodData(filter);
+  //       } else if (isClicked) {
+  //         const filteredData = [...foodData].filter(
+  // (item) =>
+  //   item.irdnts.filter(
+  //     (item) =>
+  //       (item.irdntNm === "허브(민트)" ? "민트" : item.irdntNm) ===
+  //       itemName
+  //   ).length !== 0
+  //         );
+  //         const filter = [...filterFoodData, ...filteredData];
+  //         console.log(isClicked);
+  //         console.log(filter);
+  //         setFilterFoodData(filter);
+  //       }
+  //     }
+  //   });
+  // },[filteredButton]);
+
+  useEffect(() => {
+    const res = filteredButton.flatMap((items) =>
+      foodData.filter((recipe) => {
+        if (
+          filterItem[1].category.filter((item) => item.title === items).length >
+          0
+        ) {
+          return recipe.nationNm === items;
+        } else if (
+          filterItem[0].category.filter((item) => item.title === items).length >
+          0
+        ) {
+          return recipe.levelNm === items;
+        } else if (
+          filterItem[2].category.filter((item) => item.title === items).length >
+          0
+        ) {
+          return (
+            recipe.irdnts.filter(
               (item) =>
                 (item.irdntNm === "허브(민트)" ? "민트" : item.irdntNm) ===
-                itemName
+                items
             ).length === 0
-        );
-        console.log(isClicked);
-        console.log(filter);
-        setFilterFoodData(filter);
-      } else if (isClicked) {
-        const filteredData = [...foodData].filter(
-          (item) =>
-            item.irdnts.filter(
-              (item) =>
-                (item.irdntNm === "허브(민트)" ? "민트" : item.irdntNm) ===
-                itemName
-            ).length !== 0
-        );
-        const filter = [...filterFoodData, ...filteredData];
-        console.log(isClicked);
-        console.log(filter);
-        setFilterFoodData(filter);
-      }
+          );
+        }
+        return console.log("잘못된 값입니다");
+      })
+    );
+    //recipeNmko<<레시피 이름 1번인덱스면 레시피에 총 재료에서 추가해야됨 0번인덱스면 레시피에 클릭한 버튼 이외에 친구들로 적용되야됨 2번인덱스면 있는 재료들이 삭제되야됨
+    console.log(res);
+    // let arrayContrast = [];
+    // res.forEach((item) => arrayContrast.push(item.recipeNmKo));
+    // const onlyFiltered = res.filter(
+    //   (item, index) => res[index].recipeNmKo.indexOf(item.recipeNmKo) !== index
+    // );
+
+    function findDuplicates(arr) {
+      const distinct = new Set(arr); // 성능 향상을 위해
+      const filtered = arr.filter((item) => {
+        // 맨 처음 만날 때 집합에서 요소를 제거합니다.
+        if (distinct.has(item)) {
+          distinct.delete(item);
+        }
+        // 후속 만남에서 요소를 반환합니다.
+        else {
+          return item;
+        }
+      });
+
+      return [...new Set(filtered)];
     }
+
+    const onlyFiltered = findDuplicates(res);
+    const set = new Set(res);
+    const realRes =
+      filteredButton.length ===
+        filteredButton.filter(
+          (items) =>
+            filterItem[1].category.filter((item) => item.title === items)
+              .length > 0
+        ).length || filterClick === 1
+        ? [...set]
+        : onlyFiltered;
+    setFilterFoodData(realRes);
+  }, [filteredButton]);
+
+  const handleFilterClick = (items) => {
+    const itemName = items.title;
+    const isClicked = items.isClicked;
+    if (
+      (itemName === "요알못" || itemName === "요잘알") &&
+      filteredButton.filter((item) => item === itemName).length === 1
+    ) {
+      setFilteredButton((prev) =>
+        filteredButton.filter((item) => item !== itemName)
+      );
+      setFilterClick(filterClick - 1);
+      return;
+    }
+    if (
+      (itemName === "요알못" || itemName === "요잘알") &&
+      // filterItemState[0].category.filter((item) => item.title).length > 0
+      filteredButton.filter((item) => item === "요알못" || item === "요잘알")
+        .length > 0
+    ) {
+      console.log("hi");
+      const firstIndexFiltered = filteredButton.filter((item) => {
+        if (item === "요알못" || item === "요잘알") {
+          return;
+        } else {
+          return item;
+        }
+      });
+      setFilteredButton((prev) => [...firstIndexFiltered, itemName]);
+      console.log(firstIndexFiltered, filterClick);
+      return;
+    }
+    if (!isClicked) {
+      setFilteredButton((prev) => [...filteredButton, itemName]);
+      setFilterClick(filterClick + 1);
+    } else {
+      setFilteredButton((prev) =>
+        filteredButton.filter((item) => item !== itemName)
+      );
+      setFilterClick(filterClick - 1);
+    }
+
+    console.log(filteredButton);
+    console.log(isClicked);
   };
 
   const headerContainerRef = useRef();
@@ -218,24 +348,40 @@ const ResultList = () => {
           </button>
         </SortingLetter>
         <ListContainer>
-          {(filterFoodData.length > 0 ? filterFoodData : foodData).map(
-            (item) => (
-              <TextWrapper
-                key={item.recipeId}
-                onClick={clickHistoryData}
-                id={item.recipeId}
-              >
-                <img src={item.imgUrl} alt="" />
-                <SummaryAndLike>
-                  <ListSpan>{item.summary}</ListSpan>
-                  <IconWrapper>
-                    <StyledMyIcon></StyledMyIcon>
-                    <span>{item.likeCnt}</span>
-                  </IconWrapper>
-                </SummaryAndLike>
-              </TextWrapper>
-            )
-          )}
+          {/* {filterFoodData.length > 0
+            ? filterFoodData.map((item) => (
+                <TextWrapper
+                  key={item.recipeId}
+                  onClick={clickHistoryData}
+                  id={item.recipeId}
+                >
+                  <img src={item.imgUrl} alt="" />
+                  <SummaryAndLike>
+                    <ListSpan>{item.summary}</ListSpan>
+                    <IconWrapper>
+                      <StyledMyIcon></StyledMyIcon>
+                      <span>{item.likeCnt}</span>
+                    </IconWrapper>
+                  </SummaryAndLike>
+                </TextWrapper>
+              ))
+            : "레시피가없어용"} */}
+          {(filterClick > 0 ? filterFoodData : foodData).map((item) => (
+            <TextWrapper
+              key={item.recipeId}
+              onClick={clickHistoryData}
+              id={item.recipeId}
+            >
+              <img src={item.imgUrl} alt="" />
+              <SummaryAndLike>
+                <ListSpan>{item.summary}</ListSpan>
+                <IconWrapper>
+                  <StyledMyIcon></StyledMyIcon>
+                  <span>{item.likeCnt}</span>
+                </IconWrapper>
+              </SummaryAndLike>
+            </TextWrapper>
+          ))}
         </ListContainer>
       </MainContainer>
       <UpButton scrollY={scrollY} onClick={handleScroll}>

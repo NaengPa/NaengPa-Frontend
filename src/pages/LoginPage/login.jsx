@@ -21,14 +21,19 @@ const Login = () => {
     // if (!window.location.search) return;
     const postUrl = async () => {
       const result = await getKakaoLogin(KakaoUrl);
+
       localStorage.setItem("token", result);
       navigate(-3);
+      // navigate(`http://localhost:3000${pageState}`);
     };
 
     if (KakaoUrl) {
       postUrl();
     }
   });
+
+  const a = process.env.NODE_ENV;
+  console.log(a);
 
   console.log(window.location.href.split(":")[0]);
 

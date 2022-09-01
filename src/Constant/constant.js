@@ -1,6 +1,7 @@
 const filterItem = [
   {
     title: "제 실력은 이 정도예요",
+    key:"good",
     category: [
       { title: "요알못", isClicked: false },
       { title: "요잘알", isClicked: false },
@@ -8,6 +9,7 @@ const filterItem = [
   },
   {
     title: "이 나라 음식이 끌려요",
+    key:"country",
     category: [
       { title: "한식", isClicked: false },
       { title: "중식", isClicked: false },

@@ -27,6 +27,7 @@ function SearchIndex() {
     getIngredient();
   }, []);
 
+  console.log(window.location.pathname);
   useEffect(() => {
     if (searchInput !== "") {
       setFilterData(data.filter((item) => item.includes(searchInput)));

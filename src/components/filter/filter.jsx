@@ -11,7 +11,6 @@ const Filter = ({ handleClose, show, handleFilterClick, filterFoodData }) => {
   const [clicked, setClicked] = useState(false);
   const [filterItemState, setFilterItemState] = useRecoilState(filterStateAtom);
 
-  // console.log(filterItemState);
   const handleClick = (e) => {
     handleClose();
     setClicked(true);
@@ -24,11 +23,15 @@ const Filter = ({ handleClose, show, handleFilterClick, filterFoodData }) => {
         ? (filterItemCopy[first].category[second].isClicked = true)
         : (filterItemCopy[first].category[second].isClicked = false);
     } else if (first === 0) {
-      filterItemCopy[0].category[0].isClicked = false;
-      filterItemCopy[0].category[1].isClicked = false;
-      filterItemCopy[0].category[second].isClicked = true;
+      if (filterItemCopy[0].category[second].isClicked) {
+        filterItemCopy[0].category[second].isClicked = false;
+      } else {
+        filterItemCopy[0].category[0].isClicked = false;
+        filterItemCopy[0].category[1].isClicked = false;
+        filterItemCopy[0].category[second].isClicked = true;
+      }
     }
-    setFilterItemState(filterItemCopy);
+    setFilterItemState((prev) => [...filterItemCopy]);
   };
   useEffect(() => {
     // setFilterItemState(filterItem);
@@ -92,7 +95,7 @@ export default Filter;
 const Container = styled(motion.div)`
   border-radius: 20px 0px 0px 20px;
   z-index: 9999;
-  height: ${(props) => `calc(100vh - ${props?.navBarHeight}px)`};
+  height: ${(props) => `calc(100vh - ${props.navBarHeight}px)`};
   background-color: transparent;
   width: 80%;
   position: fixed;
