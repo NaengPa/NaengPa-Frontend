@@ -10,11 +10,12 @@ const Container = styled.div`
   border-radius: 5px;
   overflow: hidden;
   z-index: 10;
+
   .swiper-pagination-bullet {
-    background-color: aqua;
+    background-color: ${(props) => props.theme.colors.GREY_40};
   }
   .swiper-pagination-bullet-active {
-    background-color: tomato;
+    background-color: ${(props) => props.theme.colors.MAIN_COLOR};
   }
 `;
 

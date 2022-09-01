@@ -93,20 +93,22 @@ function ArticleDeleteModal() {
   console.log(deleteArticleId);
 
   const onDeleteBtnClick = (e) => {
-    setArticle(() => {
-      let targetArticle;
-      article.forEach((item) => {
-        if (item.id === deleteArticleId) {
-          targetArticle = article.indexOf(item);
-        }
-      });
+    setArticle(
+      (prev) => prev.filter((item) => item.id !== deleteArticleId)
 
-      const copiedArticle = [...article];
-      copiedArticle.splice(article.indexOf(targetArticle) - 1, 1);
-      console.log(copiedArticle);
-      return copiedArticle;
-      //TODO 삭제하는 방식을 index로 하면 여러개 삭제할 경우 꼬이게됨. 다른 방법을 찾자
-    });
+      // let targetArticle;
+      // article.forEach((item) => {
+      //   if (item.id === deleteArticleId) {
+      //     targetArticle = article.indexOf(item);
+      //   }
+      // });
+
+      // const copiedArticle = [...article];
+      // copiedArticle.splice(article.indexOf(targetArticle) - 1, 1);
+      // console.log(copiedArticle);
+      // return copiedArticle;
+      //TODO-Done 삭제하는 방식을 index로 하면 여러개 삭제할 경우 꼬이게됨. 다른 방법을 찾자. 기록하기
+    );
     deleteArticle(deleteArticleId, "test123@gmail.com");
     setDeleteArticleId("");
     handleModal();

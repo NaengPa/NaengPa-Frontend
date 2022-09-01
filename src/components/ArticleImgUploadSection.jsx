@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { articleImgAtom, articlePreviewImgAtom } from "../atom";
@@ -41,6 +41,12 @@ function ArticleImgUploadSection() {
     articlePreviewImgAtom
   );
   const ImgUploadInput = useRef();
+
+  useEffect(() => {
+    setImgList([]);
+    setPreviewImgList([]);
+  }, []);
+
   const onImgChange = (event) => {
     event.preventDefault();
     [...event.target.files].forEach((element) => {

@@ -113,3 +113,17 @@ export async function likeArticle(data) {
     throw new Error(error);
   }
 }
+
+export async function editArticle(data) {
+  try {
+    const response = await axios({
+      method: "PUT",
+      url: `${baseURL}/board`,
+      data: data,
+      headers: { contentType: "application/json" },
+    });
+    return response;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
