@@ -6,8 +6,12 @@ import ReferredRecipeCard from "./ReferredRecipeCard";
 import ArticleImgCarousel from "./ArticleImgCarousel";
 import ArticleModifySection from "./ArticleModifySection";
 
+const ArticleContainer = styled.div`
+  width: 100%;
+  padding: 16px 0;
+`;
+
 const ArticleHeader = styled.div`
-  margin-top: 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -77,7 +81,7 @@ function CommunityArticle({
   recipeId,
 }) {
   return (
-    <>
+    <ArticleContainer>
       <ArticleHeader>
         <UserContainer>
           <UserProfileImg src="https://image.ytn.co.kr/general/jpg/2021/0311/202103110915014429_d.jpg" />
@@ -102,7 +106,7 @@ function CommunityArticle({
       </ArticleActionContainer>
       <ArticleText>{content}</ArticleText>
       {recipeId !== 0 && <ReferredRecipeCard />}
-    </>
+    </ArticleContainer>
   );
 }
 
