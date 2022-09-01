@@ -1,40 +1,43 @@
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useSetRecoilState } from "recoil";
-
 import {
   articleAtom,
   articleImgAtom,
   articlePreviewImgAtom,
   articleTextAtom,
 } from "../atom";
-import { postArticle } from "../common/axios";
 
-function ArticleUploadBtn() {
+import { editArticle } from "../common/axios";
+
+function ArticleEditCompleteBtn({ id }) {
   const [text, setText] = useRecoilState(articleTextAtom);
   const [imgList, setImgList] = useRecoilState(articleImgAtom);
   const [article, setArticle] = useRecoilState(articleAtom);
   const setPreviewImgList = useSetRecoilState(articlePreviewImgAtom);
   const navigate = useNavigate();
+
   const onClick = (event) => {
     event.preventDefault();
-    const newArticle = {
-      imgs: imgList,
-      content: text,
+    const editedArticle = {
+      id: id,
       email: "test123@gmail.com",
-      recipeId: "",
+      content: text,
     };
-    async function post(newArticle) {
-      await postArticle(newArticle);
+    async function put(editedArticle) {
+      await editArticle(editedArticle);
     }
 
-    post(newArticle);
-    console.log(article);
+    put(editedArticle);
+    setArticle((prev) => {
+      const editedArticleArr = [...prev].map((item) =>
+        item.id === id ? { ...item, content: text } : item
+      );
+      return editedArticleArr;
+    });
     setText("");
-    setImgList([]);
-    setPreviewImgList([]);
     navigate("/community");
   };
-  return <button onClick={onClick}>등록</button>;
+  return <button onClick={onClick}>수정</button>;
 }
 
-export default ArticleUploadBtn;
+export default ArticleEditCompleteBtn;

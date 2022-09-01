@@ -8,7 +8,8 @@ const ArticleImg = styled.img`
   height: 310px;
   width: 100%;
   object-fit: cover;
-  border: 1px solid black;
+  /* border: 1px solid black; */
+  border-radius: 5px;
   flex: none;
 `;
 

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { articleTextAtom } from "../atom";
@@ -23,6 +24,11 @@ const StyledInput = styled.textarea`
 
 function ArticleTextInput() {
   const [text, setText] = useRecoilState(articleTextAtom);
+
+  useEffect(() => {
+    setText("");
+  }, []);
+
   const onTextChange = (event) => {
     const {
       target: { value },

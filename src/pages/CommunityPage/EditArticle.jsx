@@ -4,6 +4,7 @@ import ArticleUploadBtn from "../../components/ArticleUploadBtn";
 import { useLocation } from "react-router-dom";
 import ArticleImgCarousel from "../../components/ArticleImgCarousel";
 import ArticleEditInput from "../../components/ArticleEditInput";
+import ArticleEditCompleteBtn from "../../components/ArticleEditCompleteBtn";
 
 const EditArticleWrapper = styled.div`
   padding: 10vh 16px 16px 16px;
@@ -58,12 +59,13 @@ function EditArticle() {
   const nickname = location.state.nickname;
   const imgs = location.state.imgs;
   const content = location.state.content;
+  const id = location.state.id;
   return (
     <EditArticleWrapper>
       <EditArticleHeader>
         <GoBackButton />
         <Title>게시글 수정</Title>
-        <ArticleUploadBtn />
+        <ArticleEditCompleteBtn id={id} />
       </EditArticleHeader>
 
       <UserContainer>

@@ -12,7 +12,6 @@ const ArticleContainer = styled.div`
 `;
 
 const ArticleHeader = styled.div`
-  margin-top: 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -82,7 +81,7 @@ function CommunityArticle({
   recipeId,
 }) {
   return (
-    <>
+    <ArticleContainer>
       <ArticleHeader>
         <UserContainer>
           <UserProfileImg src="https://image.ytn.co.kr/general/jpg/2021/0311/202103110915014429_d.jpg" />
@@ -107,7 +106,7 @@ function CommunityArticle({
       </ArticleActionContainer>
       <ArticleText>{content}</ArticleText>
       {recipeId !== 0 && <ReferredRecipeCard />}
-    </>
+    </ArticleContainer>
   );
 }
 

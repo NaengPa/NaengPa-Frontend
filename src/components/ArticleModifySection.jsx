@@ -34,7 +34,7 @@ function ArticleModifySection({ id, nickname, imgs, content }) {
     <RightIconsContainer>
       <Link
         to={{ pathname: "/edit" }}
-        state={{ nickname: nickname, imgs: imgs, content: content }}
+        state={{ nickname: nickname, imgs: imgs, content: content, id: id }}
       >
         <Edit />
       </Link>
