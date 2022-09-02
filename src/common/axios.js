@@ -65,6 +65,7 @@ export async function getCurRecipeList(numberLimitViewedRecipe) {
 
 export async function getArticle(email) {
   try {
+    console.log(email);
     const response = await axios.get(`${baseURL}/board?email=${email}`);
     return response.data;
   } catch (error) {

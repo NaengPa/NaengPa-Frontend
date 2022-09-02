@@ -32,7 +32,9 @@ function Community() {
 
   useEffect(() => {
     async function get() {
-      const result = await getArticle();
+      const result = await getArticle(
+        JSON.parse(localStorage.getItem("userInfo")).email
+      );
       setArticle(result);
     }
     get();

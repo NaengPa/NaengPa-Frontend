@@ -23,12 +23,16 @@ const Login = () => {
       const result = await getKakaoLogin(KakaoUrl);
 
       localStorage.setItem("token", result);
-      navigate(-3);
-      // navigate(`http://localhost:3000${pageState}`);
+      // navigate(-3);
     };
 
     if (KakaoUrl) {
-      postUrl();
+      const loginFn = async () => {
+        await postUrl();
+        await getLoginInfo(localStorage.getItem("token"));
+        await navigate(-3);
+      };
+      loginFn();
     }
   });
 
