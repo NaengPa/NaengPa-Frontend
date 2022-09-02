@@ -20,7 +20,7 @@ function ArticleEditCompleteBtn({ id }) {
     event.preventDefault();
     const editedArticle = {
       id: id,
-      email: "test123@gmail.com",
+      email: JSON.parse(localStorage.getItem("userInfo")).email,
       content: text,
     };
     async function put(editedArticle) {

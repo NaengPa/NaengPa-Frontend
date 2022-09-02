@@ -3,9 +3,8 @@ import { ReactComponent as BadgeIcon } from "../../assets/badge.svg";
 import { ReactComponent as CalenderIcon } from "../../assets/calender.svg";
 import { ReactComponent as SavedRecipeIcon } from "../../assets/savedRecipe.svg";
 import { ReactComponent as CreatedRecipeIcon } from "../../assets/createdRecipe.svg";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import ErrorModal from "../../components/ErrorModal";
-import { getLoginInfo } from "../../common/kakaoLogin";
 import { useEffect } from "react";
 
 const MyPageWrapper = styled.div`
@@ -124,11 +123,7 @@ function MyPage() {
   };
 
   useEffect(() => {
-    const getInfo = async () => {
-      const result = await getLoginInfo(localStorage.getItem("token"));
-      setUserInfo(result);
-    };
-    getInfo();
+    setUserInfo(JSON.parse(localStorage.getItem("userInfo")));
   }, []);
 
   return (
