@@ -1,10 +1,9 @@
 import styled from "styled-components";
-import { ReactComponent as Like } from "../assets/heartInactiveBlack.svg";
 import { ReactComponent as Share } from "../assets/shareBlack.svg";
-
 import ReferredRecipeCard from "./ReferredRecipeCard";
 import ArticleImgCarousel from "./ArticleImgCarousel";
 import ArticleModifySection from "./ArticleModifySection";
+import ArticleLike from "./ArticleLike";
 
 const ArticleContainer = styled.div`
   width: 100%;
@@ -44,20 +43,6 @@ const ArticleActionContainer = styled.div`
   align-items: center;
 `;
 
-const LikeContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-`;
-
-const LikeCount = styled.span`
-  margin: 0;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 17px;
-  color: ${(props) => props.theme.colors.GREY_90};
-`;
-
 const ArticleText = styled.span`
   display: flex;
   width: 100%;
@@ -84,7 +69,7 @@ function CommunityArticle({
     <ArticleContainer>
       <ArticleHeader>
         <UserContainer>
-          <UserProfileImg src="https://image.ytn.co.kr/general/jpg/2021/0311/202103110915014429_d.jpg" />
+          <UserProfileImg src={imgUrl} />
           <UserId>{nickname}</UserId>
         </UserContainer>
         <ArticleModifySection
@@ -98,10 +83,7 @@ function CommunityArticle({
       <ArticleImgCarousel imgs={imgs} />
 
       <ArticleActionContainer>
-        <LikeContainer>
-          <Like />
-          <LikeCount>{likes}</LikeCount>
-        </LikeContainer>
+        <ArticleLike likeYn={likeYn} likes={likes} id={id} />
         <Share />
       </ArticleActionContainer>
       <ArticleText>{content}</ArticleText>

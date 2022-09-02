@@ -25,7 +25,7 @@ export async function getLoginInfo(value) {
         authorization: `Bearer ${value}`,
       },
     });
-
+    localStorage.setItem("userInfo", JSON.stringify(data));
     return data;
   } catch (error) {
     // throw new Error(error);

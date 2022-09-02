@@ -20,7 +20,7 @@ function ArticleUploadBtn() {
     const newArticle = {
       imgs: imgList,
       content: text,
-      email: "test123@gmail.com",
+      email: JSON.parse(localStorage.getItem("userInfo")).email,
       recipeId: "",
     };
     async function post(newArticle) {

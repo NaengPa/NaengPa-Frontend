@@ -29,7 +29,12 @@ const Login = () => {
     };
 
     if (KakaoUrl) {
-      postUrl();
+      const loginFn = async () => {
+        await postUrl();
+        await getLoginInfo(localStorage.getItem("token"));
+        await navigate(-3);
+      };
+      loginFn();
     }
   });
 

@@ -109,7 +109,10 @@ function ArticleDeleteModal() {
       // return copiedArticle;
       //TODO-Done 삭제하는 방식을 index로 하면 여러개 삭제할 경우 꼬이게됨. 다른 방법을 찾자. 기록하기
     );
-    deleteArticle(deleteArticleId, "test123@gmail.com");
+    deleteArticle(
+      deleteArticleId,
+      JSON.parse(localStorage.getItem("userInfo")).email
+    );
     setDeleteArticleId("");
     handleModal();
   };
