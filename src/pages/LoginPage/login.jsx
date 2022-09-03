@@ -8,8 +8,8 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { pageStateAtom } from "../../atom";
 import { useRecoilState } from "recoil";
-import PreviousPageBtn from "../../components/PreviousPageBtn";
 import { localLogin } from "../../common/localLogin";
+import PreviousPageBtn from "../../components/PreviousPageBtn";
 
 const Login = () => {
   const [emailState, setEmailState] = useState(false);
