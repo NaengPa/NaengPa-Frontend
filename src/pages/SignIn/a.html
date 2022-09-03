@@ -8,9 +8,19 @@
   </head>
   <body>
     <script>
-      const a = [1, 2, 3];
-      const b = [4, 5, 6];
-      console.log([...a, ...b]);
+      const a = true;
+      const b = true;
+      const c = "good";
+      const d = "good";
+      const e = false;
+      const f = false;
+
+      console.log((a && b && c && d === "good" && (e && f) === false) === true);
+      console.log((e || f) === false);
+      console.log(e || f);
+      console.log(a && b === "good" && c && d === "good");
+      console.log(a && b === "good");
+      console.log(c && d === "good");
     </script>
   </body>
 </html>

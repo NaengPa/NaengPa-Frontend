@@ -8,7 +8,9 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { pageStateAtom } from "../../atom";
 import { useRecoilState } from "recoil";
+import { localLogin } from "../../common/localLogin";
 import PreviousPageBtn from "../../components/PreviousPageBtn";
+
 
 const Login = () => {
   const [emailState, setEmailState] = useState(false);
@@ -68,8 +70,13 @@ const Login = () => {
   };
 
   const handleSubmit = (e) => {
-    console.log("hihi");
     e.preventDefault();
+    console.log(e);
+    const localLogins = async (e) => {
+      const result = await localLogin(e);
+      console.log(result);
+    };
+    localLogins(e);
   };
 
   return (
