@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import {
@@ -11,10 +12,14 @@ import { editArticle } from "../common/axios";
 
 function ArticleEditCompleteBtn({ id }) {
   const [text, setText] = useRecoilState(articleTextAtom);
-  const [imgList, setImgList] = useRecoilState(articleImgAtom);
   const [article, setArticle] = useRecoilState(articleAtom);
-  const setPreviewImgList = useSetRecoilState(articlePreviewImgAtom);
+  const [isDisabled, setIsDisabled] = useState(true);
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    text ? setIsDisabled(false) : setIsDisabled(true);
+  }, [text]);
 
   const onClick = (event) => {
     event.preventDefault();
@@ -37,7 +42,11 @@ function ArticleEditCompleteBtn({ id }) {
     setText("");
     navigate("/community");
   };
-  return <button onClick={onClick}>수정</button>;
+  return (
+    <button disabled={isDisabled} onClick={onClick}>
+      수정
+    </button>
+  );
 }
 
 export default ArticleEditCompleteBtn;

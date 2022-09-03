@@ -107,7 +107,8 @@ const Logout = styled.button`
 function Main() {
   const viewedRecipe = useRecoilValue(viewedRecipeAtom);
   const handleLogout = () => {
-    localStorage.removeItem("token" && "userInfo");
+    localStorage.removeItem("token");
+    localStorage.removeItem("userInfo");
     window.location.reload();
   };
   return (

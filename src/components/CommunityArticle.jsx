@@ -72,7 +72,7 @@ function CommunityArticle({
           <UserProfileImg src={imgUrl} />
           <UserId>{nickname}</UserId>
         </UserContainer>
-        {email === JSON.parse(localStorage.getItem("userInfo")).email ? (
+        {email === JSON.parse(localStorage.getItem("userInfo"))?.email ? (
           <ArticleModifySection
             id={id}
             nickname={nickname}
