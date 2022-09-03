@@ -38,13 +38,14 @@ const User = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  img {
-    width: 94px;
-    height: 94px;
-    border-radius: 50%;
-  }
 `;
-const UserProfileImg = styled.img``;
+const UserProfileImg = styled.img`
+  width: 94px;
+  height: 94px;
+  border-radius: 50%;
+  object-fit: cover;
+`;
+
 const UserNameTitle = styled.span`
   font-weight: 600;
   font-size: 24px;
@@ -134,7 +135,7 @@ function MyPage() {
       <MyPageWrapper>
         <Background />
         <User>
-          <img src={userInfo?.imgUrl} alt="" />
+          <UserProfileImg src={userInfo?.imgUrl} alt="" />
           <UserNameTitle>{userInfo?.nickname}</UserNameTitle>
           <UserNameSubtitle>반가운 냉파 셰프</UserNameSubtitle>
           <UserDescriptionContainer>

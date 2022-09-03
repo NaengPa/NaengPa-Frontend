@@ -3,6 +3,8 @@ import { ReactComponent as InactiveLike } from "../assets/heartInactiveBlack.svg
 import { ReactComponent as ActiveLike } from "../assets/heartActive.svg";
 import { useEffect, useState } from "react";
 import { likeArticle } from "../common/axios";
+import { articleAtom } from "../atom";
+import { useRecoilState } from "recoil";
 
 const ArticleLikeContainer = styled.div`
   display: flex;
@@ -19,37 +21,38 @@ const LikeCount = styled.span`
 `;
 
 function ArticleLike({ id, likes, likeYn }) {
-  const [isLiked, setIsLiked] = useState();
-  const [likeCount, setLikeCount] = useState("");
-
-  useEffect(() => {
-    likeYn ? setIsLiked(true) : setIsLiked(false);
-    setLikeCount(likes);
-  }, []);
+  const [article, setArticle] = useRecoilState(articleAtom);
 
   const handleLike = (e) => {
-    setIsLiked((prev) => !prev);
+    setArticle((prev) => {
+      const copiedArr = [...prev].map((item) =>
+        item.id === id
+          ? item.likeYn === true
+            ? { ...item, likes: likes - 1, likeYn: !likeYn }
+            : { ...item, likes: likes + 1, likeYn: !likeYn }
+          : item
+      );
+
+      return copiedArr;
+    });
     const likeData = {
       boardId: id,
       email: JSON.parse(localStorage.getItem("userInfo")).email,
     };
     async function post(likeData) {
-      const result = await likeArticle(likeData);
-      setLikeCount(result.data);
-      console.log(likeCount, isLiked);
+      await likeArticle(likeData);
     }
-
     post(likeData);
   };
 
   return (
     <ArticleLikeContainer>
-      {isLiked ? (
+      {likeYn ? (
         <ActiveLike onClick={handleLike} />
       ) : (
         <InactiveLike onClick={handleLike} />
       )}
-      <LikeCount>{likeCount}</LikeCount>
+      <LikeCount>{likes}</LikeCount>
     </ArticleLikeContainer>
   );
 }

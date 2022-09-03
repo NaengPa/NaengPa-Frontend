@@ -2,7 +2,7 @@ import styled from "styled-components";
 import CommunityArticle from "../../components/CommunityArticle";
 import ArticleWriteBtn from "../../components/ArticleWriteBtn";
 import { getArticle } from "../../common/axios";
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { articleAtom, articleDeleteAtom } from "../../atom";
 import ArticleDeleteModal from "../../components/ArticleDeleteModal";
@@ -16,6 +16,7 @@ const CommunityWrapper = styled.div`
     display: none;
   }
   width: 100%;
+  max-width: 420px;
 `;
 
 const CommunityTitle = styled.span`
@@ -26,10 +27,17 @@ const CommunityTitle = styled.span`
   white-space: pre-wrap;
 `;
 
+const BtnContainer = styled.div`
+  position: fixed;
+  display: ${(props) => (props.width ? "flex" : "none")};
+  left: calc(50vw - 70px + ${(props) => props.width / 2}px);
+  z-index: 30;
+`;
+
 function Community() {
   const [article, setArticle] = useRecoilState(articleAtom);
   const isDeleteModalOpen = useRecoilValue(articleDeleteAtom);
-
+  const communityRef = useRef();
   useEffect(() => {
     async function get() {
       const result = await getArticle(
@@ -43,14 +51,16 @@ function Community() {
   return (
     <>
       {isDeleteModalOpen ? <ArticleDeleteModal /> : null}
-      <CommunityWrapper>
+      <CommunityWrapper ref={communityRef}>
         <CommunityTitle>
           내가 만든 냉파 레시피{"\n"}자랑해봐요 👀
         </CommunityTitle>
         {article.map((item) => (
           <CommunityArticle {...item} key={item.id} />
         ))}
-        <ArticleWriteBtn />
+        <BtnContainer width={communityRef.current?.offsetWidth}>
+          <ArticleWriteBtn />
+        </BtnContainer>
       </CommunityWrapper>
     </>
   );

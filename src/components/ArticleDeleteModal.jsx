@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { articleAtom, articleDeleteAtom, articleDeleteIdAtom } from "../atom";
@@ -90,7 +91,11 @@ function ArticleDeleteModal() {
     setDeleteArticleId("");
     setIsDeleteModalOpen(false);
   };
-  console.log(deleteArticleId);
+
+  useEffect(() => {
+    return () => handleModal();
+  }, []);
+  //TODO 기록 남기기. 언마운트 시점에 모달을 사라지게 만듦
 
   const onDeleteBtnClick = (e) => {
     setArticle(
