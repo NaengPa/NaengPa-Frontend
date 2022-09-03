@@ -72,12 +72,14 @@ function CommunityArticle({
           <UserProfileImg src={imgUrl} />
           <UserId>{nickname}</UserId>
         </UserContainer>
-        <ArticleModifySection
-          id={id}
-          nickname={nickname}
-          imgs={imgs}
-          content={content}
-        />
+        {email === JSON.parse(localStorage.getItem("userInfo")).email ? (
+          <ArticleModifySection
+            id={id}
+            nickname={nickname}
+            imgs={imgs}
+            content={content}
+          />
+        ) : null}
       </ArticleHeader>
 
       <ArticleImgCarousel imgs={imgs} />
