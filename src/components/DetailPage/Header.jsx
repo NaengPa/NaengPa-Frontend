@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import GoBackButton from "../goBackButton";
 import { ReactComponent as Arrow } from "../../assets/arrow.svg";
+import PreviousPageBtn from "../PreviousPageBtn";
 
 const HeaderBg = styled.div`
   width: 100%;
@@ -17,7 +17,7 @@ const HeaderBg = styled.div`
   background-color: ${({ isScroll }) => (isScroll ? "white" : "transparent")};
 `;
 
-const FixedGoBackButton = styled(GoBackButton)`
+const FixedPreviousPageBtn = styled(PreviousPageBtn)`
   display: flex;
   align-items: center;
   margin: 0 16px;
@@ -54,7 +54,7 @@ function Header() {
 
   return (
     <HeaderBg isScroll={isScroll}>
-      <FixedGoBackButton />
+      <FixedPreviousPageBtn />
       <HeaderTitle>레시피 상세보기</HeaderTitle>
       <DummyComponent />
     </HeaderBg>

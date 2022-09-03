@@ -1,9 +1,10 @@
 import styled from "styled-components";
-import GoBackButton from "../../components/goBackButton";
+
 import { useLocation } from "react-router-dom";
 import ArticleImgCarousel from "../../components/CommunityPage/ArticleImgCarousel";
 import ArticleEditInput from "../../components/CommunityPage/ArticleEditInput";
 import ArticleEditCompleteBtn from "../../components/CommunityPage/ArticleEditCompleteBtn";
+import PreviousPageBtn from "../../components/PreviousPageBtn";
 
 const EditArticleWrapper = styled.div`
   padding: 10vh 16px 16px 16px;
@@ -62,7 +63,7 @@ function EditArticle() {
   return (
     <EditArticleWrapper>
       <EditArticleHeader>
-        <GoBackButton />
+        <PreviousPageBtn />
         <Title>게시글 수정</Title>
         <ArticleEditCompleteBtn id={id} />
       </EditArticleHeader>
