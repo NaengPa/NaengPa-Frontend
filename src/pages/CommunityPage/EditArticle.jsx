@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import GoBackButton from "../../components/GoBackButton";
+import GoBackButton from "../../components/goBackButton";
 import { useLocation } from "react-router-dom";
 import ArticleImgCarousel from "../../components/CommunityPage/ArticleImgCarousel";
 import ArticleEditInput from "../../components/CommunityPage/ArticleEditInput";

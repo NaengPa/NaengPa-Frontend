@@ -3,8 +3,12 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { getEmailCheck, getNicknameCheck } from "../../common/doubleCheck";
+<<<<<<< HEAD
 import { localSignIn } from "../../common/localLogin";
 import GoBackButton from "../../components/GoBackButton";
+=======
+import GoBackButton from "../../components/goBackButton";
+>>>>>>> e557b62 (deploy test)
 
 const SignIn = () => {
   const [emailState, setEmailState] = useState(true);

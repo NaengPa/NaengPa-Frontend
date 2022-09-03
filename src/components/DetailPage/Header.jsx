@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import GoBackButton from "../GoBackButton";
+import GoBackButton from "../goBackButton";
 import { ReactComponent as Arrow } from "../../assets/arrow.svg";
 
 const HeaderBg = styled.div`

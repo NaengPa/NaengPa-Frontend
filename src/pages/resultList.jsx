@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import AddFoodButton from "../components/addFoodButton";
 import FilterButton from "../components/filterButton";
-import GoBackButton from "../components/GoBackButton";
+import GoBackButton from "../components/goBackButton";
 import { ReactComponent as HeartActive } from "../assets/heartActive.svg";
 import { ReactComponent as ArrowRight } from "../assets/upButton.svg";
 import { useScroll } from "../hooks/useScroll";

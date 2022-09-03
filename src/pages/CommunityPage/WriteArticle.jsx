@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import GoBackButton from "../../components/GoBackButton";
+import GoBackButton from "../../components/goBackButton";
 import ArticleUploadBtn from "../../components/CommunityPage/ArticleUploadBtn";
 import Divider from "../../components/CommunityPage/Divider";
 import ArticleImgUploadSection from "../../components/CommunityPage/ArticleImgUploadSection";
