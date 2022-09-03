@@ -1,9 +1,8 @@
 import styled from "styled-components";
-import { ReactComponent as InactiveLike } from "../assets/heartInactiveBlack.svg";
-import { ReactComponent as ActiveLike } from "../assets/heartActive.svg";
-import { useEffect, useState } from "react";
-import { likeArticle } from "../common/axios";
-import { articleAtom } from "../atom";
+import { ReactComponent as InactiveLike } from "../../assets/heartInactiveBlack.svg";
+import { ReactComponent as ActiveLike } from "../../assets/heartActive.svg";
+import { likeArticle } from "../../common/axios";
+import { articleAtom } from "../../atom";
 import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 

@@ -1,15 +1,15 @@
 import styled from "styled-components";
-import IngredientTagList from "./IngredientTagList";
-import RecipeDetailItemList from "./RecipeDetailItemList";
-import RecipeReviewList from "./RecipeReviewList";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import IngredientTagList from "../../components/DetailPage/IngredientTagList";
+import RecipeDetailItemList from "../../components/DetailPage/RecipeDetailItemList";
+import RecipeReviewList from "../../components/DetailPage/RecipeReviewList";
+import { useSetRecoilState } from "recoil";
 import { viewedRecipeAtom } from "../../atom";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { ReactComponent as Like } from "../../assets/heartInactiveWhite.svg";
 import { ReactComponent as Share } from "../../assets/shareWhite.svg";
-import Header from "../../components/Header";
+import Header from "../../components/DetailPage/Header";
 import { getRecipeDetail } from "../../common/axios";
 
 const RecipeDetailContainer = styled.div`

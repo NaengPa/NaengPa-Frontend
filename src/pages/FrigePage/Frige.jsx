@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { ReactComponent as Search } from "../../assets/search.svg";
 import { myFrigeAtom } from "../../atom";
 import { getIngredients } from "../../common/axios";
-import AllFrigeList from "./AllFrigeList";
+import AllFrigeList from "../../components/FrigePage/AllFrigeList";
 
 const FrigeWrapper = styled.div`
   height: 100vh;

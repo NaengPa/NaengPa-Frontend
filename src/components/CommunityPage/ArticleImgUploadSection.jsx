@@ -1,9 +1,9 @@
 import { useEffect, useRef } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { articleImgAtom, articlePreviewImgAtom } from "../atom";
+import { articleImgAtom, articlePreviewImgAtom } from "../../atom";
 import ArticleUploadImgPreviewList from "./ArticleUploadImgPreviewList";
-import { ReactComponent as ImgUploadIcon } from "../assets/camera.svg";
+import { ReactComponent as ImgUploadIcon } from "../../assets/camera.svg";
 
 const ImgUploadSectionWrapper = styled.div`
   display: flex;

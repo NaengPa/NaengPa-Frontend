@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { ReactComponent as Home } from "../assets/navHome.svg";
@@ -7,14 +7,14 @@ import { ReactComponent as mypage } from "../assets/navMypage.svg";
 import { ReactComponent as refrigerator } from "../assets/navRefrigerator.svg";
 import { ReactComponent as search } from "../assets/navSearch.svg";
 import { css } from "styled-components";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { navBarHeightAtom } from "../atom";
 import { useRef } from "react";
 
 const Navigation = () => {
   const [, updateState] = useState();
   const forceUpdate = useCallback(() => updateState({}), []);
-  const [navBarHeight, setNavBarHeight] = useRecoilState(navBarHeightAtom);
+  const setNavBarHeight = useSetRecoilState(navBarHeightAtom);
 
   const containerRef = useRef();
   const values = containerRef.current?.offsetHeight;

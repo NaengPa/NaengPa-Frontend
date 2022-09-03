@@ -1,18 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import {
-  articleAtom,
-  articleImgAtom,
-  articlePreviewImgAtom,
-  articleTextAtom,
-} from "../atom";
+import { useRecoilState } from "recoil";
+import { articleAtom, articleTextAtom } from "../../atom";
 
-import { editArticle } from "../common/axios";
+import { editArticle } from "../../common/axios";
 
 function ArticleEditCompleteBtn({ id }) {
   const [text, setText] = useRecoilState(articleTextAtom);
-  const [article, setArticle] = useRecoilState(articleAtom);
+  const [, setArticle] = useRecoilState(articleAtom);
   const [isDisabled, setIsDisabled] = useState(true);
 
   const navigate = useNavigate();

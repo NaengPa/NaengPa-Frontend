@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import CommunityArticle from "../../components/CommunityArticle";
-import ArticleWriteBtn from "../../components/ArticleWriteBtn";
+import CommunityArticle from "../../components/CommunityPage/CommunityArticle";
+import ArticleWriteBtn from "../../components/CommunityPage/ArticleWriteBtn";
 import { getArticle } from "../../common/axios";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { articleAtom, articleDeleteAtom } from "../../atom";
-import ArticleDeleteModal from "../../components/ArticleDeleteModal";
+import ArticleDeleteModal from "../../components/CommunityPage/ArticleDeleteModal";
 
 const CommunityWrapper = styled.div`
   padding: 40px 16px 56px 16px;
