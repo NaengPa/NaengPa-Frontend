@@ -1,7 +1,7 @@
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { ReactComponent as DeleteBtnIcon } from "../assets/delete.svg";
-import { articleImgAtom, articlePreviewImgAtom } from "../atom";
+import { ReactComponent as DeleteBtnIcon } from "../../assets/delete.svg";
+import { articleImgAtom, articlePreviewImgAtom } from "../../atom";
 
 const UploadImgPreviewListItemContainer = styled.div`
   display: flex;

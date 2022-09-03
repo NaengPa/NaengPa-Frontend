@@ -4,7 +4,7 @@ import { ReactComponent as Calendar } from "../../assets/calendar.svg";
 import { ReactComponent as Bookmark } from "../../assets/bookmark.svg";
 import { ReactComponent as Article } from "../../assets/article.svg";
 import { useState } from "react";
-import ErrorModal from "../../components/ErrorModal";
+import ErrorModal from "../../components/MyPage/ErrorModal";
 import { useEffect } from "react";
 
 const MyPageWrapper = styled.div`

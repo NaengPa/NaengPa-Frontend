@@ -1,5 +1,5 @@
 import { useRecoilValue } from "recoil";
-import { articlePreviewImgAtom } from "../atom";
+import { articlePreviewImgAtom } from "../../atom";
 import ArticleUploadImgPreviewListItem from "./ArticleUploadImgPreviewListItem";
 import styled from "styled-components";
 

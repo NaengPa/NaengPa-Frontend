@@ -3,12 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilState, useSetRecoilState } from "recoil";
 
 import {
-  articleAtom,
   articleImgAtom,
   articlePreviewImgAtom,
   articleTextAtom,
-} from "../atom";
-import { postArticle } from "../common/axios";
+} from "../../atom";
+import { postArticle } from "../../common/axios";
 
 function ArticleUploadBtn() {
   const [text, setText] = useRecoilState(articleTextAtom);

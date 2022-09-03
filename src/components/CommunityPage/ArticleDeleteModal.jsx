@@ -1,8 +1,12 @@
 import { useEffect } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { articleAtom, articleDeleteAtom, articleDeleteIdAtom } from "../atom";
-import { deleteArticle } from "../common/axios";
+import {
+  articleAtom,
+  articleDeleteAtom,
+  articleDeleteIdAtom,
+} from "../../atom";
+import { deleteArticle } from "../../common/axios";
 
 const DeleteModalWrapper = styled.div`
   position: absolute;
@@ -86,7 +90,7 @@ function ArticleDeleteModal() {
   const [deleteArticleId, setDeleteArticleId] =
     useRecoilState(articleDeleteIdAtom);
   const setIsDeleteModalOpen = useSetRecoilState(articleDeleteAtom);
-  const [article, setArticle] = useRecoilState(articleAtom);
+  const setArticle = useSetRecoilState(articleAtom);
 
   const handleModal = (e) => {
     setDeleteArticleId("");

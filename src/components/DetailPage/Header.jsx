@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import GoBackButton from "./GoBackButton";
-import { ReactComponent as Arrow } from "../assets/arrow.svg";
+import GoBackButton from "../GoBackButton";
+import { ReactComponent as Arrow } from "../../assets/arrow.svg";
 
 const HeaderBg = styled.div`
   width: 100%;
@@ -9,7 +9,7 @@ const HeaderBg = styled.div`
   height: 40px;
   position: fixed;
   top: 0;
-  z-index: 999;
+  z-index: 100;
   display: flex;
   transition: background-color 0.1s ease-in;
   align-items: center;

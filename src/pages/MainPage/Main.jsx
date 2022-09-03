@@ -3,7 +3,7 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { ReactComponent as Search } from "../../assets/search.svg";
 import { viewedRecipeAtom } from "../../atom";
-import RecentlyViewedRecipe from "./RecentlyViewedRecipe";
+import RecentlyViewedRecipe from "../../components/MainPage/RecentlyViewedRecipe";
 
 const Container = styled.div`
   position: relative;

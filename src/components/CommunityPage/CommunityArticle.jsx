@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import { ReactComponent as Share } from "../assets/shareBlack.svg";
-import ReferredRecipeCard from "./ReferredRecipeCard";
+import { ReactComponent as Share } from "../../assets/shareBlack.svg";
 import ArticleImgCarousel from "./ArticleImgCarousel";
 import ArticleModifySection from "./ArticleModifySection";
 import ArticleLike from "./ArticleLike";
@@ -89,7 +88,6 @@ function CommunityArticle({
         <Share />
       </ArticleActionContainer>
       <ArticleText>{content}</ArticleText>
-      {recipeId !== 0 && <ReferredRecipeCard />}
     </ArticleContainer>
   );
 }
