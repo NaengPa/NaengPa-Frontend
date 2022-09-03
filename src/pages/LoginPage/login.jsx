@@ -46,7 +46,7 @@ const Login = () => {
   const redirectUri =
     window.location.href.split(":")[1] === "//localhost"
       ? "http://localhost:3000/login"
-      : "https://naengpa-develop.netlify.app/login";
+      : "https://naengdev.netlify.app/login";
 
   const onChangeEmail = (e) => {
     const inputLen = e.target.value.length;
