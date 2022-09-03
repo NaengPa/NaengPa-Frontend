@@ -6,7 +6,6 @@ import { ReactComponent as Article } from "../../assets/article.svg";
 import { useState } from "react";
 import ErrorModal from "../../components/ErrorModal";
 import { useEffect } from "react";
-import Divider from "../../components/Divider";
 
 const MyPageWrapper = styled.div`
   background: #f8fbff;
@@ -113,9 +112,11 @@ function MyPage() {
 
   return (
     <>
+      {/* <ModalPortal> */}
       {isModalOpen ? (
         <ErrorModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
       ) : null}
+      {/* </ModalPortal> */}
       <MyPageWrapper>
         <Background />
         <User>
