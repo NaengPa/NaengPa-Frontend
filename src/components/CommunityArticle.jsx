@@ -6,6 +6,11 @@ import ReferredRecipeCard from "./ReferredRecipeCard";
 import ArticleImgCarousel from "./ArticleImgCarousel";
 import ArticleModifySection from "./ArticleModifySection";
 
+const ArticleContainer = styled.div`
+  width: 100%;
+  padding: 16px 0;
+`;
+
 const ArticleHeader = styled.div`
   margin-top: 16px;
   display: flex;

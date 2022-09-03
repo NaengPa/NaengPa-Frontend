@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { getEmailCheck, getNicknameCheck } from "../../common/doubleCheck";
+import { localSignIn } from "../../common/localLogin";
 import GoBackButton from "../../components/GoBackButton";
 
 const SignIn = () => {
@@ -16,9 +17,39 @@ const SignIn = () => {
 
   const navigate = useNavigate();
 
-  console.log(passwordState, passwordConfirmState, emailState, nickNameState);
+  console.log(
+    passwordState,
+    passwordConfirmState,
+    emailState,
+    nickNameState,
+    emailCheckState,
+    nickNameCheckState
+  );
+
+  console.log(
+    (passwordState &&
+      passwordConfirmState === "good" &&
+      emailState &&
+      nickNameState === "good") === true &&
+      (emailCheckState || nickNameCheckState) === false
+  );
+  console.log(
+    passwordState &&
+      passwordConfirmState === "good" &&
+      emailState &&
+      nickNameState === "good"
+  );
   const handleSubmit = (e) => {
     e.preventDefault();
+    const localSignIns = async (e) => {
+      const result = await localSignIn(e);
+      console.log(result);
+      if (result === "회원가입에 성공했습니다.") {
+        navigate("/login");
+      }
+    };
+    localSignIns(e);
+    console.log(e);
   };
 
   const handleEmailBlur = async (e) => {
@@ -61,16 +92,16 @@ const SignIn = () => {
   };
 
   const onChangePasswordConfirm = (e) => {
-    if (e.target.value === currentPassword) {
+    if (e.target.value.length > 1 && e.target.value === currentPassword) {
       setPasswordConfirmState("good");
     } else {
       setPasswordConfirmState(false);
     }
+    console.log(passwordConfirmState);
   };
 
   const onClickSignIn = () => {
     console.log("adad");
-    navigate("/login");
   };
   return (
     <Container>
@@ -169,17 +200,27 @@ const SignIn = () => {
         <SignInButton
           onClick={onClickSignIn}
           disabled={
-            passwordState &&
-            passwordConfirmState === "good" &&
-            emailState &&
-            nickNameState === "good"
+            (passwordState &&
+              passwordConfirmState === "good" &&
+              emailState &&
+              nickNameState === "good") === true &&
+            (emailCheckState || nickNameCheckState) === false
               ? false
               : true
           }
-          passwordState={passwordState}
-          passwordConfirmState={passwordConfirmState}
-          emailState={emailState}
-          nickNameState={nickNameState}
+          isValid={
+            (passwordState &&
+              passwordConfirmState === "good" &&
+              emailState &&
+              nickNameState === "good") === true &&
+            (emailCheckState || nickNameCheckState) === false
+              ? true
+              : false
+          }
+          // passwordState={passwordState}
+          // passwordConfirmState={passwordConfirmState}
+          // emailState={emailState}
+          // nickNameState={nickNameState}
         >
           회원가입
         </SignInButton>
@@ -322,19 +363,9 @@ const SignInButton = styled.button`
   width: 100%;
   border-radius: 5px;
   color: ${(props) =>
-    props.passwordState &&
-    props.passwordConfirmState === "good" &&
-    props.emailState &&
-    props.nickNameState === "good"
-      ? props.theme.colors.WHITE
-      : props.theme.colors.GREY_10};
+    props.isValid ? props.theme.colors.WHITE : props.theme.colors.GREY_10};
 
   background-color: ${(props) =>
-    props.passwordState &&
-    props.passwordConfirmState === "good" &&
-    props.emailState &&
-    props.nickNameState === "good"
-      ? props.theme.colors.MAIN_COLOR
-      : props.theme.colors.GREY_30};
+    props.isValid ? props.theme.colors.MAIN_COLOR : props.theme.colors.GREY_30};
   transition: all 300ms ease-in-out;
 `;
