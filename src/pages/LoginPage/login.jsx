@@ -11,6 +11,7 @@ import { useRecoilState } from "recoil";
 import { localLogin } from "../../common/localLogin";
 import PreviousPageBtn from "../../components/PreviousPageBtn";
 
+
 const Login = () => {
   const [emailState, setEmailState] = useState(false);
   const [passwordState, setPasswordState] = useState(false);
@@ -24,8 +25,7 @@ const Login = () => {
       const result = await getKakaoLogin(KakaoUrl);
 
       localStorage.setItem("token", result);
-      navigate(-3);
-      // navigate(`http://localhost:3000${pageState}`);
+      // navigate(-3);
     };
 
     if (KakaoUrl) {
