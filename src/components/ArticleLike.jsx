@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { likeArticle } from "../common/axios";
 import { articleAtom } from "../atom";
 import { useRecoilState } from "recoil";
+import { useNavigate } from "react-router-dom";
 
 const ArticleLikeContainer = styled.div`
   display: flex;
@@ -22,8 +23,9 @@ const LikeCount = styled.span`
 
 function ArticleLike({ id, likes, likeYn }) {
   const [article, setArticle] = useRecoilState(articleAtom);
+  const navigate = useNavigate();
 
-  const handleLike = (e) => {
+  const likeChange = () => {
     setArticle((prev) => {
       const copiedArr = [...prev].map((item) =>
         item.id === id
@@ -32,7 +34,6 @@ function ArticleLike({ id, likes, likeYn }) {
             : { ...item, likes: likes + 1, likeYn: !likeYn }
           : item
       );
-
       return copiedArr;
     });
     const likeData = {
@@ -43,6 +44,10 @@ function ArticleLike({ id, likes, likeYn }) {
       await likeArticle(likeData);
     }
     post(likeData);
+  };
+
+  const handleLike = (e) => {
+    !!localStorage.getItem("token") ? likeChange() : navigate("/login");
   };
 
   return (
