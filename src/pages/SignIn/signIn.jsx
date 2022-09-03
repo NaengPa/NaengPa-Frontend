@@ -3,20 +3,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { getEmailCheck, getNicknameCheck } from "../../common/doubleCheck";
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 import { localSignIn } from "../../common/localLogin";
 import GoBackButton from "../../components/GoBackButton";
-=======
-import GoBackButton from "../../components/goBackButton";
->>>>>>> e557b62 (deploy test)
-=======
-=======
-import { localSignIn } from "../../common/localLogin";
->>>>>>> dca666f (✨ 로그인 회원가입 로직 , axios통신 로직 추가)
-import PreviousPageBtn from "../../components/PreviousPageBtn";
->>>>>>> 17a6fe3 (deploy test)
 
 const SignIn = () => {
   const [emailState, setEmailState] = useState(true);
@@ -118,7 +106,7 @@ const SignIn = () => {
   return (
     <Container>
       <Header>
-        <PreviousPageBtn />
+        <GoBackButton></GoBackButton>
         <MainTitle>회원가입</MainTitle>
         <Empty></Empty>
       </Header>
