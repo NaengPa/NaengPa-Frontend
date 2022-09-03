@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const GoBackButton = ({ ...rest }) => {
   const navigate = useNavigate();
-
+  console.log("");
   return (
     <Wrapper {...rest}>
       <StyledMyIcon onClick={() => navigate(-1)}> </StyledMyIcon>
