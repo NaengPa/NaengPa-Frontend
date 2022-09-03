@@ -125,7 +125,7 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 1056;
+  z-index: 99;
   max-width: 420px;
   .link {
     display: flex;
