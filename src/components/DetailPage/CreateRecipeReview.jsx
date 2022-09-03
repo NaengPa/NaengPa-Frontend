@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { ReactComponent as PlusIcon } from "../../assets/plusCreateRecipeDetail.svg";
-import ErrorModal from "../../components/ErrorModal";
+import ErrorModal from "../../components/MyPage/ErrorModal";
 
 const CreateRecipeReviewContainer = styled.div`
   display: flex;

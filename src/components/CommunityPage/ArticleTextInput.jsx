@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { articleTextAtom } from "../atom";
+import { articleTextAtom } from "../../atom";
 
 const Wrapper = styled.div`
   width: 100%;

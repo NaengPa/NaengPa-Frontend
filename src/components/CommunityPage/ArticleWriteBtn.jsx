@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { ReactComponent as Plus } from "../assets/plus.svg";
+import { ReactComponent as Plus } from "../../assets/plus.svg";
 
 const Button = styled.button`
   width: 54px;

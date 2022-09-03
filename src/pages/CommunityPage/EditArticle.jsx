@@ -1,10 +1,9 @@
 import styled from "styled-components";
 import GoBackButton from "../../components/GoBackButton";
-import ArticleUploadBtn from "../../components/ArticleUploadBtn";
 import { useLocation } from "react-router-dom";
-import ArticleImgCarousel from "../../components/ArticleImgCarousel";
-import ArticleEditInput from "../../components/ArticleEditInput";
-import ArticleEditCompleteBtn from "../../components/ArticleEditCompleteBtn";
+import ArticleImgCarousel from "../../components/CommunityPage/ArticleImgCarousel";
+import ArticleEditInput from "../../components/CommunityPage/ArticleEditInput";
+import ArticleEditCompleteBtn from "../../components/CommunityPage/ArticleEditCompleteBtn";
 
 const EditArticleWrapper = styled.div`
   padding: 10vh 16px 16px 16px;

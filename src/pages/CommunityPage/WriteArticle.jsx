@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import GoBackButton from "../../components/GoBackButton";
-import ArticleUploadBtn from "../../components/ArticleUploadBtn";
-import Divider from "../../components/Divider";
-import ArticleImgUploadSection from "../../components/ArticleImgUploadSection";
-import ArticleTextInput from "../../components/ArticleTextInput";
+import ArticleUploadBtn from "../../components/CommunityPage/ArticleUploadBtn";
+import Divider from "../../components/CommunityPage/Divider";
+import ArticleImgUploadSection from "../../components/CommunityPage/ArticleImgUploadSection";
+import ArticleTextInput from "../../components/CommunityPage/ArticleTextInput";
 
 const WriteArticleWrapper = styled.div`
   padding: 10vh 16px 16px 16px;

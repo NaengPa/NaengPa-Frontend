@@ -2,9 +2,9 @@ import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { ReactComponent as Edit } from "../assets/edit.svg";
-import { ReactComponent as ArticleDeleteIcon } from "../assets/articleDelete.svg";
-import { articleDeleteAtom, articleDeleteIdAtom } from "../atom";
+import { ReactComponent as Edit } from "../../assets/edit.svg";
+import { ReactComponent as ArticleDeleteIcon } from "../../assets/articleDelete.svg";
+import { articleDeleteAtom, articleDeleteIdAtom } from "../../atom";
 
 const RightIconsContainer = styled.div`
   display: flex;
