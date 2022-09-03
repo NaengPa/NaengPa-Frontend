@@ -10,11 +10,6 @@ const ArticleContainer = styled.div`
   padding: 16px 0;
 `;
 
-const ArticleContainer = styled.div`
-  width: 100%;
-  padding: 16px 0;
-`;
-
 const ArticleHeader = styled.div`
   display: flex;
   justify-content: space-between;
@@ -77,12 +72,14 @@ function CommunityArticle({
           <UserProfileImg src={imgUrl} />
           <UserId>{nickname}</UserId>
         </UserContainer>
-        <ArticleModifySection
-          id={id}
-          nickname={nickname}
-          imgs={imgs}
-          content={content}
-        />
+        {email === JSON.parse(localStorage.getItem("userInfo")).email ? (
+          <ArticleModifySection
+            id={id}
+            nickname={nickname}
+            imgs={imgs}
+            content={content}
+          />
+        ) : null}
       </ArticleHeader>
 
       <ArticleImgCarousel imgs={imgs} />
