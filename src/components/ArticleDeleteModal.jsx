@@ -34,6 +34,7 @@ const DeleteModalTitle = styled.span`
   line-height: 20px;
   text-align: center;
   color: ${(props) => props.theme.colors.GREY_90};
+  white-space: pre-wrap;
 `;
 
 const DeleteModalEmoji = styled.span`
@@ -54,7 +55,7 @@ const DeleteModalDimmer = styled.div`
 
 const DeleteBtnContainer = styled.div`
   display: flex;
-  gap: 8px;
+  gap: 16px;
   margin-top: 20px;
 `;
 const DeleteBtn = styled.button`
@@ -127,10 +128,12 @@ function ArticleDeleteModal() {
       <DeleteModalDimmer onClick={handleModal} />
       <DeleteModalContainer>
         <DeleteModalEmoji>🤔</DeleteModalEmoji>
-        <DeleteModalTitle>게시글을 정말 삭제하시겠어요?</DeleteModalTitle>
+        <DeleteModalTitle>
+          삭제된 글은 복구할 수 없어요.{"\n"}정말 삭제할까요?
+        </DeleteModalTitle>
         <DeleteBtnContainer>
-          <DeleteBtn onClick={onDeleteBtnClick}>삭제</DeleteBtn>
           <CancelBtn onClick={handleModal}>취소</CancelBtn>
+          <DeleteBtn onClick={onDeleteBtnClick}>삭제</DeleteBtn>
         </DeleteBtnContainer>
       </DeleteModalContainer>
     </DeleteModalWrapper>

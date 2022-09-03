@@ -8,7 +8,7 @@ import { articleAtom, articleDeleteAtom } from "../../atom";
 import ArticleDeleteModal from "../../components/ArticleDeleteModal";
 
 const CommunityWrapper = styled.div`
-  padding: 10vh 16px 56px 16px;
+  padding: 40px 16px 56px 16px;
   background-color: #ffffff;
   overflow-y: scroll;
   height: 100vh;
@@ -25,6 +25,7 @@ const CommunityTitle = styled.span`
   line-height: 30px;
   color: ${(props) => props.theme.colors.GREY_90};
   white-space: pre-wrap;
+  margin-bottom: 16px;
 `;
 
 const BtnContainer = styled.div`
@@ -38,13 +39,20 @@ function Community() {
   const [article, setArticle] = useRecoilState(articleAtom);
   const isDeleteModalOpen = useRecoilValue(articleDeleteAtom);
   const communityRef = useRef();
-  useEffect(() => {
-    async function get() {
+
+  const get = async () => {
+    if (localStorage.getItem("userInfo")) {
       const result = await getArticle(
         JSON.parse(localStorage.getItem("userInfo")).email
       );
       setArticle(result);
+    } else {
+      const result = await getArticle();
+      setArticle(result);
     }
+  };
+
+  useEffect(() => {
     get();
   }, []);
 
