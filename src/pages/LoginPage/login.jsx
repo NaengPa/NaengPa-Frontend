@@ -2,13 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import FindAndSignIn from "./findAndSignIn";
 import { ReactComponent as Kakao } from "../../assets/kakao.svg";
-import GoBackButton from "../../components/goBackButton";
 import { useState } from "react";
 import { getKakaoLogin, getLoginInfo } from "../../common/kakaoLogin";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { pageStateAtom } from "../../atom";
 import { useRecoilState } from "recoil";
+import PreviousPageBtn from "../../components/PreviousPageBtn";
 import { localLogin } from "../../common/localLogin";
 
 const Login = () => {
@@ -81,7 +81,7 @@ const Login = () => {
 
   return (
     <Container>
-      <GoBackButton></GoBackButton>
+      <PreviousPageBtn />
       <MainContainer>
         <MainTitle>
           냉파를 이용하기 위해<br></br> 로그인을 해주세요 🍳{" "}

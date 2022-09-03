@@ -4,11 +4,15 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { getEmailCheck, getNicknameCheck } from "../../common/doubleCheck";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { localSignIn } from "../../common/localLogin";
 import GoBackButton from "../../components/GoBackButton";
 =======
 import GoBackButton from "../../components/goBackButton";
 >>>>>>> e557b62 (deploy test)
+=======
+import PreviousPageBtn from "../../components/PreviousPageBtn";
+>>>>>>> 17a6fe3 (deploy test)
 
 const SignIn = () => {
   const [emailState, setEmailState] = useState(true);
@@ -110,7 +114,7 @@ const SignIn = () => {
   return (
     <Container>
       <Header>
-        <GoBackButton></GoBackButton>
+        <PreviousPageBtn />
         <MainTitle>회원가입</MainTitle>
         <Empty></Empty>
       </Header>

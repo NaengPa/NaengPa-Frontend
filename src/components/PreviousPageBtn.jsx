@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { ReactComponent as Arrow } from "../assets/arrow.svg";
 import { useNavigate } from "react-router-dom";
 
-const GoBackButton = ({ ...rest }) => {
+const PreviousPageBtn = ({ ...rest }) => {
   const navigate = useNavigate();
   console.log("");
   return (
@@ -13,7 +13,7 @@ const GoBackButton = ({ ...rest }) => {
   );
 };
 
-export default GoBackButton;
+export default PreviousPageBtn;
 
 const Wrapper = styled.div``;
 
