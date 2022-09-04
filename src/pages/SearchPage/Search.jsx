@@ -145,9 +145,7 @@ function SearchIndex() {
 export default SearchIndex;
 
 const StyledContainer = styled.div`
-  padding-left: 27px;
-  padding-right: 27px;
-  padding-bottom: 64px;
+  padding: 0 16px 0 16px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -278,4 +276,5 @@ const MainContainer = styled.div`
   display: flex;
   position: relative;
   flex-direction: column;
+  padding-bottom: 56px;
 `;

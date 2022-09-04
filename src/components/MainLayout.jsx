@@ -5,7 +5,7 @@ const StyledMainLayout = styled.div`
   max-width: 420px;
   height: calc(var(--vh, 1vh) * 100);
   margin: auto;
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
 `;
 
 const MainLayout = ({ children }) => {
