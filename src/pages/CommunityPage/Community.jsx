@@ -20,6 +20,7 @@ const CommunityWrapper = styled.div`
   }
   width: 100%;
   max-width: 420px;
+  margin-bottom: 56px;
 `;
 
 const CommunityTitle = styled.span`
