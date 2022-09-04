@@ -95,26 +95,12 @@ const Burger = styled.img`
   right: -140px;
 `;
 
-const Logout = styled.button`
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  &:hover {
-    color: ${({ theme }) => theme.colors.MAIN_COLOR};
-  }
-`;
-
 function Main() {
   const viewedRecipe = useRecoilValue(viewedRecipeAtom);
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userInfo");
-    window.location.reload();
-  };
+
   return (
     <MainBg>
       <Container>
-        <Logout onClick={handleLogout}>로그아웃</Logout>
         {viewedRecipe.length > 0 ? (
           <Burger src="images/burger.png" />
         ) : (

@@ -14,8 +14,9 @@ const MyPageWrapper = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: 40px 16px 56px 16px;
+  padding: 0 16px 64px 16px;
   position: relative;
+  overflow-y: scroll;
 `;
 const Background = styled.div`
   position: absolute;
@@ -102,9 +103,31 @@ const BtnContainer = styled.div`
   }
 `;
 
+const LogoutContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const LogoutBtn = styled.button`
+  background-color: white;
+  border-radius: 5px;
+  z-index: 20;
+  width: 64px;
+  height: 24px;
+  margin: 8px 0;
+  padding: 0;
+
+  font-style: normal;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 17px;
+  color: ${(props) => props.theme.colors.GREY_50};
+`;
+
 function MyPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userInfo, setUserInfo] = useState();
+
   const handleModal = () => {
     setIsModalOpen((prev) => !prev);
   };
@@ -112,6 +135,12 @@ function MyPage() {
   useEffect(() => {
     setUserInfo(JSON.parse(localStorage.getItem("userInfo")));
   }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userInfo");
+    window.location.reload();
+  };
 
   return (
     <>
@@ -125,6 +154,9 @@ function MyPage() {
       </ModalPortal>
       <MyPageWrapper>
         <Background />
+        <LogoutContainer>
+          <LogoutBtn onClick={handleLogout}>LOGOUT</LogoutBtn>
+        </LogoutContainer>
         <User>
           <UserProfileImg src={userInfo?.imgUrl} alt="" />
           <UserNameTitleSection>
