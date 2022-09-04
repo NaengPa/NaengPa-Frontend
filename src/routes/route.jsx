@@ -44,5 +44,4 @@ const RouteWrapper = styled.div`
   min-width: 330px;
   max-width: 420px;
   margin: auto;
-  border: 1px solid #f0f0f096;
 `;
