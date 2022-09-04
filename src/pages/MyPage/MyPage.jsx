@@ -14,9 +14,10 @@ const MyPageWrapper = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: 0 16px 64px 16px;
+  padding: 0 16px 80px 16px;
   position: relative;
   overflow-y: scroll;
+  margin-bottom: 56px;
 `;
 const Background = styled.div`
   position: absolute;
