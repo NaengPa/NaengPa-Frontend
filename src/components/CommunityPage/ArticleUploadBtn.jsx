@@ -9,6 +9,7 @@ import {
   articleTextAtom,
 } from "../../atom";
 import { postArticle } from "../../common/axios";
+import LoadingScreen from "../LoadingScreen";
 
 function ArticleUploadBtn() {
   const [text, setText] = useRecoilState(articleTextAtom);
@@ -16,13 +17,13 @@ function ArticleUploadBtn() {
   const [isDisabled, setIsDisabled] = useState(true);
   const setPreviewImgList = useSetRecoilState(articlePreviewImgAtom);
   const [article, setArticle] = useRecoilState(articleAtom);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     imgList.length > 0 && text ? setIsDisabled(false) : setIsDisabled(true);
   }, [text, imgList]);
 
-  console.log(article);
   const onClick = (event) => {
     event.preventDefault();
     const newArticle = {
@@ -32,6 +33,7 @@ function ArticleUploadBtn() {
       recipeId: "",
     };
     async function post(newArticle) {
+      setIsLoading(true);
       await postArticle(newArticle);
     }
 
@@ -45,15 +47,19 @@ function ArticleUploadBtn() {
       setImgList([]);
       setPreviewImgList([]);
       setIsDisabled(true);
-      await navigate("/community");
+      setIsLoading(false);
+      navigate("/community");
     };
 
     upload();
   };
   return (
-    <button disabled={isDisabled} onClick={onClick}>
-      등록
-    </button>
+    <>
+      {isLoading ? <LoadingScreen /> : null}
+      <button disabled={isDisabled} onClick={onClick}>
+        등록
+      </button>
+    </>
   );
 }
 

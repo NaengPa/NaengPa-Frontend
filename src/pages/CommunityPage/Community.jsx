@@ -2,10 +2,12 @@ import styled from "styled-components";
 import CommunityArticle from "../../components/CommunityPage/CommunityArticle";
 import ArticleWriteBtn from "../../components/CommunityPage/ArticleWriteBtn";
 import { getArticle } from "../../common/axios";
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { articleAtom, articleDeleteAtom } from "../../atom";
+
 import ArticleDeleteModal from "../../components/CommunityPage/ArticleDeleteModal";
+import LoadingScreen from "../../components/LoadingScreen";
 
 const CommunityWrapper = styled.div`
   padding: 40px 16px 56px 16px;
@@ -38,26 +40,33 @@ const BtnContainer = styled.div`
 function Community() {
   const [article, setArticle] = useRecoilState(articleAtom);
   const isDeleteModalOpen = useRecoilValue(articleDeleteAtom);
+  const [isLoading, setIsLoading] = useState(false);
   const communityRef = useRef();
 
   const get = async () => {
     if (localStorage.getItem("userInfo")) {
+      setIsLoading(true);
       const result = await getArticle(
         JSON.parse(localStorage.getItem("userInfo")).email
       );
       setArticle(result);
+      setIsLoading(false);
     } else {
+      setIsLoading(true);
       const result = await getArticle();
       setArticle(result);
+      setIsLoading(false);
     }
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    console.log(article);
     get();
   }, []);
 
   return (
     <>
+      {isLoading ? <LoadingScreen /> : null}
       {isDeleteModalOpen ? <ArticleDeleteModal /> : null}
       <CommunityWrapper ref={communityRef}>
         <CommunityTitle>

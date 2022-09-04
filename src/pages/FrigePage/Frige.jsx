@@ -7,6 +7,7 @@ import { ReactComponent as Search } from "../../assets/search.svg";
 import { myFrigeAtom } from "../../atom";
 import { getIngredients, postFrigeIrdnt } from "../../common/axios";
 import AllFrigeList from "../../components/FrigePage/AllFrigeList";
+import LoadingScreen from "../../components/LoadingScreen";
 
 const FrigeWrapper = styled.div`
   height: 100vh;
@@ -189,6 +190,7 @@ function Frige() {
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [searchHeight, setSearchHeight] = useState("");
   const [isDisabled, setIsDisabled] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const searchRef = useRef();
 
@@ -229,7 +231,9 @@ function Frige() {
       irdntNms: myFrige,
     };
     const post = async () => {
+      setIsLoading(true);
       await postFrigeIrdnt(newFrigeData);
+      setIsLoading(false);
       navigate("/myfrige");
     };
 
@@ -238,6 +242,7 @@ function Frige() {
 
   return (
     <FrigeWrapper>
+      {isLoading ? <LoadingScreen /> : null}
       <FrigeSearchContainer
         filteredIrdntList={filteredIrdntList}
         isInputFocused={isInputFocused}

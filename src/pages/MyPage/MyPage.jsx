@@ -14,7 +14,8 @@ const MyPageWrapper = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: 40px 16px 0 16px;
+  padding: 40px 16px 56px 16px;
+  position: relative;
 `;
 const Background = styled.div`
   position: absolute;
@@ -38,6 +39,7 @@ const User = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 40px 0;
 `;
 const UserProfileImg = styled.img`
   width: 97px;

@@ -4,11 +4,13 @@ import { useRecoilState } from "recoil";
 import { articleAtom, articleTextAtom } from "../../atom";
 
 import { editArticle } from "../../common/axios";
+import LoadingScreen from "../LoadingScreen";
 
 function ArticleEditCompleteBtn({ id }) {
   const [text, setText] = useRecoilState(articleTextAtom);
   const [, setArticle] = useRecoilState(articleAtom);
   const [isDisabled, setIsDisabled] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -23,24 +25,29 @@ function ArticleEditCompleteBtn({ id }) {
       email: JSON.parse(localStorage.getItem("userInfo")).email,
       content: text,
     };
-    async function put(editedArticle) {
-      await editArticle(editedArticle);
-    }
-
-    put(editedArticle);
     setArticle((prev) => {
       const editedArticleArr = [...prev].map((item) =>
         item.id === id ? { ...item, content: text } : item
       );
       return editedArticleArr;
     });
-    setText("");
-    navigate("/community");
+    async function put(editedArticle) {
+      setIsLoading(true);
+      await editArticle(editedArticle);
+      setText("");
+      setIsLoading(false);
+      navigate("/community");
+    }
+
+    put(editedArticle);
   };
   return (
-    <button disabled={isDisabled} onClick={onClick}>
-      수정
-    </button>
+    <>
+      {isLoading ? <LoadingScreen /> : null}
+      <button disabled={isDisabled} onClick={onClick}>
+        수정
+      </button>
+    </>
   );
 }
 

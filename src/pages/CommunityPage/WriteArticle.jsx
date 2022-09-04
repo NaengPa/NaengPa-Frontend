@@ -6,7 +6,7 @@ import ArticleTextInput from "../../components/CommunityPage/ArticleTextInput";
 import PreviousPageBtn from "../../components/PreviousPageBtn";
 
 const WriteArticleWrapper = styled.div`
-  padding: 10vh 16px 16px 16px;
+  padding: 0 16px 16px 16px;
   background-color: #ffffff;
   overflow-y: hidden;
   height: 100vh;
