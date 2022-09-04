@@ -31,7 +31,7 @@ function ViewedRecipeImgList({ item }) {
   for (let x of limitViewedRecipe) {
     numberLimitViewedRecipe.push(Number(x));
   }
-  console.log(numberLimitViewedRecipe);
+
   const [viewedRecipeData, setViewedRecipeData] = useState([]);
 
   useEffect(() => {

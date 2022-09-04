@@ -60,6 +60,7 @@ function EditArticle() {
   const imgs = location.state.imgs;
   const content = location.state.content;
   const id = location.state.id;
+  const profile = JSON.parse(localStorage.getItem("userInfo")).imgUrl;
   return (
     <EditArticleWrapper>
       <EditArticleHeader>
@@ -69,7 +70,7 @@ function EditArticle() {
       </EditArticleHeader>
 
       <UserContainer>
-        <UserProfileImg src="https://image.ytn.co.kr/general/jpg/2021/0311/202103110915014429_d.jpg" />
+        <UserProfileImg src={profile} />
         <UserId>{nickname}</UserId>
       </UserContainer>
       <ArticleImgCarousel imgs={imgs} />

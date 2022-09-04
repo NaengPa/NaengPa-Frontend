@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilState, useSetRecoilState } from "recoil";
 
 import {
+  articleAtom,
   articleImgAtom,
   articlePreviewImgAtom,
   articleTextAtom,
@@ -14,12 +15,14 @@ function ArticleUploadBtn() {
   const [imgList, setImgList] = useRecoilState(articleImgAtom);
   const [isDisabled, setIsDisabled] = useState(true);
   const setPreviewImgList = useSetRecoilState(articlePreviewImgAtom);
+  const [article, setArticle] = useRecoilState(articleAtom);
   const navigate = useNavigate();
 
   useEffect(() => {
     imgList.length > 0 && text ? setIsDisabled(false) : setIsDisabled(true);
   }, [text, imgList]);
 
+  console.log(article);
   const onClick = (event) => {
     event.preventDefault();
     const newArticle = {
@@ -32,12 +35,20 @@ function ArticleUploadBtn() {
       await postArticle(newArticle);
     }
 
-    post(newArticle);
-    setText("");
-    setImgList([]);
-    setPreviewImgList([]);
-    setIsDisabled(true);
-    navigate("/community");
+    setArticle((prev) => {
+      return [...prev, newArticle];
+    });
+
+    const upload = async () => {
+      await post(newArticle);
+      setText("");
+      setImgList([]);
+      setPreviewImgList([]);
+      setIsDisabled(true);
+      await navigate("/community");
+    };
+
+    upload();
   };
   return (
     <button disabled={isDisabled} onClick={onClick}>

@@ -1,8 +1,9 @@
-import { ReactComponent as ErrorModalIcon } from "../../assets/errorModalIcon.svg";
+import { ReactComponent as ErrorModalIcon } from "../assets/errorModalIcon.svg";
 import styled from "styled-components";
 
 const ErrorModalWrapper = styled.div`
-  position: absolute;
+  position: fixed;
+  top: 0;
   width: 100%;
   height: 100vh;
   display: flex;

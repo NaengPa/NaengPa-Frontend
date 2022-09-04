@@ -128,3 +128,27 @@ export async function editArticle(data) {
     throw new Error(error);
   }
 }
+
+export async function postIrdnt(data) {
+  try {
+    const response = await axios({
+      method: "POST",
+      url: `${baseURL}/refrigerator`,
+      data: data,
+      headers: { contentType: "application/json" },
+    });
+    return response;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+export async function getIrdnt(email) {
+  try {
+    console.log(email);
+    const response = await axios.get(`${baseURL}/refrigerator/${email}`);
+    return response.data;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
