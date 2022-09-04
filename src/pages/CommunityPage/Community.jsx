@@ -2,7 +2,7 @@ import styled from "styled-components";
 import CommunityArticle from "../../components/CommunityPage/CommunityArticle";
 import ArticleWriteBtn from "../../components/CommunityPage/ArticleWriteBtn";
 import { getArticle } from "../../common/axios";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { articleAtom, articleDeleteAtom } from "../../atom";
 
