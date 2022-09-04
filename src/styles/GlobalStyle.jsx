@@ -21,6 +21,9 @@ const GlobalStyle = createGlobalStyle`
     background: inherit;
     outline: none;
   }
+  :root {
+       --vh: 100%;
+   }
 `;
 
 export default GlobalStyle;
