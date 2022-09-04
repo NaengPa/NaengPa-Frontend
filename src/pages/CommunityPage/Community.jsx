@@ -11,16 +11,15 @@ import LoadingScreen from "../../components/LoadingScreen";
 import LoadingPortal from "../../components/LoadingPortal";
 
 const CommunityWrapper = styled.div`
-  padding: 40px 16px 100px 16px;
+  padding: 40px 16px 56px 16px;
   background-color: #ffffff;
   overflow-y: scroll;
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   ::-webkit-scrollbar {
     display: none;
   }
   width: 100%;
   max-width: 420px;
-  margin-bottom: 56px;
 `;
 
 const CommunityTitle = styled.span`
