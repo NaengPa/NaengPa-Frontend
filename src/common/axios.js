@@ -129,7 +129,7 @@ export async function editArticle(data) {
   }
 }
 
-export async function postIrdnt(data) {
+export async function postFrigeIrdnt(data) {
   try {
     const response = await axios({
       method: "POST",
@@ -143,7 +143,7 @@ export async function postIrdnt(data) {
   }
 }
 
-export async function getIrdnt(email) {
+export async function getFrigeIrdnt(email) {
   try {
     console.log(email);
     const response = await axios.get(`${baseURL}/refrigerator/${email}`);

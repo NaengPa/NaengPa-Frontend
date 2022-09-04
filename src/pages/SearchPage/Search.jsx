@@ -25,6 +25,7 @@ function SearchIndex() {
       setData(result);
     };
     getIngredient();
+    console.log(viewMyFrigeAtom);
   }, []);
 
   console.log(window.location.pathname);

@@ -6,16 +6,17 @@ import { useState } from "react";
 import { getKakaoLogin, getLoginInfo } from "../../common/kakaoLogin";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { pageStateAtom } from "../../atom";
-import { useRecoilState } from "recoil";
+import { myFrigeAtom, pageStateAtom } from "../../atom";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { localLogin } from "../../common/localLogin";
 import PreviousPageBtn from "../../components/PreviousPageBtn";
-
+import { getFrigeIrdnt } from "../../common/axios";
 
 const Login = () => {
   const [emailState, setEmailState] = useState(false);
   const [passwordState, setPasswordState] = useState(false);
   const [pageState, setPageState] = useRecoilState(pageStateAtom);
+  const [myFrige, setMyFrige] = useRecoilState(myFrigeAtom);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,6 +28,14 @@ const Login = () => {
       localStorage.setItem("token", result);
       // navigate(-3);
     };
+
+    // const getFrige = async () => {
+    //   const result = await getFrigeIrdnt(
+    //     JSON.parse(localStorage.getItem("userInfo")).email
+    //   );
+    //   return result;
+    // };
+    //TODO :  기록할것 로그인 시 내 냉장고 재료를 가져오는 함수 추가 필요
 
     if (KakaoUrl) {
       const loginFn = async () => {

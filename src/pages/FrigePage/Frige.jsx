@@ -5,7 +5,7 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { ReactComponent as Search } from "../../assets/search.svg";
 import { myFrigeAtom } from "../../atom";
-import { getIngredients, postIrdnt } from "../../common/axios";
+import { getIngredients, postFrigeIrdnt } from "../../common/axios";
 import AllFrigeList from "../../components/FrigePage/AllFrigeList";
 
 const FrigeWrapper = styled.div`
@@ -229,7 +229,7 @@ function Frige() {
       irdntNms: myFrige,
     };
     const post = async () => {
-      await postIrdnt(newFrigeData);
+      await postFrigeIrdnt(newFrigeData);
       navigate("/myfrige");
     };
 
