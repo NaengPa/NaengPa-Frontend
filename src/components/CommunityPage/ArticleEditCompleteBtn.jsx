@@ -4,6 +4,7 @@ import { useRecoilState } from "recoil";
 import { articleAtom, articleTextAtom } from "../../atom";
 
 import { editArticle } from "../../common/axios";
+import LoadingPortal from "../LoadingPortal";
 import LoadingScreen from "../LoadingScreen";
 
 function ArticleEditCompleteBtn({ id }) {
@@ -43,7 +44,7 @@ function ArticleEditCompleteBtn({ id }) {
   };
   return (
     <>
-      {isLoading ? <LoadingScreen /> : null}
+      <LoadingPortal>{isLoading ? <LoadingScreen /> : null}</LoadingPortal>
       <button disabled={isDisabled} onClick={onClick}>
         수정
       </button>

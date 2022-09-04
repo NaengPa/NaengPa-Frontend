@@ -9,6 +9,7 @@ import {
   articleTextAtom,
 } from "../../atom";
 import { postArticle } from "../../common/axios";
+import LoadingPortal from "../LoadingPortal";
 import LoadingScreen from "../LoadingScreen";
 
 function ArticleUploadBtn() {
@@ -55,7 +56,7 @@ function ArticleUploadBtn() {
   };
   return (
     <>
-      {isLoading ? <LoadingScreen /> : null}
+      <LoadingPortal>{isLoading ? <LoadingScreen /> : null}</LoadingPortal>
       <button disabled={isDisabled} onClick={onClick}>
         등록
       </button>

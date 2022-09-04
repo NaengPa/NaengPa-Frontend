@@ -8,6 +8,7 @@ import { articleAtom, articleDeleteAtom } from "../../atom";
 
 import ArticleDeleteModal from "../../components/CommunityPage/ArticleDeleteModal";
 import LoadingScreen from "../../components/LoadingScreen";
+import LoadingPortal from "../../components/LoadingPortal";
 
 const CommunityWrapper = styled.div`
   padding: 40px 16px 56px 16px;
@@ -66,7 +67,7 @@ function Community() {
 
   return (
     <>
-      {isLoading ? <LoadingScreen /> : null}
+      <LoadingPortal>{isLoading ? <LoadingScreen /> : null}</LoadingPortal>
       {isDeleteModalOpen ? <ArticleDeleteModal /> : null}
       <CommunityWrapper ref={communityRef}>
         <CommunityTitle>
