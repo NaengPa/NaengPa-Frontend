@@ -10,7 +10,7 @@ import AllFrigeList from "../../components/FrigePage/AllFrigeList";
 import LoadingScreen from "../../components/LoadingScreen";
 
 const FrigeWrapper = styled.div`
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   overflow-y: hidden;
   display: flex;
   flex-direction: column;

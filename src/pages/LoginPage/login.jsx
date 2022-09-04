@@ -137,9 +137,9 @@ const Login = () => {
 export default Login;
 
 const Container = styled.div`
-  padding: 20px 16px 48px 16px;
+  padding: 20px 16px 56px 16px;
   width: 100%;
-  min-height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   display: flex;
   flex-direction: column;
   justify-content: space-between;

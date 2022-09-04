@@ -151,7 +151,7 @@ const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
 `;
 
 const RefridgeTitle = styled.h2`
