@@ -4,8 +4,9 @@ import { ReactComponent as Calendar } from "../../assets/calendar.svg";
 import { ReactComponent as Bookmark } from "../../assets/bookmark.svg";
 import { ReactComponent as Article } from "../../assets/article.svg";
 import { useState } from "react";
-import ErrorModal from "../../components/MyPage/ErrorModal";
+import ErrorModal from "../../components/ErrorModal";
 import { useEffect } from "react";
+import ModalPortal from "../../components/ModalPortal";
 
 const MyPageWrapper = styled.div`
   background: #f8fbff;
@@ -112,11 +113,14 @@ function MyPage() {
 
   return (
     <>
-      {/* <ModalPortal> */}
-      {isModalOpen ? (
-        <ErrorModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
-      ) : null}
-      {/* </ModalPortal> */}
+      <ModalPortal>
+        {isModalOpen ? (
+          <ErrorModal
+            isModalOpen={isModalOpen}
+            setIsModalOpen={setIsModalOpen}
+          />
+        ) : null}
+      </ModalPortal>
       <MyPageWrapper>
         <Background />
         <User>

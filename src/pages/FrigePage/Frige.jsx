@@ -1,11 +1,11 @@
 import { useEffect, useRef } from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { ReactComponent as Search } from "../../assets/search.svg";
 import { myFrigeAtom } from "../../atom";
-import { getIngredients } from "../../common/axios";
+import { getIngredients, postIrdnt } from "../../common/axios";
 import AllFrigeList from "../../components/FrigePage/AllFrigeList";
 
 const FrigeWrapper = styled.div`
@@ -188,7 +188,14 @@ function Frige() {
   const [irdnt, setIrdnt] = useState([]);
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [searchHeight, setSearchHeight] = useState("");
+  const [isDisabled, setIsDisabled] = useState(true);
+  const navigate = useNavigate();
   const searchRef = useRef();
+
+  useEffect(() => {
+    console.log(myFrige);
+    myFrige.length > 0 ? setIsDisabled(false) : setIsDisabled(true);
+  }, [myFrige]);
 
   useEffect(() => {
     async function get() {
@@ -212,6 +219,22 @@ function Frige() {
   useEffect(() => {
     setSearchHeight(searchRef.current.offsetHeight);
   }, [filteredIrdntList]);
+
+  const handleMyFrige = (e) => {
+    setMyFrige((prev) => {
+      return [...prev].sort();
+    });
+    const newFrigeData = {
+      email: JSON.parse(localStorage.getItem("userInfo")).email,
+      irdntNms: myFrige,
+    };
+    const post = async () => {
+      await postIrdnt(newFrigeData);
+      navigate("/myfrige");
+    };
+
+    post();
+  };
 
   return (
     <FrigeWrapper>
@@ -262,13 +285,10 @@ function Frige() {
             //TODO 유니크한 키 부여하기
           ))}
         </IngredientItemList>
-        {myFrige.length === 0 ? (
-          <SelectionCompleteBtn disabled>선택 완료</SelectionCompleteBtn>
-        ) : (
-          <Link to={{ pathname: "/myfrige" }}>
-            <SelectionCompleteBtn>선택 완료</SelectionCompleteBtn>
-          </Link>
-        )}
+
+        <SelectionCompleteBtn disabled={isDisabled} onClick={handleMyFrige}>
+          선택 완료
+        </SelectionCompleteBtn>
 
         <FrigeGradient />
       </FrigeSearchContainer>

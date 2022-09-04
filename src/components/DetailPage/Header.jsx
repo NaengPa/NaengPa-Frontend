@@ -50,7 +50,6 @@ function Header() {
   };
 
   window.addEventListener("scroll", changeColor);
-  console.log(isScroll);
 
   return (
     <HeaderBg isScroll={isScroll}>

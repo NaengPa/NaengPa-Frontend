@@ -1,7 +1,9 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { myFrigeAtom } from "../../atom";
+import { getIrdnt } from "../../common/axios";
 
 const MyFrigeContainer = styled.div`
   display: flex;
@@ -100,7 +102,17 @@ const FrigeGradient = styled.div`
 `;
 
 function MyFrige() {
-  const myFrige = useRecoilValue(myFrigeAtom);
+  const [myFrige, setMyFrige] = useRecoilState(myFrigeAtom);
+  useEffect(() => {
+    const get = async () => {
+      const result = await getIrdnt(
+        JSON.parse(localStorage.getItem("userInfo")).email
+      );
+      setMyFrige(result);
+    };
+
+    get();
+  }, []);
 
   return (
     <MyFrigeContainer>

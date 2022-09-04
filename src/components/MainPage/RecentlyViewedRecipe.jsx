@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { ReactComponent as Chevron } from "../../assets/chevronRight.svg";
 import ViewedRecipeImgList from "./ViewedRecipeImgList";
 
 const RecentlyViewedRecipeHeader = styled.div`
@@ -20,20 +19,6 @@ const Title = styled.p`
   margin: 0;
 `;
 
-const ViewAllContainer = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const ViewAllText = styled.p`
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 140%;
-  letter-spacing: -0.03em;
-  color: #a9a9a9;
-  margin: 0px 7px 0px 0px;
-`;
-
 const ViewedRecipeImgContainer = styled.div`
   display: flex;
   overflow-x: scroll;
@@ -46,10 +31,6 @@ function RecentlyViewedRecipe() {
     <>
       <RecentlyViewedRecipeHeader>
         <Title>최근 본 레시피</Title>
-        <ViewAllContainer>
-          <ViewAllText>모두보기</ViewAllText>
-          <Chevron />
-        </ViewAllContainer>
       </RecentlyViewedRecipeHeader>
       <ViewedRecipeImgContainer>
         <ViewedRecipeImgList />

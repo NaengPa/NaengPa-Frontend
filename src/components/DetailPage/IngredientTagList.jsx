@@ -1,6 +1,6 @@
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { selectedIngredientAtom } from "../../atom";
+import { myFrigeAtom } from "../../atom";
 
 const StyledIngredientTagList = styled.div`
   display: flex;
@@ -47,12 +47,12 @@ const UnSelectedIngredientTag = styled.div`
 `;
 
 function IngredientTagList({ recipeIrdnts }) {
-  const selectedIngredient = useRecoilValue(selectedIngredientAtom);
+  const myFrige = useRecoilValue(myFrigeAtom);
 
   return (
     <StyledIngredientTagList>
       {recipeIrdnts?.map((item) => {
-        for (let x of selectedIngredient) {
+        for (let x of myFrige) {
           if (x === item.irdntNm) {
             return (
               <SelectedIngredientTag key={item.irdntNm}>

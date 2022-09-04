@@ -1,7 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { ReactComponent as PlusIcon } from "../../assets/plusCreateRecipeDetail.svg";
-import ErrorModal from "../../components/MyPage/ErrorModal";
+import ErrorModal from "../ErrorModal";
+import ModalPortal from "../ModalPortal";
 
 const CreateRecipeReviewContainer = styled.div`
   display: flex;
@@ -25,16 +26,21 @@ const Subtitle = styled.span`
 `;
 
 function CreateRecipeReview() {
-  //   const [isModalOpen, setIsModalOpen] = useState(false);
-  //   const handleModal = () => {
-  //     setIsModalOpen((prev) => !prev);
-  //   };
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleModal = () => {
+    setIsModalOpen((prev) => !prev);
+  };
   return (
     <>
-      {/* {isModalOpen ? (
-        <ErrorModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
-      ) : null} */}
-      <CreateRecipeReviewContainer>
+      <ModalPortal>
+        {isModalOpen ? (
+          <ErrorModal
+            isModalOpen={isModalOpen}
+            setIsModalOpen={setIsModalOpen}
+          />
+        ) : null}
+      </ModalPortal>
+      <CreateRecipeReviewContainer onClick={handleModal}>
         <PlusIcon />
         <Subtitle>저도 자랑할래요</Subtitle>
       </CreateRecipeReviewContainer>
