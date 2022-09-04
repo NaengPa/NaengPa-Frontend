@@ -11,7 +11,7 @@ import ModalPortal from "../../components/ModalPortal";
 const MyPageWrapper = styled.div`
   background: #f8fbff;
   width: 100%;
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   display: flex;
   flex-direction: column;
   padding: 0 16px 80px 16px;

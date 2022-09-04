@@ -10,7 +10,7 @@ const MyFrigeContainer = styled.div`
   flex-direction: column;
   width: 100%;
   background-color: #ffffff;
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   padding: 0px 16px;
 
   overflow-y: hidden;
