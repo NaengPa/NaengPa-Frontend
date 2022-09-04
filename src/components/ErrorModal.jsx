@@ -1,7 +1,8 @@
 import { ReactComponent as ErrorModalIcon } from "../assets/errorModalIcon.svg";
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
-const ErrorModalWrapper = styled.div`
+const ErrorModalWrapper = styled(motion.div)`
   position: fixed;
   top: 0;
   width: 100%;
@@ -60,7 +61,11 @@ function ErrorModal({ isModalOpen, setIsModalOpen }) {
     setIsModalOpen((prev) => !prev);
   };
   return (
-    <ErrorModalWrapper>
+    <ErrorModalWrapper
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.1 }}
+    >
       <ErrorModalDimmer onClick={handleModal} />
       <ErrorModalContainer>
         <ErrorModalIcon />
