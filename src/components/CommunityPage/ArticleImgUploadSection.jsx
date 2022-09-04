@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { articleImgAtom, articlePreviewImgAtom } from "../../atom";
 import ArticleUploadImgPreviewList from "./ArticleUploadImgPreviewList";
 import { ReactComponent as ImgUploadIcon } from "../../assets/camera.svg";
+import imageCompression from "browser-image-compression";
 
 const ImgUploadSectionWrapper = styled.div`
   display: flex;
@@ -47,20 +48,35 @@ function ArticleImgUploadSection() {
     setPreviewImgList([]);
   }, []);
 
-  const onImgChange = (event) => {
+  const onImgChange = async (event) => {
     event.preventDefault();
-    [...event.target.files].forEach((element) => {
-      let reader = new FileReader();
-      reader.readAsDataURL(element);
-      reader.onloadend = () => {
-        setPreviewImgList((prev) => [...prev, element]);
-        setImgList((prev) => [...prev, reader.result]);
+
+    const actionImgCompress = async (fileSrc) => {
+      console.log("압축 시작");
+      const options = {
+        maxSizeMB: 0.1,
+        maxWidthOrHeight: 1024,
+        useWebWorker: true,
       };
-      console.log(previewImgList);
+      try {
+        const compressedFile = await imageCompression(fileSrc, options);
+        let reader = new FileReader();
+        reader.readAsDataURL(compressedFile);
+        reader.onloadend = () => {
+          setPreviewImgList((prev) => [...prev, compressedFile]);
+          setImgList((prev) => [...prev, reader.result]);
+        };
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    [...event.target.files].forEach((element) => {
+      actionImgCompress(element);
     });
     event.target.value = "";
   };
-
+  //TODO : 기록할것 이미지 압축하여 blob으로 전달
   const onImgUploadBtnClick = (event) => {
     ImgUploadInput.current.click();
   };

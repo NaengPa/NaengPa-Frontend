@@ -33,7 +33,7 @@ const Login = () => {
     //   const result = await getFrigeIrdnt(
     //     JSON.parse(localStorage.getItem("userInfo")).email
     //   );
-    //   return result;
+    //   await setMyFrige(result);
     // };
     //TODO :  기록할것 로그인 시 내 냉장고 재료를 가져오는 함수 추가 필요
 
@@ -41,7 +41,8 @@ const Login = () => {
       const loginFn = async () => {
         await postUrl();
         await getLoginInfo(localStorage.getItem("token"));
-        await navigate(-3);
+        // await getFrige();
+        navigate(-3);
       };
       loginFn();
     }

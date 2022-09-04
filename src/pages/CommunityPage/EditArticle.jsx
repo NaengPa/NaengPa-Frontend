@@ -7,7 +7,7 @@ import ArticleEditCompleteBtn from "../../components/CommunityPage/ArticleEditCo
 import PreviousPageBtn from "../../components/PreviousPageBtn";
 
 const EditArticleWrapper = styled.div`
-  padding: 10vh 16px 16px 16px;
+  padding: 0 16px 16px 16px;
   background-color: #ffffff;
   overflow-y: scroll;
   height: 100vh;
