@@ -19,7 +19,11 @@ const UploadBtn = styled.button`
   font-size: 16px;
   line-height: 20px;
   text-align: center;
-  color: ${(props) => props.theme.colors.GREY_30};
+  color: ${(props) => props.theme.colors.MAIN_COLOR};
+  :disabled {
+    color: ${(props) => props.theme.colors.GREY_30};
+  }
+  padding: 0;
 `;
 
 function ArticleUploadBtn({ width }) {
@@ -32,7 +36,9 @@ function ArticleUploadBtn({ width }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    imgList.length > 0 && text ? setIsDisabled(false) : setIsDisabled(true);
+    imgList.length < 10 && imgList.length > 0 && text
+      ? setIsDisabled(false)
+      : setIsDisabled(true);
   }, [text, imgList]);
 
   const onClick = (event) => {

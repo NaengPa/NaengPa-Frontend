@@ -1,17 +1,15 @@
 import styled from "styled-components";
-
 import { useLocation } from "react-router-dom";
 import ArticleImgCarousel from "../../components/CommunityPage/ArticleImgCarousel";
 import ArticleEditInput from "../../components/CommunityPage/ArticleEditInput";
 import ArticleEditCompleteBtn from "../../components/CommunityPage/ArticleEditCompleteBtn";
 import PreviousPageBtn from "../../components/PreviousPageBtn";
-import { useEffect, useRef } from "react";
 
 const EditArticleWrapper = styled.div`
   padding: 0 16px 16px 16px;
   background-color: #ffffff;
   overflow-y: scroll;
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   ::-webkit-scrollbar {
     display: none;
   }

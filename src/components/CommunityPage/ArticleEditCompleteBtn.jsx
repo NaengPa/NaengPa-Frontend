@@ -13,7 +13,10 @@ const EditBtn = styled.button`
   font-size: 16px;
   line-height: 20px;
   text-align: center;
-  color: ${(props) => props.theme.colors.GREY_30};
+  color: ${(props) => props.theme.colors.MAIN_COLOR};
+  :disabled {
+    color: ${(props) => props.theme.colors.GREY_30};
+  }
 `;
 
 function ArticleEditCompleteBtn({ id, width }) {

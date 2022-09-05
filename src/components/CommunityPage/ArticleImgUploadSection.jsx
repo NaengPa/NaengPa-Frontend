@@ -15,7 +15,7 @@ const Input = styled.input`
   display: none;
 `;
 
-const ImgUploadBtn = styled.div`
+const ImgUploadBtn = styled.button`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -26,6 +26,9 @@ const ImgUploadBtn = styled.div`
   border-radius: 5px;
   margin: 10px 8px 0 0;
   cursor: pointer;
+  :disabled {
+    background-color: ${(props) => props.theme.colors.GREY_30};
+  }
 `;
 
 const ImgUploadCnt = styled.span`
@@ -91,7 +94,10 @@ function ArticleImgUploadSection() {
         ref={ImgUploadInput}
         onChange={onImgChange}
       />
-      <ImgUploadBtn onClick={onImgUploadBtnClick}>
+      <ImgUploadBtn
+        disabled={imgList.length > 10 ? true : false}
+        onClick={onImgUploadBtnClick}
+      >
         {/* TODO: 10장되면 비활성상태 */}
         <ImgUploadIcon />
         <ImgUploadCnt>{imgList.length}/10</ImgUploadCnt>

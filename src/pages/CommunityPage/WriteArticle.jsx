@@ -4,13 +4,12 @@ import Divider from "../../components/CommunityPage/Divider";
 import ArticleImgUploadSection from "../../components/CommunityPage/ArticleImgUploadSection";
 import ArticleTextInput from "../../components/CommunityPage/ArticleTextInput";
 import PreviousPageBtn from "../../components/PreviousPageBtn";
-import { useRef } from "react";
 
 const WriteArticleWrapper = styled.div`
   padding: 0 16px 16px 16px;
   background-color: #ffffff;
   overflow-y: hidden;
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   ::-webkit-scrollbar {
     display: none;
   }

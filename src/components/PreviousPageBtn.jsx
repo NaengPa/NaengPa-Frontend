@@ -14,7 +14,9 @@ const PreviousPageBtn = ({ ...rest }) => {
 
 export default PreviousPageBtn;
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  display: flex;
+`;
 
 const StyledMyIcon = styled(Arrow)`
   cursor: pointer;
