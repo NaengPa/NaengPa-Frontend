@@ -2,12 +2,21 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { articleAtom, articleTextAtom } from "../../atom";
-
 import { editArticle } from "../../common/axios";
 import LoadingPortal from "../LoadingPortal";
 import LoadingScreen from "../LoadingScreen";
+import styled from "styled-components";
 
-function ArticleEditCompleteBtn({ id }) {
+const EditBtn = styled.button`
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
+  color: ${(props) => props.theme.colors.GREY_30};
+`;
+
+function ArticleEditCompleteBtn({ id, width }) {
   const [text, setText] = useRecoilState(articleTextAtom);
   const [, setArticle] = useRecoilState(articleAtom);
   const [isDisabled, setIsDisabled] = useState(true);
@@ -42,12 +51,15 @@ function ArticleEditCompleteBtn({ id }) {
 
     put(editedArticle);
   };
+  console.log(width);
   return (
     <>
-      <LoadingPortal>{isLoading ? <LoadingScreen /> : null}</LoadingPortal>
-      <button disabled={isDisabled} onClick={onClick}>
+      <LoadingPortal>
+        {isLoading ? <LoadingScreen width={width} /> : null}
+      </LoadingPortal>
+      <EditBtn disabled={isDisabled} onClick={onClick}>
         수정
-      </button>
+      </EditBtn>
     </>
   );
 }

@@ -11,8 +11,18 @@ import {
 import { postArticle } from "../../common/axios";
 import LoadingPortal from "../LoadingPortal";
 import LoadingScreen from "../LoadingScreen";
+import styled from "styled-components";
 
-function ArticleUploadBtn() {
+const UploadBtn = styled.button`
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
+  color: ${(props) => props.theme.colors.GREY_30};
+`;
+
+function ArticleUploadBtn({ width }) {
   const [text, setText] = useRecoilState(articleTextAtom);
   const [imgList, setImgList] = useRecoilState(articleImgAtom);
   const [isDisabled, setIsDisabled] = useState(true);
@@ -54,12 +64,16 @@ function ArticleUploadBtn() {
 
     upload();
   };
+
+  console.log(width);
   return (
     <>
-      <LoadingPortal>{isLoading ? <LoadingScreen /> : null}</LoadingPortal>
-      <button disabled={isDisabled} onClick={onClick}>
+      <LoadingPortal>
+        {isLoading ? <LoadingScreen width={width} /> : null}
+      </LoadingPortal>
+      <UploadBtn disabled={isDisabled} onClick={onClick}>
         등록
-      </button>
+      </UploadBtn>
     </>
   );
 }

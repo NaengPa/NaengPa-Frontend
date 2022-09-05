@@ -1,6 +1,7 @@
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { ReactComponent as DeleteBtnIcon } from "../../assets/delete.svg";
+
+import { ReactComponent as DeleteBtnIcon } from "../../assets/deleteCircle.svg";
 import { articleImgAtom, articlePreviewImgAtom } from "../../atom";
 
 const UploadImgPreviewListItemContainer = styled.div`
@@ -16,7 +17,7 @@ const PreviewImg = styled.img`
   object-fit: cover;
 `;
 
-const DeleteBtn = styled.button`
+const DeleteBtnContainer = styled.div`
   position: absolute;
   right: -4px;
   top: -4px;
@@ -24,7 +25,6 @@ const DeleteBtn = styled.button`
   height: 18px;
   min-width: 18px;
   min-height: 18px;
-  background: ${(props) => props.theme.colors.MAIN_COLOR};
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -51,9 +51,9 @@ function ArticleUploadImgPreviewListItem({ imgData, idx }) {
   return (
     <UploadImgPreviewListItemContainer>
       <PreviewImg src={URL.createObjectURL(imgData)} />
-      <DeleteBtn onClick={onDeleteClick}>
+      <DeleteBtnContainer onClick={onDeleteClick}>
         <DeleteBtnIcon />
-      </DeleteBtn>
+      </DeleteBtnContainer>
     </UploadImgPreviewListItemContainer>
   );
 }

@@ -14,15 +14,18 @@ const Wrapper = styled.button`
   white-space: nowrap;
   display: flex;
   align-items: center;
-  flex-direction: row;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  height: 37px;
-  padding: 15px;
-  border-radius: 20px;
-  font-size: 14px;
-  color: white;
+  height: 36px;
+  padding: 8px 16px;
+  border-radius: 50px;
   background-color: ${({ theme }) => theme.colors.MAIN_COLOR};
+
+  font-style: normal;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 20px;
+  text-align: center;
+  letter-spacing: -0.005em;
+  color: white;
 `;
 
 const StyledMyIcon = styled(XButton)`
@@ -30,6 +33,6 @@ const StyledMyIcon = styled(XButton)`
 `;
 
 const FoodText = styled.div`
-  margin-right: 5px;
+  margin-right: 8px;
   pointer-events: none;
 `;
