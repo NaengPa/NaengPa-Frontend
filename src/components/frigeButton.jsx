@@ -1,5 +1,4 @@
 import React from "react";
-import { propTypes } from "react-bootstrap/esm/Image";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { selectedIngredientAtom } from "../atom";
