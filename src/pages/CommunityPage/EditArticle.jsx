@@ -5,6 +5,7 @@ import ArticleImgCarousel from "../../components/CommunityPage/ArticleImgCarouse
 import ArticleEditInput from "../../components/CommunityPage/ArticleEditInput";
 import ArticleEditCompleteBtn from "../../components/CommunityPage/ArticleEditCompleteBtn";
 import PreviousPageBtn from "../../components/PreviousPageBtn";
+import { useEffect, useRef } from "react";
 
 const EditArticleWrapper = styled.div`
   padding: 0 16px 16px 16px;
@@ -61,6 +62,7 @@ function EditArticle() {
   const content = location.state.content;
   const id = location.state.id;
   const profile = JSON.parse(localStorage.getItem("userInfo")).imgUrl;
+
   return (
     <EditArticleWrapper>
       <EditArticleHeader>

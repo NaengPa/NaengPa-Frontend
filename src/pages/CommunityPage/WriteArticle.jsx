@@ -4,6 +4,7 @@ import Divider from "../../components/CommunityPage/Divider";
 import ArticleImgUploadSection from "../../components/CommunityPage/ArticleImgUploadSection";
 import ArticleTextInput from "../../components/CommunityPage/ArticleTextInput";
 import PreviousPageBtn from "../../components/PreviousPageBtn";
+import { useRef } from "react";
 
 const WriteArticleWrapper = styled.div`
   padding: 0 16px 16px 16px;

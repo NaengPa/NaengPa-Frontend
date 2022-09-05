@@ -73,15 +73,7 @@ function SearchIndex() {
     <StyledContainer>
       <SearchContainer>
         <RefridgeTitle>
-          요리에 사용할 재료를
-          <br />
-          선택해주세요.{" "}
-          <img
-            alt=""
-            width={25}
-            height={25}
-            src="https://ifh.cc/g/4lkTwh.png"
-          ></img>
+          요리에 사용할 재료를{"\n"}선택해주세요. 🍎
         </RefridgeTitle>
         <FormControlWrapper>
           <StyledMyIconSearch searchInput={searchInput}></StyledMyIconSearch>
@@ -114,7 +106,7 @@ function SearchIndex() {
           <SelectTitle>내 냉장고에서도 골라보세요</SelectTitle>
           <SelectItemArea>
             {viewMyFrigeAtom.length === 0
-              ? "하단의 냉장고 버튼을 눌러서 냉장고를 채워주세요"
+              ? "냉장고가 비었어요! 하단의 냉장고 버튼을 눌러서 냉장고를 채워주세요"
               : viewMyFrigeAtom.map((item) => (
                   <FrigeButton handleAdd={handleAdd} item={item}></FrigeButton>
                 ))}
@@ -125,7 +117,7 @@ function SearchIndex() {
           {/* TODO: 선택한 재료가 있는 경우/없는 경우*/}
           <FoodButtonContainer>
             {selectedIngredient === []
-              ? ""
+              ? null
               : selectedIngredient.map((item) => (
                   <FoodButton
                     key={item.id}
@@ -135,9 +127,13 @@ function SearchIndex() {
                 ))}
           </FoodButtonContainer>
         </IngredientContainer>
-        <RecipeSearchButton data={data} onClick={moveToNext}>
-          레시피 검색하기
+        <RecipeSearchButton
+          disabled={data.length > 0 ? false : true}
+          onClick={moveToNext}
+        >
+          맞춤 레시피 찾기
         </RecipeSearchButton>
+        <SearchGradient />
       </MainContainer>
     </StyledContainer>
   );
@@ -145,7 +141,7 @@ function SearchIndex() {
 export default SearchIndex;
 
 const StyledContainer = styled.div`
-  padding: 0 16px 0 16px;
+  padding: 40px 16px 0 16px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -153,39 +149,42 @@ const StyledContainer = styled.div`
 `;
 
 const RefridgeTitle = styled.h2`
-  margin-top: 34px;
-  margin-bottom: 16px;
+  margin: 0 0 16px 0;
   font-weight: 600;
   font-size: 24px;
   line-height: 30px;
   letter-spacing: -0.165px;
-  img {
-    transform: translateY(-20%);
-  }
+  white-space: pre-wrap;
 `;
 
 const SelectTitle = styled.h3`
   color: ${({ theme }) => theme.colors.GREY_50};
-  margin-bottom: 8px;
-  font-weight: 500;
+  font-style: normal;
+  font-weight: 600;
   font-size: 13px;
-  line-height: 17px;
-  letter-spacing: -0.165px;
+  line-height: 20px;
+  letter-spacing: -0.01em;
+  margin: 0;
 `;
 
-const SelectItemArea = styled.h3`
+const SelectItemArea = styled.div`
   display: flex;
   flex-wrap: wrap;
-  height: 165px;
-  padding: 17px 19px;
-  font-weight: 500;
-  font-size: 13px;
-  line-height: 17px;
-  letter-spacing: -0.165px;
-  color: ${({ theme }) => theme.colors.GREY_40};
+  min-height: 120px;
   background: ${({ theme }) => theme.colors.GREY_10};
-  border-radius: 10px;
-  margin: 0;
+  width: 100%;
+  padding: 16px;
+  -ms-overflow-style: none;
+  border-radius: 5px;
+  margin-top: 8px;
+  gap: 8px;
+
+  color: ${({ theme }) => theme.colors.GREY_40};
+  font-style: normal;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 20px;
+  letter-spacing: -0.01em;
 `;
 const FoodButtonContainer = styled.div`
   display: flex;
@@ -193,9 +192,12 @@ const FoodButtonContainer = styled.div`
   min-height: 120px;
   background: ${({ theme }) => theme.colors.GREY_10};
   width: 100%;
-  padding: 21px 14px;
+  padding: 16px;
   -ms-overflow-style: none;
-  border-radius: 10px;
+  border-radius: 5px;
+  margin-top: 8px;
+  gap: 8px;
+  margin-bottom: 138px;
 `;
 
 const SearchContainer = styled.div`
@@ -207,7 +209,7 @@ const MyFrigeContainer = styled.div`
 `;
 
 const IngredientContainer = styled.div`
-  margin-bottom: 16px;
+  /* margin-bottom: 16px; */
 `;
 
 const StyledMyIconSearch = styled(inputSearchButton)`
@@ -215,7 +217,7 @@ const StyledMyIconSearch = styled(inputSearchButton)`
   cursor: pointer;
   position: absolute;
   left: 15px;
-  top: 22px;
+  top: 24px;
   transform: translateY(-50%);
 `;
 
@@ -227,6 +229,7 @@ const SearchListContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   padding-top: 15px;
+  gap: 8px;
 `;
 
 const StyledMyIconSearchX = styled(searchXButton)`
@@ -234,7 +237,7 @@ const StyledMyIconSearchX = styled(searchXButton)`
   cursor: pointer;
   position: absolute;
   right: 15px;
-  top: 13px;
+  top: 16px;
 `;
 
 const FormInput = styled.input`
@@ -244,8 +247,8 @@ const FormInput = styled.input`
   padding: 13px 15px;
   padding-left: ${({ searchInput }) => (searchInput === "" ? "37px" : "13px")};
   background: ${({ theme }) => theme.colors.GREY_10};
-  border-radius: 10px;
-  height: 42px;
+  border-radius: 5px;
+  height: 50px;
   font-size: 14px;
   font-weight: 500;
   ::placeholder {
@@ -253,28 +256,48 @@ const FormInput = styled.input`
   }
 `;
 
-const RecipeSearchButton = styled.div`
-  margin-bottom: 16px;
-  padding: 15px 16px 15px 16px;
-  box-shadow: 0px 3px 10px #a9d0ff;
+const RecipeSearchButton = styled.button`
+  position: fixed;
+  bottom: 72px;
+  width: calc(100% - 32px);
+  max-width: calc(420px - 32px);
+  align-items: center;
+  color: #ffffff;
+
+  font-style: normal;
   font-weight: 600;
   font-size: 16px;
-  letter-spacing: -0.165px;
-  color: #fff;
-  background: ${(props) =>
-    props.data.length > 0
-      ? props.theme.colors.MAIN_COLOR
-      : props.theme.colors.GREY_30};
-  border-radius: 10px;
-  box-sizing: border-box;
-  pointer-events: ${({ data }) => (data.length > 0 ? "auto" : "none")};
-  cursor: pointer;
+  line-height: 20px;
   text-align: center;
+  color: #ffffff;
+  height: 50px;
+  background: ${(props) => props.theme.colors.MAIN_COLOR};
+  border-radius: 5px;
+  z-index: 1;
+  &:disabled {
+    background: ${(props) => props.theme.colors.GREY_30};
+    box-shadow: none;
+  }
 `;
 
 const MainContainer = styled.div`
   display: flex;
   position: relative;
   flex-direction: column;
-  padding-bottom: 56px;
+  /* padding-bottom: 56px; */
+`;
+
+const SearchGradient = styled.div`
+  z-index: 0;
+  width: calc(100% - 32px);
+  max-width: calc(420px - 32px);
+  height: 178px;
+  position: fixed;
+  bottom: 56px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) -10.29%,
+    #ffffff 55.59%
+  );
+  pointer-events: none;
 `;

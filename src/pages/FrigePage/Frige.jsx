@@ -41,7 +41,7 @@ const FrigeTitle = styled.p`
   font-size: 24px;
   line-height: 30px;
   color: ${(props) => props.theme.colors.GREY_90};
-
+  margin: 0;
   white-space: pre-wrap;
 `;
 
@@ -50,6 +50,7 @@ const InputWrapper = styled.div`
   display: flex;
   align-items: center;
   padding: 0 16px;
+  margin-top: 16px;
   height: 50px;
   background: ${(props) => props.theme.colors.GREY_10};
   border-radius: 5px;

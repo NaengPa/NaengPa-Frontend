@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { ReactComponent as Search } from "../../assets/search.svg";
+
+import { ReactComponent as Search } from "../../assets/mainSearch.svg";
 import { viewedRecipeAtom } from "../../atom";
 import RecentlyViewedRecipe from "../../components/MainPage/RecentlyViewedRecipe";
 
@@ -32,7 +33,8 @@ const Title = styled.p`
   font-weight: 700;
   font-size: 36px;
   line-height: 45px;
-  letter-spacing: -0.165px;
+  letter-spacing: -1px;
+  color: #000000;
   white-space: pre-wrap;
   margin: 0;
   margin-bottom: 10px;
