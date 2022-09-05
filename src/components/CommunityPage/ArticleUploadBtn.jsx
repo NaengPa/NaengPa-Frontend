@@ -55,7 +55,7 @@ function ArticleUploadBtn({ width }) {
     }
 
     setArticle((prev) => {
-      return [...prev, newArticle];
+      return [newArticle, ...prev];
     });
 
     const upload = async () => {

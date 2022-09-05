@@ -42,7 +42,7 @@ const Login = () => {
         await postUrl();
         await getLoginInfo(localStorage.getItem("token"));
         // await getFrige();
-        navigate(-3);
+        navigate("/");
       };
       loginFn();
     }
