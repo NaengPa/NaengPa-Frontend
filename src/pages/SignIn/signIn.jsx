@@ -7,7 +7,6 @@ import { getEmailCheck, getNicknameCheck } from "../../common/doubleCheck";
 import { localSignIn } from "../../common/localLogin";
 import PreviousPageBtn from "../../components/PreviousPageBtn";
 
-
 const SignIn = () => {
   const [emailState, setEmailState] = useState(true);
   const [nickNameState, setNickNameState] = useState(true);
@@ -28,6 +27,7 @@ const SignIn = () => {
     nickNameCheckState
   );
 
+  console.log(currentPassword);
   console.log(
     (passwordState &&
       passwordConfirmState === "good" &&
