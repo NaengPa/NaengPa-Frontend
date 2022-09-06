@@ -9,12 +9,7 @@ import { myFrigeAtom, selectedIngredientAtom } from "../../atom";
 import FrigeButton from "../../components/frigeButton";
 import { useNavigate } from "react-router-dom";
 import SearchButton from "../../components/searchButton";
-<<<<<<< HEAD
 import { getIngredients } from "../../common/axios";
-=======
-import { get_GetIngredients } from "../../common/axios";
-//d
->>>>>>> f8f9c66 (test)
 
 function SearchIndex() {
   const [searchInput, setSearchInput] = useState("");

@@ -34,6 +34,7 @@ export async function localLogin(userInfo) {
     });
     return data;
   } catch (error) {
+    alert("이메일과 비밀번호를 다시 확인해주세요");
     throw new Error(error);
   }
 }

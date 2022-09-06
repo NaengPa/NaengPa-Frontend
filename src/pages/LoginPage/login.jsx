@@ -21,12 +21,10 @@ const Login = () => {
 
   useEffect(() => {
     const KakaoUrl = window.location.search.split("=")[1];
-    // if (!window.location.search) return;
     const postUrl = async () => {
       const result = await getKakaoLogin(KakaoUrl);
-
       localStorage.setItem("token", result);
-      // navigate(-3);
+      navigate(-3);
     };
 
     // const getFrige = async () => {
@@ -81,10 +79,11 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(e);
     const localLogins = async (e) => {
       const result = await localLogin(e);
+      localStorage.setItem("token", result);
       console.log(result);
+      navigate(-3);
     };
     localLogins(e);
   };

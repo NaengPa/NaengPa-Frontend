@@ -180,20 +180,7 @@ const FrigeGradient = styled.div`
     rgba(255, 255, 255, 0) -10.29%,
     #ffffff 55.59%
   );
-<<<<<<< HEAD
   pointer-events: none;
-=======
-`;
-//a
-
-const Wrapper = styled.div`
-  z-index: 1;
-  width: 100%;
-  padding: 0 27px;
-  position: fixed;
-  max-width: 420px;
-  bottom: 80px;
->>>>>>> 2b8219d (build)
 `;
 
 function Frige() {
