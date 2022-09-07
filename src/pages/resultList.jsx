@@ -4,6 +4,7 @@ import AddFoodButton from "../components/addFoodButton";
 import FilterButton from "../components/filterButton";
 import { ReactComponent as HeartActive } from "../assets/heartActive.svg";
 import { ReactComponent as ArrowRight } from "../assets/upButton.svg";
+import { ReactComponent as FilterDefault } from "../assets/filterDefault.svg";
 import { useScroll } from "../hooks/useScroll";
 import { filterStateAtom, selectedIngredientAtom } from "../atom";
 import { useRecoilState } from "recoil";
@@ -13,6 +14,7 @@ import { getRecipeList } from "../common/axios";
 import Filter from "../components/filter/filter";
 import filterItem from "../Constant/constant";
 import PreviousPageBtn from "../components/PreviousPageBtn";
+import SighImoticon from "../assets/sigh.png";
 
 const ResultList = () => {
   const homeRef = useRef(0);
@@ -230,7 +232,7 @@ const ResultList = () => {
             <FilterButton handleShow={handleShow}></FilterButton>
           </ButtonIconContainer>
           <TitleWhoIs scrollY={scrollY}>
-            셰프의 재료로 만들 수 있는<br></br>멋진 요리들이에요{" "}
+            셰프의 재료로 만들 수 있는<br></br>멋진 요리들이에요
             <img
               width={35}
               height={35}
@@ -286,6 +288,18 @@ const ResultList = () => {
                 </TextWrapper>
               ))
             : "레시피가없어용"} */}
+          {filterClick > 0 && filterFoodData.length === 0 ? (
+            <FilterDefaultMessage>
+              <img src={SighImoticon} alt="" />
+              <span className="title">검색 결과가 없습니다.</span>
+              <span className="main">
+                다른 검색어를 입력해 보거나 <br></br> 옵션을 재선택해 보시기
+                바랍니다.
+              </span>
+            </FilterDefaultMessage>
+          ) : (
+            ""
+          )}
           {(filterClick > 0 ? filterFoodData : foodData).map((item) => (
             <TextWrapper
               key={item.recipeId}
@@ -364,15 +378,15 @@ const TitleWhoIs = styled.div`
   margin-top: 8px;
   font-weight: 500;
   font-size: 24px;
-  line-height: 120%;
+  line-height: 30px;
   img {
-    transform: translateX(-10%) translateY(-10%);
+    transform: translateY(20%);
   }
 `;
 
 const TitleChosen = styled.div`
   margin-top: 8px;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 13px;
   line-height: 120%;
   margin-bottom: 8px;
@@ -482,4 +496,27 @@ const UpButton = styled.button`
 `;
 const StyledMyIconUp = styled(ArrowRight)`
   transform: translateY(-2px);
+`;
+
+const FilterDefaultMessage = styled.div`
+  display: flex;
+  flex-direction: column;
+  color: ${({ theme }) => theme.colors.GREY_50};
+  align-items: center;
+  justify-content: center;
+  height: 500px;
+  img {
+    margin-bottom: 8px;
+    width: 40px;
+    height: 40px;
+  }
+  .title {
+    font-size: 22px;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .main {
+    font-size: 14px;
+    font-weight: 500;
+  }
 `;
