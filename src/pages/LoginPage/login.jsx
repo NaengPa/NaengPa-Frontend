@@ -24,7 +24,6 @@ const Login = () => {
     const postUrl = async () => {
       const result = await getKakaoLogin(KakaoUrl);
       localStorage.setItem("token", result);
-      navigate(-3);
     };
 
     // const getFrige = async () => {
@@ -38,7 +37,9 @@ const Login = () => {
     if (KakaoUrl) {
       const loginFn = async () => {
         await postUrl();
-        await getLoginInfo(localStorage.getItem("token"));
+        const result = await getLoginInfo(localStorage.getItem("token"));
+        console.log(result);
+        localStorage.setItem("userInfo", JSON.stringify(result));
         // await getFrige();
         navigate("/");
       };
@@ -83,7 +84,12 @@ const Login = () => {
       const result = await localLogin(e);
       localStorage.setItem("token", result);
       console.log(result);
-      navigate(-3);
+      getInfos();
+      navigate("/");
+    };
+    const getInfos = async () => {
+      const result = await getLoginInfo(localStorage.getItem("token"));
+      localStorage.setItem("userInfo", JSON.stringify(result));
     };
     localLogins(e);
   };

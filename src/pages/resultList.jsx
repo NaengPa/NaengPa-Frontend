@@ -36,7 +36,6 @@ const ResultList = () => {
       const result = await getRecipeList(selectedIngredient);
       setFoodData(result.recipeInfos);
       setFiltered(result.filterInfo);
-      console.log(result);
     };
     getRecipeLists();
     return () => {
@@ -84,164 +83,90 @@ const ResultList = () => {
     setShow(false);
   };
 
-  // useEffect(() => {
-  //   filteredButton.flatMap((items) => {
-  //     if (
-  //       filterItem[1].category.filter((item) => item.title === items)
-  //         .length > 0
-  //     ) {//1번쨰 로직
-
-  //       if (!isClicked) {
-  //         const filter = [
-  //           ...(filterFoodData.length > 0 ? filterFoodData : foodData),
-  //         ].filter(
-  //           //이건 맞음
-  //           (item) => item.nationNm === itemName
-  //         );
-  //         const filterOne =
-  //           filterItemState[1].category.filter(
-  //             (item) => item.isClicked === true
-  //           ).length > 0
-  //             ? [...filterFoodData, ...filter]
-  //             : filter; //1번 인덱스에서 발생할때는 이게 맞거든 ?근데 3번이나 1번을
-  //         setFilterFoodData(filterOne);
-  //         console.log(isClicked);
-  //       } else if (isClicked) {
-  //         const filter = filterFoodData.filter(
-  //           (item) => item.nationNm !== itemName
-  //         );
-  //         setFilterFoodData(filter);
-  //         console.log("false");
-  //       }
-  //     } else if (
-  //       //2번쨰 로직
-  //       filterItem[0].category.filter((item) => item.title === itemName)
-  //         .length > 0
-  //     ) {
-  //       if (!isClicked) {
-  //         const filter = [
-  //           ...(filterFoodData.length > 0 ? filterFoodData : foodData),
-  //         ].filter(
-  //           //이건 맞음
-  //           (item) => item.levelNm === itemName
-  //         );
-  //         const filterOne =
-  // filterItemState[0].category.filter(
-  //   (item) => item.isClicked === true
-  // ).length > 0
-  //             ? [...filterFoodData, ...filter]
-  //             : filter; //1번 인덱스에서 발생할때는 이게 맞거든 ?근데 3번이나 1번을
-  //         setFilterFoodData(filterOne);
-  //       } else if (isClicked) {
-  //         const filter = filterFoodData.filter(
-  //           (item) => item.levelNm !== itemName
-  //         );
-  //         setFilterFoodData(filter);
-  //         console.log("false");
-  //       }
-  //     } else if (
-  //       //3번쨰 로직
-  //       filterItem[2].category.filter((item) => item.title === itemName)
-  //         .length > 0
-  //     ) {
-  //       if (!isClicked) {
-  //         const filter = [
-  //           ...(filterFoodData.length > 0 ? filterFoodData : foodData),
-  //         ].filter(
-  //           (item) =>
-  //             item.irdnts.filter(
-  //               (item) =>
-  //                 (item.irdntNm === "허브(민트)" ? "민트" : item.irdntNm) ===
-  //                 itemName
-  //             ).length === 0
-  //         );
-  //         console.log(isClicked);
-  //         console.log(filter);
-  //         setFilterFoodData(filter);
-  //       } else if (isClicked) {
-  //         const filteredData = [...foodData].filter(
-  // (item) =>
-  //   item.irdnts.filter(
-  //     (item) =>
-  //       (item.irdntNm === "허브(민트)" ? "민트" : item.irdntNm) ===
-  //       itemName
-  //   ).length !== 0
-  //         );
-  //         const filter = [...filterFoodData, ...filteredData];
-  //         console.log(isClicked);
-  //         console.log(filter);
-  //         setFilterFoodData(filter);
-  //       }
-  //     }
-  //   });
-  // },[filteredButton]);
-
   useEffect(() => {
-    const res = filteredButton.flatMap((items) =>
-      foodData.filter((recipe) => {
-        if (
-          filterItem[1].category.filter((item) => item.title === items).length >
-          0
-        ) {
-          return recipe.nationNm === items;
-        } else if (
-          filterItem[0].category.filter((item) => item.title === items).length >
-          0
-        ) {
-          return recipe.levelNm === items;
-        } else if (
-          filterItem[2].category.filter((item) => item.title === items).length >
-          0
-        ) {
-          return (
-            recipe.irdnts.filter(
-              (item) =>
-                (item.irdntNm === "허브(민트)" ? "민트" : item.irdntNm) ===
-                items
-            ).length === 0
-          );
-        }
-        return console.log("잘못된 값입니다");
-      })
-    );
-    //recipeNmko<<레시피 이름 1번인덱스면 레시피에 총 재료에서 추가해야됨 0번인덱스면 레시피에 클릭한 버튼 이외에 친구들로 적용되야됨 2번인덱스면 있는 재료들이 삭제되야됨
-    console.log(res);
-    // let arrayContrast = [];
-    // res.forEach((item) => arrayContrast.push(item.recipeNmKo));
-    // const onlyFiltered = res.filter(
-    //   (item, index) => res[index].recipeNmKo.indexOf(item.recipeNmKo) !== index
-    // );
+    const copyFilteredButton = [...filteredButton];
+    let copyFilteredButtonSorted = [...filteredButton];
+    copyFilteredButton.forEach((items, index) => {
+      if (
+        filterItem[1].category.filter((item) => item.title === items).length ===
+        0
+      ) {
+        const result = copyFilteredButton.filter((item) => item !== items);
+        result.unshift(items);
+        console.log(result);
+        copyFilteredButtonSorted = result;
+      }
+    });
+    console.log(copyFilteredButtonSorted);
 
-    function findDuplicates(arr) {
-      const distinct = new Set(arr); // 성능 향상을 위해
-      const filtered = arr.filter((item) => {
-        // 맨 처음 만날 때 집합에서 요소를 제거합니다.
-        if (distinct.has(item)) {
-          distinct.delete(item);
+    //로직 시작
+    let lotatedFiltered = [];
+    let countryFiltered = [];
+    const res = copyFilteredButtonSorted.forEach((items, index) => {
+      let temporalFiltered = [];
+      (lotatedFiltered.length > 0 ? lotatedFiltered : foodData).forEach(
+        (recipe) => {
+          if (
+            filterItem[1].category.filter((item) => item.title === items)
+              .length > 0
+          ) {
+            if (recipe.nationNm === items) {
+              temporalFiltered.push(recipe);
+            }
+          } else if (
+            filterItem[0].category.filter((item) => item.title === items)
+              .length > 0
+          ) {
+            if (recipe.levelNm === items) {
+              temporalFiltered.push(recipe);
+            }
+          } else if (
+            filterItem[2].category.filter((item) => item.title === items)
+              .length > 0
+          ) {
+            if (
+              recipe.irdnts.filter(
+                (item) =>
+                  (item.irdntNm === "허브(민트)" ? "민트" : item.irdntNm) ===
+                  items
+              ).length === 0
+            ) {
+              temporalFiltered.push(recipe);
+            }
+          }
         }
-        // 후속 만남에서 요소를 반환합니다.
-        else {
-          return item;
-        }
-      });
+      );
 
-      return [...new Set(filtered)];
-    }
-
-    const onlyFiltered = findDuplicates(res);
-    const set = new Set(res);
-    const realRes =
-      filteredButton.length ===
-        filteredButton.filter(
+      if (
+        filterItem[1].category.filter(
+          (item) => item.title === copyFilteredButton[index + 1]
+        ).length > 0 &&
+        filterItem[1].category.filter(
+          (item) => item.title === copyFilteredButton[index]
+        ).length > 0
+      ) {
+        countryFiltered = [...countryFiltered, ...temporalFiltered];
+      } else if (
+        copyFilteredButton.filter(
           (items) =>
             filterItem[1].category.filter((item) => item.title === items)
               .length > 0
-        ).length || filterClick === 1
-        ? [...set]
-        : onlyFiltered;
-    setFilterFoodData(realRes);
-  }, [filteredButton]);
+        ).length > 1 &&
+        index === copyFilteredButton.length - 1
+      ) {
+        countryFiltered = [...countryFiltered, ...temporalFiltered];
+      } else {
+        lotatedFiltered = temporalFiltered;
+      }
+      console.log(lotatedFiltered, countryFiltered);
+    });
+    //recipeNmko<<레시피 이름 1번인덱스면 레시피에 총 재료에서 추가해야됨 0번인덱스면 레시피에 클릭한 버튼 이외에 친구들로 적용되야됨 2번인덱스면 있는 재료들이 삭제되야됨
 
+    setFilterFoodData(
+      countryFiltered.length > 0 ? countryFiltered : lotatedFiltered
+    );
+  }, [filteredButton]);
+  console.log(filterFoodData);
   const handleFilterClick = (items) => {
     const itemName = items.title;
     const isClicked = items.isClicked;
@@ -261,7 +186,6 @@ const ResultList = () => {
       filteredButton.filter((item) => item === "요알못" || item === "요잘알")
         .length > 0
     ) {
-      console.log("hi");
       const firstIndexFiltered = filteredButton.filter((item) => {
         if (item === "요알못" || item === "요잘알") {
           return;
@@ -270,7 +194,6 @@ const ResultList = () => {
         }
       });
       setFilteredButton((prev) => [...firstIndexFiltered, itemName]);
-      console.log(firstIndexFiltered, filterClick);
       return;
     }
     if (!isClicked) {
@@ -282,9 +205,6 @@ const ResultList = () => {
       );
       setFilterClick(filterClick - 1);
     }
-
-    console.log(filteredButton);
-    console.log(isClicked);
   };
 
   const headerContainerRef = useRef();
@@ -404,7 +324,7 @@ const FilterOp = styled.div`
   display: ${({ show }) => (show ? "block" : "none")};
   /* visibility: ${({ show }) => (show ? "visible" : "hidden")}; */
   position: fixed;
-  width: 400px;
+  width: 420px;
   top: 0;
   background-color: black;
   opacity: 0.5;

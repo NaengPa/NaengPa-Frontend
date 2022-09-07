@@ -7,6 +7,7 @@ import { useState } from "react";
 import ErrorModal from "../../components/ErrorModal";
 import { useEffect } from "react";
 import ModalPortal from "../../components/ModalPortal";
+import defaultImage from "../../assets/defaultImage.jpg";
 
 const MyPageWrapper = styled.div`
   background: #f8fbff;
@@ -132,7 +133,7 @@ function MyPage() {
   const handleModal = () => {
     setIsModalOpen((prev) => !prev);
   };
-
+  console.log(JSON.parse(localStorage?.getItem("userInfo")));
   useEffect(() => {
     setUserInfo(JSON.parse(localStorage.getItem("userInfo")));
   }, []);
@@ -159,17 +160,20 @@ function MyPage() {
           <LogoutBtn onClick={handleLogout}>LOGOUT</LogoutBtn>
         </LogoutContainer>
         <User>
-          <UserProfileImg src={userInfo?.imgUrl} alt="" />
+          <UserProfileImg
+            src={userInfo?.imgUrl ? userInfo?.imgUrl : defaultImage}
+            alt=""
+          />
           <UserNameTitleSection>
             <UserNameTitle>{userInfo?.nickname}</UserNameTitle> 님!
           </UserNameTitleSection>
           <UserNameSubtitle>즐거운 냉파 되세요</UserNameSubtitle>
         </User>
-
         <BtnContainer>
           <Btn onClick={handleModal}>
             <Star />
             <BtnTitle>내가 받은 뱃지</BtnTitle>
+            <img src="../../assets/defaultImage.jpg" alt="" />
           </Btn>
 
           <Btn onClick={handleModal}>
