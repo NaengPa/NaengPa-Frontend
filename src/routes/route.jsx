@@ -17,6 +17,7 @@ const RootRoute = () => {
         <Routes>
           {pages.map((r) => {
             const isAuthenticated = r.isPublic || token;
+            console.log(isAuthenticated);
             return (
               <Route
                 key={r.pathname}

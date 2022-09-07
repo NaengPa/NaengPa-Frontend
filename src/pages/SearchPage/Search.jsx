@@ -3,7 +3,6 @@ import styled from "styled-components";
 import FoodButton from "../../components/foodButton";
 import { ReactComponent as searchXButton } from "../../assets/searchXButton.svg";
 import { ReactComponent as inputSearchButton } from "../../assets/inputSearch.svg";
-import axios from "axios";
 import { useRecoilState } from "recoil";
 import { myFrigeAtom, selectedIngredientAtom } from "../../atom";
 import FrigeButton from "../../components/frigeButton";
@@ -263,7 +262,7 @@ const RecipeSearchButton = styled.button`
   max-width: calc(420px - 32px);
   align-items: center;
   color: #ffffff;
-
+  cursor: pointer;
   font-style: normal;
   font-weight: 600;
   font-size: 16px;
