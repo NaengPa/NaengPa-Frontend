@@ -62,7 +62,7 @@ function CommunityArticle({
   likeYn,
   likes,
   nickname,
-  recipeId,
+  setShowModal,
 }) {
   return (
     <ArticleContainer>
@@ -85,7 +85,7 @@ function CommunityArticle({
 
       <ArticleActionContainer>
         <ArticleLike likeYn={likeYn} likes={likes} id={id} />
-        <Share />
+        <Share onClick={() => setShowModal(true)} />
       </ArticleActionContainer>
       <ArticleText>{content}</ArticleText>
     </ArticleContainer>
