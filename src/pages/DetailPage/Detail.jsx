@@ -11,6 +11,67 @@ import { ReactComponent as Like } from "../../assets/heartInactiveWhite.svg";
 import { ReactComponent as Share } from "../../assets/shareWhite.svg";
 import Header from "../../components/DetailPage/Header";
 import { getRecipeDetail } from "../../common/axios";
+import ShareModal from "../../components/ShareModal/shareModal";
+
+function Detail() {
+  const setViewedRecipe = useSetRecoilState(viewedRecipeAtom);
+  const [recipeDetail, setRecipeDetail] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  console.log(showModal);
+
+  useEffect(() => {
+    setViewedRecipe((prev) => [recipeId, ...prev]);
+  }, [setViewedRecipe]);
+  const { recipeId } = useParams();
+
+  useEffect(() => {
+    const getRecipeDetails = async () => {
+      const result = await getRecipeDetail(recipeId);
+      setRecipeDetail(result);
+    };
+    getRecipeDetails();
+  }, [recipeId]);
+
+  const recipeName = recipeDetail?.recipeInfo?.recipeNmKo;
+  const recipeSummary = recipeDetail?.recipeInfo?.summary;
+  const recipeImg = recipeDetail?.recipeInfo?.imgUrl;
+  const recipeIrdnts = recipeDetail?.recipeIrdnts;
+  const recipeDescription = recipeDetail?.recipeCrses;
+
+  return (
+    <RecipeDetailContainer>
+      {showModal ? (
+        <ShareModal
+          setShowModal={setShowModal}
+          showModal={showModal}
+          recipeDetail={recipeDetail}
+        ></ShareModal>
+      ) : (
+        ""
+      )}
+      <Header></Header>
+      <RecipePhotoContainer>
+        <RecipePhoto src={recipeImg} />
+        <RecipePhotoGradient>
+          <Like />
+          <Share onClick={() => setShowModal(true)} />
+        </RecipePhotoGradient>
+      </RecipePhotoContainer>
+      <ContentsContainer>
+        <RecipeTitle>{recipeName}</RecipeTitle>
+        <RecipeShortDescription>{recipeSummary}</RecipeShortDescription>
+        <IngredientContainer>
+          <Subtitle>레시피 재료</Subtitle>
+          <IngredientTagList recipeIrdnts={recipeIrdnts} />
+        </IngredientContainer>
+      </ContentsContainer>
+      <RecipeDetailItemList recipeDescription={recipeDescription} />
+      <RecipeReviewList />
+    </RecipeDetailContainer>
+  );
+}
+
+export default Detail;
 
 const RecipeDetailContainer = styled.div`
   width: 100%;
@@ -92,51 +153,3 @@ const Subtitle = styled.span`
   margin: 0;
   margin-bottom: 9px;
 `;
-
-function Detail() {
-  const setViewedRecipe = useSetRecoilState(viewedRecipeAtom);
-  const [recipeDetail, setRecipeDetail] = useState([]);
-  useEffect(() => {
-    setViewedRecipe((prev) => [recipeId, ...prev]);
-  }, [setViewedRecipe]);
-  const { recipeId } = useParams();
-
-  useEffect(() => {
-    const getRecipeDetails = async () => {
-      const result = await getRecipeDetail(recipeId);
-      setRecipeDetail(result);
-    };
-    getRecipeDetails();
-  }, [recipeId]);
-
-  const recipeName = recipeDetail?.recipeInfo?.recipeNmKo;
-  const recipeSummary = recipeDetail?.recipeInfo?.summary;
-  const recipeImg = recipeDetail?.recipeInfo?.imgUrl;
-  const recipeIrdnts = recipeDetail?.recipeIrdnts;
-  const recipeDescription = recipeDetail?.recipeCrses;
-
-  return (
-    <RecipeDetailContainer>
-      <Header></Header>
-      <RecipePhotoContainer>
-        <RecipePhoto src={recipeImg} />
-        <RecipePhotoGradient>
-          <Like />
-          <Share />
-        </RecipePhotoGradient>
-      </RecipePhotoContainer>
-      <ContentsContainer>
-        <RecipeTitle>{recipeName}</RecipeTitle>
-        <RecipeShortDescription>{recipeSummary}</RecipeShortDescription>
-        <IngredientContainer>
-          <Subtitle>레시피 재료</Subtitle>
-          <IngredientTagList recipeIrdnts={recipeIrdnts} />
-        </IngredientContainer>
-      </ContentsContainer>
-      <RecipeDetailItemList recipeDescription={recipeDescription} />
-      <RecipeReviewList />
-    </RecipeDetailContainer>
-  );
-}
-
-export default Detail;

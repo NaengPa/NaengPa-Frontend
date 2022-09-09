@@ -9,6 +9,7 @@ import { articleAtom, articleDeleteAtom } from "../../atom";
 import ArticleDeleteModal from "../../components/CommunityPage/ArticleDeleteModal";
 import LoadingScreen from "../../components/LoadingScreen";
 import LoadingPortal from "../../components/LoadingPortal";
+import ShareModal from "../../components/ShareModal/shareModal";
 
 const CommunityWrapper = styled.div`
   padding: 40px 16px 56px 16px;
@@ -42,6 +43,7 @@ function Community() {
   const [article, setArticle] = useRecoilState(articleAtom);
   const isDeleteModalOpen = useRecoilValue(articleDeleteAtom);
   const [isLoading, setIsLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const communityRef = useRef();
 
   const get = async () => {
@@ -67,6 +69,14 @@ function Community() {
 
   return (
     <>
+      {showModal ? (
+        <ShareModal
+          setShowModal={setShowModal}
+          showModal={showModal}
+        ></ShareModal>
+      ) : (
+        ""
+      )}
       <LoadingPortal>{isLoading ? <LoadingScreen /> : null}</LoadingPortal>
       {isDeleteModalOpen ? <ArticleDeleteModal /> : null}
       <CommunityWrapper ref={communityRef}>
@@ -74,7 +84,11 @@ function Community() {
           내가 만든 냉파 레시피{"\n"}자랑해봐요 👀
         </CommunityTitle>
         {article.map((item) => (
-          <CommunityArticle {...item} key={item.id} />
+          <CommunityArticle
+            setShowModal={setShowModal}
+            {...item}
+            key={item.id}
+          />
         ))}
         <BtnContainer width={communityRef.current?.offsetWidth}>
           <ArticleWriteBtn />

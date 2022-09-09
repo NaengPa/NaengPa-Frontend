@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { ReactComponent as XButton } from "../../assets/x.svg";
 import FilterCategory from "./filterCategory";
 import { motion } from "framer-motion";
-import filterItem from "../../Constant/constant";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { filterStateAtom, navBarHeightAtom } from "../../atom";
 
@@ -95,7 +94,7 @@ export default Filter;
 const Container = styled(motion.div)`
   border-radius: 20px 0px 0px 20px;
   z-index: 9999;
-  height: ${(props) => `calc(100vh - ${props.navBarHeight}px)`};
+  height: calc(100vh - 56px);
   background-color: transparent;
   width: 80%;
   position: fixed;

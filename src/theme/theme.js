@@ -8,6 +8,7 @@ const colors = {
   GREY_40: "#97AAB7",
   GREY_50: "#698292",
   GREY_60: "#425867",
+  GREY_70: "#324857",
   GREY_80: "#1E313E",
   GREY_90: "#132029",
   WHITE: "#FFFFFF",
