@@ -4,9 +4,12 @@ import { ReactComponent as LinkShareButton } from "../../assets/linkShare.svg";
 
 const LinkShare = () => {
   const handleLinkCopy = () => {
-    const currentUrl = window.location.href;
-    navigator.clipboard.writeText(currentUrl); // 클립보드 복사 로직
-    alert("클립보드에 복사되었습니다.");
+    const result = async () => {
+      const currentUrl = window.location.href;
+      await navigator.clipboard.writeText(currentUrl); // 클립보드 복사 로직
+      alert("클립보드에 복사되었습니다.");
+    };
+    result();
   };
 
   return (
