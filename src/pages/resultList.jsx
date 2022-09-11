@@ -4,7 +4,6 @@ import AddFoodButton from "../components/addFoodButton";
 import FilterButton from "../components/filterButton";
 import { ReactComponent as HeartActive } from "../assets/heartActive.svg";
 import { ReactComponent as ArrowRight } from "../assets/upButton.svg";
-import { ReactComponent as FilterDefault } from "../assets/filterDefault.svg";
 import { useScroll } from "../hooks/useScroll";
 import { filterStateAtom, selectedIngredientAtom } from "../atom";
 import { useRecoilState } from "recoil";
@@ -18,6 +17,7 @@ import SighImoticon from "../assets/sigh.png";
 
 const ResultList = () => {
   const homeRef = useRef(0);
+  const mainRef = useRef(0);
   const [byPopularState, setByPopularState] = useState(true);
   // const [mainTextIs, setMainTextIs] = useState(true);
   const [selectedIngredient, setSelectedIngredient] = useRecoilState(
@@ -31,6 +31,7 @@ const ResultList = () => {
   const [filtered, setFiltered] = useState();
   const [filterItemState, setFilterItemState] = useRecoilState(filterStateAtom);
   const [filterClick, setFilterClick] = useState(0); // 필터결과가 하나도 없을떄 핸들링 해주기위해 만든 상태
+  const listContainerRef = useRef();
 
   useEffect(() => {
     window.scrollTo(0, 1);
@@ -70,7 +71,7 @@ const ResultList = () => {
   const navigate = useNavigate();
 
   const clickHistoryData = (e) => {
-    navigate(`/${e.target.id}/detail`, { replace: false, state: e.target.id });
+    navigate(`/detail/${e.target.id}`, { replace: false, state: e.target.id });
   };
 
   const handleScroll = () => {
@@ -99,7 +100,6 @@ const ResultList = () => {
         copyFilteredButtonSorted = result;
       }
     });
-    console.log(copyFilteredButtonSorted);
 
     //로직 시작
     let lotatedFiltered = [];
@@ -212,6 +212,11 @@ const ResultList = () => {
   const headerContainerRef = useRef();
   const headerContainerHeight = headerContainerRef.current?.offsetHeight;
 
+  const handleScrolls = (e) => {
+    console.log(e);
+  };
+
+  console.log(listContainerRef);
   return (
     <ResultListWrapper ref={homeRef}>
       {show ? (
@@ -220,12 +225,16 @@ const ResultList = () => {
           handleFilterClick={handleFilterClick}
           show={show}
           handleClose={handleClose}
+          parentWidth={homeRef.current.offsetWidth}
         ></Filter>
       ) : (
         ""
       )}
       <FilterOp show={show}></FilterOp>
-      <HeaderContainer ref={headerContainerRef}>
+      <HeaderContainer
+        parentWidth={homeRef.current.offsetWidth}
+        ref={headerContainerRef}
+      >
         <HeaderMainContainer>
           <ButtonIconContainer>
             <PreviousPageBtn></PreviousPageBtn>
@@ -252,7 +261,18 @@ const ResultList = () => {
           ))}
         </FoodListWrapper>
       </HeaderContainer>
-      <MainContainer headerContainerHeight={headerContainerHeight}>
+      <MainContainer
+        onScroll={handleScrolls}
+        headerContainerHeight={headerContainerHeight}
+        ref={mainRef}
+      >
+        <UpButton
+          parentWidth={homeRef.current.offsetWidth}
+          scrollY={scrollY}
+          onClick={handleScroll}
+        >
+          <StyledMyIconUp></StyledMyIconUp>
+        </UpButton>
         <SortingLetter byPopularState={byPopularState}>
           <button
             byPopularState={byPopularState}
@@ -269,25 +289,7 @@ const ResultList = () => {
             정확도순
           </button>
         </SortingLetter>
-        <ListContainer>
-          {/* {filterFoodData.length > 0
-            ? filterFoodData.map((item) => (
-                <TextWrapper
-                  key={item.recipeId}
-                  onClick={clickHistoryData}
-                  id={item.recipeId}
-                >
-                  <img src={item.imgUrl} alt="" />
-                  <SummaryAndLike>
-                    <ListSpan>{item.summary}</ListSpan>
-                    <IconWrapper>
-                      <StyledMyIcon></StyledMyIcon>
-                      <span>{item.likeCnt}</span>
-                    </IconWrapper>
-                  </SummaryAndLike>
-                </TextWrapper>
-              ))
-            : "레시피가없어용"} */}
+        <ListContainer ref={listContainerRef}>
           {filterClick > 0 && filterFoodData.length === 0 ? (
             <FilterDefaultMessage>
               <img src={SighImoticon} alt="" />
@@ -318,9 +320,6 @@ const ResultList = () => {
           ))}
         </ListContainer>
       </MainContainer>
-      <UpButton scrollY={scrollY} onClick={handleScroll}>
-        <StyledMyIconUp></StyledMyIconUp>
-      </UpButton>
     </ResultListWrapper>
   );
 };
@@ -336,7 +335,6 @@ const ResultListWrapper = styled.div`
 
 const FilterOp = styled.div`
   display: ${({ show }) => (show ? "block" : "none")};
-  /* visibility: ${({ show }) => (show ? "visible" : "hidden")}; */
   position: fixed;
   width: 420px;
   top: 0;
@@ -351,7 +349,7 @@ const HeaderContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   padding-bottom: 16px;
-  width: 418px;
+  width: ${(props) => `${props.parentWidth}px`};
   position: fixed;
   top: 0px;
   background-color: white;
@@ -403,10 +401,15 @@ const FoodListWrapper = styled.div`
   }
 `;
 const MainContainer = styled.div`
-  min-height: 100vh;
+  box-sizing: content-box;
   padding: 16px;
   padding-top: ${(props) => `${props.headerContainerHeight}px`};
   padding-bottom: 50px;
+  height: 100%;
+  background-color: ${({ theme }) => theme.colors.WHITE};
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const SortingLetter = styled.div`
@@ -439,6 +442,9 @@ const SortingLetter = styled.div`
 const ListContainer = styled.div`
   display: flex;
   flex-direction: column;
+  background-color: ${({ theme }) => theme.colors.WHITE};
+  width: calc(100% + 32px);
+  margin-left: -16px;
 `;
 
 const TextWrapper = styled.div`
@@ -446,10 +452,11 @@ const TextWrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   margin-bottom: 20px;
+  width: calc(100% - 32px);
+  margin-left: 16px;
   cursor: pointer;
   img {
     object-fit: cover;
-    width: 100%;
     height: 184px;
     border-radius: 10px;
     pointer-events: none;
@@ -465,6 +472,8 @@ const ListSpan = styled.div`
 const StyledMyIcon = styled(HeartActive)``;
 
 const IconWrapper = styled.div`
+  display: flex;
+  align-items: center;
   pointer-events: none;
   white-space: nowrap;
   font-size: 14px;
@@ -481,15 +490,16 @@ const SummaryAndLike = styled.div`
 `;
 
 const UpButton = styled.button`
-  display: ${({ scrollY }) => (scrollY > 0 ? "auto" : "none")};
+  display: ${({ scrollY }) => (scrollY > 0 ? "flex" : "none")};
   width: 45px;
   height: 45px;
-  line-height: 45px;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   border-radius: 50%;
-  position: sticky;
+  position: fixed;
   bottom: 94px;
-  transform: translateX(350px);
+  transform: ${(props) => `translateX(${props.parentWidth - 77}px)`};
   background-color: white;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
   transition: all 300ms ease;

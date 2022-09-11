@@ -18,6 +18,7 @@ function SearchIndex() {
   const [viewMyFrigeAtom, setViewMyFrigeAtom] = useRecoilState(myFrigeAtom);
   const [data, setData] = useState([]);
   const [filterData, setFilterData] = useState([]);
+
   useEffect(() => {
     const getIngredient = async () => {
       const result = await getIngredients();
@@ -84,10 +85,16 @@ function SearchIndex() {
             onChange={handleChangingSearch}
             searchInput={searchInput}
           />
-          <StyledMyIconSearchX
-            searchInput={searchInput}
-            onClick={handleXButton}
-          ></StyledMyIconSearchX>
+          {searchInput.length > 0 ? (
+            <SearchInputXButton
+              searchInput={searchInput}
+              onClick={handleXButton}
+            >
+              <StyledMyIconSearchX></StyledMyIconSearchX>
+            </SearchInputXButton>
+          ) : (
+            ""
+          )}
         </FormControlWrapper>
         <SearchListContainer>
           {filterData.map((item) => {
@@ -231,17 +238,12 @@ const SearchListContainer = styled.div`
   gap: 8px;
 `;
 
-const StyledMyIconSearchX = styled(searchXButton)`
-  display: ${({ searchInput }) => (searchInput ? "block" : "none")};
-  cursor: pointer;
-  position: absolute;
-  right: 15px;
-  top: 16px;
-`;
+const StyledMyIconSearchX = styled(searchXButton)``;
 
 const FormInput = styled.input`
   outline: none;
   border: none;
+  caret-color: ${({ theme }) => theme.colors.MAIN_COLOR};
   width: 100%;
   padding: 13px 15px;
   padding-left: ${({ searchInput }) => (searchInput === "" ? "37px" : "13px")};
@@ -253,6 +255,21 @@ const FormInput = styled.input`
   ::placeholder {
     color: ${({ theme }) => theme.colors.GREY_50};
   }
+`;
+
+const SearchInputXButton = styled.div`
+  width: 22px;
+  height: 22px;
+  background-color: ${({ theme }) => theme.colors.MAIN_COLOR};
+  border-radius: 50%;
+  display: ${({ searchInput }) => (searchInput ? "block" : "none")};
+  cursor: pointer;
+  position: absolute;
+  right: 15px;
+  top: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const RecipeSearchButton = styled.button`
