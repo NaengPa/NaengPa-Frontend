@@ -16,7 +16,7 @@ import EditArticle from "../pages/CommunityPage/EditArticle";
 const pages = [
   { pathname: "/", element: <Main></Main>, isPublic: true },
   {
-    pathname: "/:recipeId/detail",
+    pathname: "/detail/:recipeId",
     element: <Detail />,
     isPublic: true,
   },

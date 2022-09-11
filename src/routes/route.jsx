@@ -3,7 +3,6 @@ import pages from "./page";
 import Navigation from "../components/navigation";
 import styled from "styled-components";
 import ScrollToTop from "../components/ScrollToTop";
-
 import ProtectedRoute from "./protectedRoute";
 
 const RootRoute = () => {

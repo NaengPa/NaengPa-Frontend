@@ -3,6 +3,8 @@ import { ReactComponent as Share } from "../../assets/shareBlack.svg";
 import ArticleImgCarousel from "./ArticleImgCarousel";
 import ArticleModifySection from "./ArticleModifySection";
 import ArticleLike from "./ArticleLike";
+import { useState } from "react";
+import ShareModal from "../ShareModal/shareModal";
 
 const ArticleContainer = styled.div`
   width: 100%;
@@ -62,10 +64,25 @@ function CommunityArticle({
   likeYn,
   likes,
   nickname,
-  setShowModal,
 }) {
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <ArticleContainer>
+      {showModal ? (
+        <ShareModal
+          recipeDetail={{
+            title: "냉장고 파먹기",
+            description: content,
+            button: "본문 보러가기",
+            imgUrl: imgs[0],
+          }}
+          setShowModal={setShowModal}
+          showModal={showModal}
+        ></ShareModal>
+      ) : (
+        ""
+      )}
       <ArticleHeader>
         <UserContainer>
           <UserProfileImg src={imgUrl} />
