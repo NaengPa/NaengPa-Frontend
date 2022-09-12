@@ -11,8 +11,11 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import { localLogin } from "../../common/localLogin";
 import PreviousPageBtn from "../../components/PreviousPageBtn";
 import { getFrigeIrdnt } from "../../common/axios";
+import LoadingPortal from "../../components/LoadingPortal";
+import LoadingScreen from "../../components/LoadingScreen";
 
 const Login = () => {
+  const [loading, setLoading] = useState(false);
   const [emailState, setEmailState] = useState(false);
   const [passwordState, setPasswordState] = useState(false);
   const [pageState, setPageState] = useRecoilState(pageStateAtom);
@@ -26,21 +29,24 @@ const Login = () => {
       localStorage.setItem("token", result);
     };
 
-    // const getFrige = async () => {
-    //   const result = await getFrigeIrdnt(
-    //     JSON.parse(localStorage.getItem("userInfo")).email
-    //   );
-    //   await setMyFrige(result);
-    // };
+    const getFrige = async () => {
+      const result = await getFrigeIrdnt(
+        JSON.parse(localStorage.getItem("userInfo")).email
+      );
+      setMyFrige(result);
+    };
+
     //TODO :  기록할것 로그인 시 내 냉장고 재료를 가져오는 함수 추가 필요
 
     if (KakaoUrl) {
       const loginFn = async () => {
+        setLoading(true);
         await postUrl();
         const result = await getLoginInfo(localStorage.getItem("token"));
         console.log(result);
         localStorage.setItem("userInfo", JSON.stringify(result));
-        // await getFrige();
+        await getFrige();
+        setLoading(false);
         navigate("/");
       };
       loginFn();
@@ -82,19 +88,24 @@ const Login = () => {
     e.preventDefault();
     const localLogins = async (e) => {
       const result = await localLogin(e);
-      localStorage.setItem("token", result);
+      localStorage.setItem("token", result.accessToken);
+      localStorage.setItem("refreshToken", result.accessToken);
       console.log(result);
       getInfos();
       navigate("/");
     };
     const getInfos = async () => {
       const result = await getLoginInfo(localStorage.getItem("token"));
+      console.log(result);
       localStorage.setItem("userInfo", JSON.stringify(result));
     };
     localLogins(e);
   };
 
-  return (
+  return loading ? (
+    <LoadingPortal>{loading ? <LoadingScreen /> : null}</LoadingPortal>
+  ) : (
+    // <div>로그인중</div>
     <Container>
       <PreviousPageBtn />
       <MainContainer>

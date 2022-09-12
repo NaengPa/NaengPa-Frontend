@@ -141,6 +141,7 @@ function MyPage() {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userInfo");
+    localStorage.removeItem("refreshToken");
     window.location.reload();
   };
 
