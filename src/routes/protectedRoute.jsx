@@ -1,20 +1,12 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import { pageStateAtom } from "../atom";
-import { useRecoilState } from "recoil";
 
-const ProtectedRoute = ({ isAuthenticated, children, pathname, token }) => {
-  const [pageState, setPageState] = useRecoilState(pageStateAtom);
-  // console.log(pathname, pageState);
-  if (pathname === "/mypage") {
-    setPageState(pathname);
-  } else if (pathname === "/community") {
-    setPageState(pathname);
-  } else if (pathname === "/frige") {
-    setPageState(pathname);
-  }
-
-  if (!isAuthenticated) {
+const ProtectedRoute = ({ children, isPublic }) => {
+  console.log(isPublic);
+  const validation = isPublic || localStorage?.getItem("token");
+  console.log(validation);
+  if (!validation) {
+    console.log("hi");
     return <Navigate to="/login" />;
   }
 

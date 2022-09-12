@@ -6,7 +6,7 @@ import ScrollToTop from "../components/ScrollToTop";
 import ProtectedRoute from "./protectedRoute";
 
 const RootRoute = () => {
-  const token = localStorage.getItem("token");
+  const token = localStorage?.getItem("token");
   console.log(token);
   return (
     <RouteWrapper>
@@ -15,18 +15,12 @@ const RootRoute = () => {
         <Navigation></Navigation>
         <Routes>
           {pages.map((r) => {
-            const isAuthenticated = r.isPublic || token;
-            console.log(isAuthenticated);
             return (
               <Route
                 key={r.pathname}
                 path={r.pathname}
                 element={
-                  <ProtectedRoute
-                    token={token}
-                    pathname={r.pathname}
-                    isAuthenticated={isAuthenticated}
-                  >
+                  <ProtectedRoute isPublic={r.isPublic}>
                     {r.element}
                   </ProtectedRoute>
                 }
