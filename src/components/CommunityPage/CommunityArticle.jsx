@@ -75,7 +75,7 @@ function CommunityArticle({
             title: "냉장고 파먹기",
             description: content,
             button: "본문 보러가기",
-            imgUrl: imgs[0],
+            imgUrl: "https://ifh.cc/g/wQDwLh.jpg",
           }}
           setShowModal={setShowModal}
           showModal={showModal}
