@@ -35,6 +35,7 @@ const Wrapper = styled.button`
   background-color: ${(props) =>
     props.valid ? props.theme.colors.MAIN_COLOR : "transparent"};
   height: 36px;
+  font-weight: 600;
 `;
 
 const FoodText = styled.div``;

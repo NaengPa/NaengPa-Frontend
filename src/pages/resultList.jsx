@@ -14,12 +14,14 @@ import Filter from "../components/filter/filter";
 import filterItem from "../Constant/constant";
 import PreviousPageBtn from "../components/PreviousPageBtn";
 import SighImoticon from "../assets/sigh.png";
+import LoadingPortal from "../components/LoadingPortal";
+import LoadingScreen from "../components/LoadingScreen";
 
 const ResultList = () => {
   const homeRef = useRef(0);
   const mainRef = useRef(0);
+  console.log(homeRef);
   const [byPopularState, setByPopularState] = useState(true);
-  // const [mainTextIs, setMainTextIs] = useState(true);
   const [selectedIngredient, setSelectedIngredient] = useRecoilState(
     selectedIngredientAtom
   );
@@ -32,13 +34,15 @@ const ResultList = () => {
   const [filterItemState, setFilterItemState] = useRecoilState(filterStateAtom);
   const [filterClick, setFilterClick] = useState(0); // 필터결과가 하나도 없을떄 핸들링 해주기위해 만든 상태
   const listContainerRef = useRef();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    window.scrollTo(0, 1);
+    setLoading(true);
     const getRecipeLists = async () => {
       const result = await getRecipeList(selectedIngredient);
       setFoodData(result.recipeInfos);
       setFiltered(result.filterInfo);
+      setLoading(false);
     };
     getRecipeLists();
     return () => {
@@ -96,7 +100,6 @@ const ResultList = () => {
       ) {
         const result = copyFilteredButton.filter((item) => item !== items);
         result.unshift(items);
-        console.log(result);
         copyFilteredButtonSorted = result;
       }
     });
@@ -160,7 +163,6 @@ const ResultList = () => {
       } else {
         lotatedFiltered = temporalFiltered;
       }
-      console.log(lotatedFiltered, countryFiltered);
     });
     //recipeNmko<<레시피 이름 1번인덱스면 레시피에 총 재료에서 추가해야됨 0번인덱스면 레시피에 클릭한 버튼 이외에 친구들로 적용되야됨 2번인덱스면 있는 재료들이 삭제되야됨
 
@@ -168,7 +170,6 @@ const ResultList = () => {
       countryFiltered.length > 0 ? countryFiltered : lotatedFiltered
     );
   }, [filteredButton]);
-  console.log(filterFoodData);
   const handleFilterClick = (items) => {
     const itemName = items.title;
     const isClicked = items.isClicked;
@@ -212,11 +213,6 @@ const ResultList = () => {
   const headerContainerRef = useRef();
   const headerContainerHeight = headerContainerRef.current?.offsetHeight;
 
-  const handleScrolls = (e) => {
-    console.log(e);
-  };
-
-  console.log(listContainerRef);
   return (
     <ResultListWrapper ref={homeRef}>
       {show ? (
@@ -225,14 +221,14 @@ const ResultList = () => {
           handleFilterClick={handleFilterClick}
           show={show}
           handleClose={handleClose}
-          parentWidth={homeRef.current.offsetWidth}
+          parentWidth={homeRef && homeRef.current?.offsetWidth}
         ></Filter>
       ) : (
         ""
       )}
       <FilterOp show={show}></FilterOp>
       <HeaderContainer
-        parentWidth={homeRef.current.offsetWidth}
+        parentWidth={homeRef && homeRef.current?.offsetWidth}
         ref={headerContainerRef}
       >
         <HeaderMainContainer>
@@ -262,63 +258,70 @@ const ResultList = () => {
         </FoodListWrapper>
       </HeaderContainer>
       <MainContainer
-        onScroll={handleScrolls}
         headerContainerHeight={headerContainerHeight}
         ref={mainRef}
       >
-        <UpButton
-          parentWidth={homeRef.current.offsetWidth}
-          scrollY={scrollY}
-          onClick={handleScroll}
-        >
-          <StyledMyIconUp></StyledMyIconUp>
-        </UpButton>
-        <SortingLetter byPopularState={byPopularState}>
-          <button
-            byPopularState={byPopularState}
-            onClick={handleByPopular}
-            className="byPopular"
-          >
-            인기순
-          </button>
-          <button
-            byPopularState={byPopularState}
-            onClick={handleByCorrect}
-            className="byCorrect"
-          >
-            정확도순
-          </button>
-        </SortingLetter>
-        <ListContainer ref={listContainerRef}>
-          {filterClick > 0 && filterFoodData.length === 0 ? (
-            <FilterDefaultMessage>
-              <img src={SighImoticon} alt="" />
-              <span className="title">검색 결과가 없습니다.</span>
-              <span className="main">
-                다른 검색어를 입력해 보거나 <br></br> 옵션을 재선택해 보시기
-                바랍니다.
-              </span>
-            </FilterDefaultMessage>
-          ) : (
-            ""
-          )}
-          {(filterClick > 0 ? filterFoodData : foodData).map((item) => (
-            <TextWrapper
-              key={item.recipeId}
-              onClick={clickHistoryData}
-              id={item.recipeId}
+        {loading ? (
+          <LoadingPortal>
+            <LoadingScreen />
+          </LoadingPortal>
+        ) : (
+          <>
+            <UpButton
+              parentWidth={homeRef && homeRef.current?.offsetWidth}
+              scrollY={scrollY}
+              onClick={handleScroll}
             >
-              <img src={item.imgUrl} alt="" />
-              <SummaryAndLike>
-                <ListSpan>{item.summary}</ListSpan>
-                <IconWrapper>
-                  <StyledMyIcon></StyledMyIcon>
-                  <span>{item.likeCnt}</span>
-                </IconWrapper>
-              </SummaryAndLike>
-            </TextWrapper>
-          ))}
-        </ListContainer>
+              <StyledMyIconUp></StyledMyIconUp>
+            </UpButton>
+            <SortingLetter byPopularState={byPopularState}>
+              <button
+                byPopularState={byPopularState}
+                onClick={handleByPopular}
+                className="byPopular"
+              >
+                인기순
+              </button>
+              <button
+                byPopularState={byPopularState}
+                onClick={handleByCorrect}
+                className="byCorrect"
+              >
+                정확도순
+              </button>
+            </SortingLetter>
+            <ListContainer ref={listContainerRef}>
+              {filterClick > 0 && filterFoodData.length === 0 ? (
+                <FilterDefaultMessage>
+                  <img src={SighImoticon} alt="" />
+                  <span className="title">검색 결과가 없습니다.</span>
+                  <span className="main">
+                    다른 검색어를 입력해 보거나 <br></br> 옵션을 재선택해 보시기
+                    바랍니다.
+                  </span>
+                </FilterDefaultMessage>
+              ) : (
+                ""
+              )}
+              {(filterClick > 0 ? filterFoodData : foodData).map((item) => (
+                <TextWrapper
+                  key={item.recipeId}
+                  onClick={clickHistoryData}
+                  id={item.recipeId}
+                >
+                  <img src={item.imgUrl} alt="" />
+                  <SummaryAndLike>
+                    <ListSpan>{item.summary}</ListSpan>
+                    <IconWrapper>
+                      <StyledMyIcon></StyledMyIcon>
+                      <span>{item.likeCnt}</span>
+                    </IconWrapper>
+                  </SummaryAndLike>
+                </TextWrapper>
+              ))}
+            </ListContainer>
+          </>
+        )}
       </MainContainer>
     </ResultListWrapper>
   );
@@ -351,7 +354,6 @@ const HeaderContainer = styled.div`
   padding-bottom: 16px;
   width: ${(props) => `${props.parentWidth}px`};
   position: fixed;
-  top: 0px;
   background-color: white;
   padding-left: 16px 0 16px 16px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);

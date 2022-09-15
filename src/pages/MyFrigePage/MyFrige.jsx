@@ -36,6 +36,11 @@ const MyFrigeListContainer = styled.div`
   width: 100%;
   height: calc(100vh - 256px);
   /* height: 100vh; */
+  -ms-overflow-style: none;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
   padding: 16px 16px;
   display: flex;
   flex-wrap: wrap;

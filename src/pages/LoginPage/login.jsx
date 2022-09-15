@@ -103,9 +103,8 @@ const Login = () => {
   };
 
   return loading ? (
-    <LoadingPortal>{loading ? <LoadingScreen /> : null}</LoadingPortal>
+    <LoadingPortal>{<LoadingScreen />}</LoadingPortal>
   ) : (
-    // <div>로그인중</div>
     <Container>
       <PreviousPageBtn />
       <MainContainer>
