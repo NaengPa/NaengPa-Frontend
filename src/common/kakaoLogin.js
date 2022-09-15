@@ -28,7 +28,23 @@ export async function getLoginInfo(value) {
     localStorage.setItem("userInfo", JSON.stringify(data));
     return data;
   } catch (error) {
-    // throw new Error(error);
-    console.log(error);
+    return error;
+  }
+}
+
+export async function getRefreshLogin(value) {
+  console.log(value);
+  try {
+    const { data } = await axios({
+      method: "GET",
+      url: `${baseURL}/user/refreshSignIn`,
+      headers: {
+        authorization: `Bearer ${value}`,
+      },
+    });
+    console.log(data);
+    return data;
+  } catch (error) {
+    throw new Error(error);
   }
 }
