@@ -248,14 +248,17 @@ function Frige() {
         filteredIrdntList={filteredIrdntList}
         isInputFocused={isInputFocused}
       >
-        <FrigeTitle>셰프의 냉장고 재료를{"\n"}선택해주세요 🥦</FrigeTitle>
+        <FrigeTitle>
+          {JSON.parse(localStorage.getItem("userInfo")).nickname}의 냉장고
+          재료를{"\n"}선택해주세요 🥦
+        </FrigeTitle>
         <InputWrapper>
           {!searchText && <StyledSearch isInputFocused={isInputFocused} />}
 
           <StyledInput
             value={searchText}
             onChange={onChange}
-            placeholder="재료를 검색해 주세요"
+            placeholder="찾으시는 재료의 검색도 가능해요"
             onFocus={() => setIsInputFocused(true)}
             onBlur={() => setIsInputFocused(false)}
           ></StyledInput>
