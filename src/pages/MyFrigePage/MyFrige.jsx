@@ -37,7 +37,7 @@ const MyFrigeListContainer = styled.div`
   height: calc(100vh - 256px);
   /* height: 100vh; */
   -ms-overflow-style: none;
-
+  white-space: pre-wrap;
   ::-webkit-scrollbar {
     display: none;
   }
@@ -122,20 +122,21 @@ function MyFrige() {
   return (
     <MyFrigeContainer>
       <MyFrigeTitle>
-        오래된 재료는 비워지고{"\n"}행복은 채워질 셰프의 냉장고 🥰
+        지금{"\n"}
+        {JSON.parse(localStorage.getItem("userInfo")).nickname}님의 냉장고에는❄️
       </MyFrigeTitle>
       <MyFrigeListContainer>
-        {myFrige.map((item) => (
-          <MyFrigeItem>
-            <MyFrigeName>{item}</MyFrigeName>
-          </MyFrigeItem>
-        ))}
+        {myFrige.length > 0
+          ? myFrige.map((item) => (
+              <MyFrigeItem>
+                <MyFrigeName>{item}</MyFrigeName>
+              </MyFrigeItem>
+            ))
+          : `내 냉장고가 비어있어요.${"\n"}설정 버튼을 눌러서 재료를 추가해주세요.`}
       </MyFrigeListContainer>
 
       <Link to={{ pathname: "/frige" }}>
-        <SelectionCompleteBtn>
-          {myFrige.length > 0 ? "냉장고 설정 다시하기" : "냉장고 설정하기"}
-        </SelectionCompleteBtn>
+        <SelectionCompleteBtn>내 냉장고 설정</SelectionCompleteBtn>
       </Link>
       <FrigeGradient />
     </MyFrigeContainer>

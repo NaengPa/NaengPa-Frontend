@@ -237,13 +237,10 @@ const ResultList = () => {
             <FilterButton handleShow={handleShow}></FilterButton>
           </ButtonIconContainer>
           <TitleWhoIs scrollY={scrollY}>
-            셰프의 재료로 만들 수 있는<br></br>멋진 요리들이에요
-            <img
-              width={35}
-              height={35}
-              alt=""
-              src="https://ifh.cc/g/MzlDmN.png"
-            ></img>
+            {localStorage.getItem("token")
+              ? JSON.parse(localStorage.getItem("userInfo")).nickname + "님"
+              : "셰프"}
+            의 재료로<br></br>멋진 레시피를 준비했어요✨
           </TitleWhoIs>
           <TitleChosen>선택한 재료</TitleChosen>
         </HeaderMainContainer>
