@@ -5,7 +5,7 @@ import KakaoShare from "./kakaoShare";
 import LinkShare from "./linkShare";
 import FacebookShare from "./facebookShare";
 
-const ShareModal = ({ show, setShowModal, recipeDetail }) => {
+const ShareModal = ({ setShowModal, recipeDetail }) => {
   useEffect(() => {
     // setFilterItemState(filterItem);
     document.body.style.cssText = `
@@ -87,12 +87,12 @@ const ModalBackground = styled.div`
 
 const ModalContainer = styled.div`
   width: calc(100% - 32px);
-  height: 200px;
   background-color: ${({ theme }) => theme.colors.WHITE};
   position: absolute;
   top: 300px;
   z-index: 1002;
   padding: 16px;
+  padding-top: 0px;
   border-radius: 4px;
 `;
 
@@ -105,7 +105,9 @@ const ModalHeader = styled.div`
   display: flex;
   width: calc(100% + 16 * 2);
   margin: 0 -16px 0 -16px;
+  padding: 16px;
   justify-content: space-between;
+  align-items: center;
   border-bottom: 1px solid ${({ theme }) => theme.colors.GREY_70};
 `;
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import AddFoodButton from "../components/addFoodButton";
 import FilterButton from "../components/filterButton";
-import { ReactComponent as HeartActive } from "../assets/heartActive.svg";
+import { ReactComponent as HeartActive } from "../assets/heartInactiveBlack.svg";
 import { ReactComponent as ArrowRight } from "../assets/upButton.svg";
 import { useScroll } from "../hooks/useScroll";
 import { filterStateAtom, selectedIngredientAtom } from "../atom";
@@ -291,11 +291,8 @@ const ResultList = () => {
               {filterClick > 0 && filterFoodData.length === 0 ? (
                 <FilterDefaultMessage>
                   <img src={SighImoticon} alt="" />
-                  <span className="title">검색 결과가 없습니다.</span>
-                  <span className="main">
-                    다른 검색어를 입력해 보거나 <br></br> 옵션을 재선택해 보시기
-                    바랍니다.
-                  </span>
+                  <span className="title">검색 결과가 없어요.</span>
+                  <span className="main">다른 재료나 옵션을 선택해주세요.</span>
                 </FilterDefaultMessage>
               ) : (
                 ""

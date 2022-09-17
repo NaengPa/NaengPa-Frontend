@@ -24,6 +24,9 @@ const ViewedRecipeImgContainer = styled.div`
   overflow-x: scroll;
   padding-left: 23px;
   width: 100%;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 function RecentlyViewedRecipe() {

@@ -48,7 +48,7 @@ const UnSelectedIngredientTag = styled.div`
 
 function IngredientTagList({ recipeIrdnts }) {
   const myFrige = useRecoilValue(myFrigeAtom);
-
+  console.log(recipeIrdnts);
   return (
     <StyledIngredientTagList>
       {recipeIrdnts?.map((item) => {
