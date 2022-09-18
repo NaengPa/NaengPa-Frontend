@@ -112,11 +112,17 @@ const LogoutContainer = styled.div`
 
 const LogoutBtn = styled.button`
   z-index: 20;
+  width: 56px;
+  height: 20px;
   margin: 10px 0;
   padding: 0;
 
+  color: ${(props) => props.theme.colors.GREY_5};
+  font-style: normal;
   font-weight: 600;
-  color: ${(props) => props.theme.colors.WHITE};
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
 `;
 
 function MyPage() {
@@ -167,7 +173,6 @@ function MyPage() {
           <Btn onClick={handleModal}>
             <Star />
             <BtnTitle>내가 받은 뱃지</BtnTitle>
-            <img src="../../assets/defaultImage.jpg" alt="" />
           </Btn>
 
           <Btn onClick={handleModal}>
