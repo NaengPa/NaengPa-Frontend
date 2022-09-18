@@ -42,12 +42,12 @@ function SearchIndex() {
     setSelectedIngredient([...selectedIngredient, e.target.textContent]);
     setData(data.filter((item) => item !== e.target.textContent));
   };
+
   const handleDelete = (e) => {
     console.log(e);
     setSelectedIngredient(
       selectedIngredient.filter((item) => item !== e.target.textContent)
     );
-
     setData([...data, e.target.textContent]);
   };
 
@@ -112,14 +112,14 @@ function SearchIndex() {
           <SelectTitle>내 냉장고에서도 골라보세요</SelectTitle>
           <SelectItemArea>
             {viewMyFrigeAtom.length === 0
-              ? "냉장고가 비었어요! 하단의 냉장고 버튼을 눌러서 냉장고를 채워주세요"
+              ? `하단의 내 냉장고 아이콘을 누르면${"\n"}냉장고를 채울 수 있어요`
               : viewMyFrigeAtom.map((item) => (
                   <FrigeButton handleAdd={handleAdd} item={item}></FrigeButton>
                 ))}
           </SelectItemArea>
         </MyFrigeContainer>
         <IngredientContainer>
-          <SelectTitle>이 재료들로 요리해요</SelectTitle>
+          <SelectTitle>이 재료들로 요리할래요</SelectTitle>
           {/* TODO: 선택한 재료가 있는 경우/없는 경우*/}
           <FoodButtonContainer>
             {selectedIngredient === []
@@ -151,7 +151,9 @@ const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: calc(var(--vh, 1vh) * 100);
+  background-color: ${({ theme }) => theme.colors.WHITE};
+  min-height: calc(var(--vh, 1vh) * 100);
+  height: 100%;
 `;
 
 const RefridgeTitle = styled.h2`
@@ -184,13 +186,13 @@ const SelectItemArea = styled.div`
   border-radius: 5px;
   margin-top: 8px;
   gap: 8px;
-
   color: ${({ theme }) => theme.colors.GREY_40};
   font-style: normal;
   font-weight: 600;
   font-size: 13px;
   line-height: 20px;
   letter-spacing: -0.01em;
+  white-space: pre-wrap;
 `;
 const FoodButtonContainer = styled.div`
   display: flex;
@@ -277,6 +279,9 @@ const RecipeSearchButton = styled.button`
   bottom: 72px;
   width: calc(100% - 32px);
   max-width: calc(420px - 32px);
+  margin: 0 -16px 0 0px;
+  /* width: calc(100% - 32px);
+  max-width: calc(420px - 32px); */
   align-items: center;
   color: #ffffff;
   cursor: pointer;
@@ -310,10 +315,6 @@ const SearchGradient = styled.div`
   height: 178px;
   position: fixed;
   bottom: 56px;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0) -10.29%,
-    #ffffff 55.59%
-  );
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0), #ffffff 55.59%);
   pointer-events: none;
 `;

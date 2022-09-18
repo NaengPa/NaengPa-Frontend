@@ -38,6 +38,11 @@ const Title = styled.p`
   white-space: pre-wrap;
   margin: 0;
   margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  span {
+    font-size: 24px;
+  }
 `;
 
 const SearchBtn = styled.button`

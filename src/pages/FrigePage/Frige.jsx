@@ -177,11 +177,7 @@ const FrigeGradient = styled.div`
   height: 178px;
   position: fixed;
   bottom: 56px;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0) -10.29%,
-    #ffffff 55.59%
-  );
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0), #ffffff 55.59%);
   pointer-events: none;
 `;
 
