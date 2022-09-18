@@ -327,7 +327,7 @@ const ResultListWrapper = styled.div`
   width: 100%;
   margin: auto;
   box-sizing: border-box;
-  height: calc(var(--vh, 1vh) * 100);
+  height: 100%;
 `;
 
 const FilterOp = styled.div`
