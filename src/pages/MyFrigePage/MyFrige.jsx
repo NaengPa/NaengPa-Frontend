@@ -49,6 +49,15 @@ const MyFrigeListContainer = styled.div`
   align-content: flex-start;
 `;
 
+const MyFrigeText = styled.span`
+  color: ${({ theme }) => theme.colors.GREY_40};
+  font-style: normal;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 20px;
+  letter-spacing: -0.01em;
+`;
+
 const MyFrigeItem = styled.div`
   background: ${(props) => props.theme.colors.MAIN_COLOR};
   border: 1px solid ${(props) => props.theme.colors.MAIN_COLOR};
@@ -126,13 +135,17 @@ function MyFrige() {
         {JSON.parse(localStorage.getItem("userInfo")).nickname}님의 냉장고에는❄️
       </MyFrigeTitle>
       <MyFrigeListContainer>
-        {myFrige.length > 0
-          ? myFrige.map((item) => (
-              <MyFrigeItem>
-                <MyFrigeName>{item}</MyFrigeName>
-              </MyFrigeItem>
-            ))
-          : `내 냉장고가 비어있어요.${"\n"}설정 버튼을 눌러서 재료를 추가해주세요.`}
+        {myFrige.length > 0 ? (
+          myFrige.map((item) => (
+            <MyFrigeItem>
+              <MyFrigeName>{item}</MyFrigeName>
+            </MyFrigeItem>
+          ))
+        ) : (
+          <MyFrigeText>
+            내 냉장고가 비어있어요.{"\n"}설정 버튼을 눌러서 재료를 추가해주세요.
+          </MyFrigeText>
+        )}
       </MyFrigeListContainer>
 
       <Link to={{ pathname: "/frige" }}>

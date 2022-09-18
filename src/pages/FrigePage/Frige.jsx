@@ -7,6 +7,7 @@ import { ReactComponent as Search } from "../../assets/search.svg";
 import { myFrigeAtom } from "../../atom";
 import { getIngredients, postFrigeIrdnt } from "../../common/axios";
 import AllFrigeList from "../../components/FrigePage/AllFrigeList";
+import LoadingPortal from "../../components/LoadingPortal";
 import LoadingScreen from "../../components/LoadingScreen";
 
 const FrigeWrapper = styled.div`
@@ -243,7 +244,7 @@ function Frige() {
 
   return (
     <FrigeWrapper>
-      {isLoading ? <LoadingScreen /> : null}
+      <LoadingPortal>{isLoading ? <LoadingScreen /> : null}</LoadingPortal>
       <FrigeSearchContainer
         filteredIrdntList={filteredIrdntList}
         isInputFocused={isInputFocused}
