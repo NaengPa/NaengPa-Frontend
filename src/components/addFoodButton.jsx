@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { ReactComponent as PlusButton } from "../assets/PlusButton.svg";
+import { ReactComponent as PlusButton } from "../assets/plusSmall.svg";
 import { Link } from "react-router-dom";
 
 const AddFoodButton = () => {

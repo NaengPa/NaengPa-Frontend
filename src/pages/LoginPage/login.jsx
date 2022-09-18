@@ -1,26 +1,122 @@
 import React from "react";
 import styled from "styled-components";
-import { useForm } from "react-hook-form";
 import FindAndSignIn from "./findAndSignIn";
 import { ReactComponent as Kakao } from "../../assets/kakao.svg";
-import GoBackButton from "../../components/goBackButton";
+import { useState } from "react";
+import { getKakaoLogin, getLoginInfo } from "../../common/kakaoLogin";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { myFrigeAtom, pageStateAtom } from "../../atom";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { localLogin } from "../../common/localLogin";
+import PreviousPageBtn from "../../components/PreviousPageBtn";
+import { getFrigeIrdnt } from "../../common/axios";
+import LoadingPortal from "../../components/LoadingPortal";
+import LoadingScreen from "../../components/LoadingScreen";
 
 const Login = () => {
-  const { handleSubmit } = useForm();
-  const submitEvent = (e) => {
-    e.preventDefault();
+  const [loading, setLoading] = useState(false);
+  const [emailState, setEmailState] = useState(false);
+  const [passwordState, setPasswordState] = useState(false);
+  const [pageState, setPageState] = useRecoilState(pageStateAtom);
+  const [myFrige, setMyFrige] = useRecoilState(myFrigeAtom);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const KakaoUrl = window.location.search.split("=")[1];
+    const postUrl = async () => {
+      const result = await getKakaoLogin(KakaoUrl);
+      localStorage.setItem("token", result);
+    };
+
+    const getFrige = async () => {
+      const result = await getFrigeIrdnt(
+        JSON.parse(localStorage.getItem("userInfo")).email
+      );
+      setMyFrige(result);
+    };
+
+    //TODO :  기록할것 로그인 시 내 냉장고 재료를 가져오는 함수 추가 필요
+
+    if (KakaoUrl) {
+      const loginFn = async () => {
+        setLoading(true);
+        await postUrl();
+        const result = await getLoginInfo(localStorage.getItem("token"));
+        console.log(result);
+        localStorage.setItem("userInfo", JSON.stringify(result));
+        await getFrige();
+        setLoading(false);
+        navigate("/");
+      };
+      loginFn();
+    }
+  });
+
+  const a = process.env.NODE_ENV;
+  console.log(a);
+
+  console.log(window.location.href.split(":")[0]);
+
+  const redirectUri =
+    window.location.href.split(":")[1] === "//localhost"
+      ? "http://localhost:3000/login"
+      : "https://naengdev.netlify.app/login";
+
+  const onChangeEmail = (e) => {
+    const inputLen = e.target.value.length;
+    if (inputLen > 2) {
+      setEmailState(true);
+    } else {
+      setEmailState(false);
+    }
+    console.log(e.target.value);
   };
-  return (
+
+  const onChangePassword = (e) => {
+    console.log(typeof e.target.value);
+    const inputLen = e.target.value.length;
+    if (inputLen > 2) {
+      setPasswordState(true);
+    } else {
+      setPasswordState(false);
+    }
+    console.log(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const localLogins = async (e) => {
+      const result = await localLogin(e);
+      localStorage.setItem("token", result.accessToken);
+      localStorage.setItem("refreshToken", result.accessToken);
+      console.log(result);
+      getInfos();
+      navigate("/");
+    };
+    const getInfos = async () => {
+      const result = await getLoginInfo(localStorage.getItem("token"));
+      console.log(result);
+      localStorage.setItem("userInfo", JSON.stringify(result));
+    };
+    localLogins(e);
+  };
+
+  return loading ? (
+    <LoadingPortal>{<LoadingScreen />}</LoadingPortal>
+  ) : (
     <Container>
-      <GoBackButton></GoBackButton>
+      <PreviousPageBtn />
       <MainContainer>
         <MainTitle>
           냉파를 이용하기 위해<br></br> 로그인을 해주세요 🍳{" "}
         </MainTitle>
-        <LoginForm onSubmit={handleSubmit(submitEvent)}>
+        <LoginForm onSubmit={handleSubmit}>
           <LoginWrapper>
             <LoginTitle>아이디</LoginTitle>
             <LoginInput
+              onChange={onChangeEmail}
+              name="email"
               placeholder="naengpa@naengpa.com"
               type={"text"}
             ></LoginInput>
@@ -28,18 +124,26 @@ const Login = () => {
           <PasswordWrapper>
             <PasswordTitle>비밀번호</PasswordTitle>
             <PasswordInput
+              onChange={onChangePassword}
+              name="password"
               placeholder="**********"
               type={"password"}
             ></PasswordInput>
           </PasswordWrapper>
-          <LoginButton>로그인</LoginButton>
+          <LoginButton
+            disabled={passwordState && emailState ? false : true}
+            passwordState={passwordState}
+            emailState={emailState}
+          >
+            로그인
+          </LoginButton>
           <FindAndSignIn></FindAndSignIn>
         </LoginForm>
       </MainContainer>
-      <KakaoLoginButton>
+      <KakaoLoginButton
+        href={`https://kauth.kakao.com/oauth/authorize?client_id=e01c4cdbad44d2771897f26308c77ef1&redirect_uri=${redirectUri}&response_type=code`}
+      >
         <StyledMyIcon></StyledMyIcon>
-        <KakaoTitle>카카오로 시작하기</KakaoTitle>
-        <Empty></Empty>
       </KakaoLoginButton>
     </Container>
   );
@@ -48,12 +152,13 @@ const Login = () => {
 export default Login;
 
 const Container = styled.div`
-  padding: 20px 16px 48px 16px;
+  padding: 20px 16px 56px 16px;
   width: 100%;
-  min-height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
   input {
     outline: none;
     border: none;
@@ -98,38 +203,48 @@ const PasswordTitle = styled.div`
   font-size: 13px;
 `;
 
-const LoginInput = styled.input``;
+const LoginInput = styled.input`
+  &:focus {
+    border-bottom: 1px solid ${({ theme }) => theme.colors.MAIN_COLOR};
+  }
+  caret-color: ${({ theme }) => theme.colors.MAIN_COLOR};
+`;
 
-const PasswordInput = styled.input``;
+const PasswordInput = styled.input`
+  &:focus {
+    border-bottom: 1px solid ${({ theme }) => theme.colors.MAIN_COLOR};
+  }
+  caret-color: ${({ theme }) => theme.colors.MAIN_COLOR};
+`;
 
 const LoginButton = styled.button`
   margin-top: 32px;
   font-weight: 600;
-  color: ${({ theme }) => theme.colors.WHITE};
+  color: ${(props) =>
+    props.passwordState && props.emailState
+      ? props.theme.colors.WHITE
+      : props.theme.colors.GREY_10};
+
+  background-color: ${(props) =>
+    props.passwordState && props.emailState
+      ? props.theme.colors.MAIN_COLOR
+      : props.theme.colors.GREY_30};
+  transition: all 300ms ease-in-out;
   padding: 15px 0;
   width: 100%;
   border-radius: 5px;
-  background-color: ${({ theme }) => theme.colors.MAIN_COLOR};
 `;
 
 const KakaoLoginButton = styled.a`
   background-color: ${({ theme }) => theme.colors.KAKAO};
-  padding: 15px 16px;
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  border-radius: 5px;
   margin-top: 32px;
   margin-bottom: 40px;
   cursor: pointer;
-`;
-
-const Empty = styled.div``;
-
-const KakaoTitle = styled.div`
-  font-weight: 600;
+  border-radius: 5px;
 `;
 
 const StyledMyIcon = styled(Kakao)`
   cursor: pointer;
+  width: 100%;
 `;

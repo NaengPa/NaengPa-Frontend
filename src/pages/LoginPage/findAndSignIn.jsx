@@ -9,8 +9,6 @@ const FindAndSignIn = () => {
   };
   return (
     <Container>
-      <FindId>아이디 찾기</FindId>
-      <FindPassword>비밀번호 찾기</FindPassword>
       <SignIn onClick={linkToSignIn}>회원가입</SignIn>
     </Container>
   );

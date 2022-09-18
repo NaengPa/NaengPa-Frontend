@@ -22,17 +22,20 @@ const Wrapper = styled.button`
   display: flex;
   align-items: center;
   flex-direction: row;
-  margin-right: 10px;
-  padding: 10px 15px;
-  border-radius: 20px;
+  padding: 8px 16px;
+  border-radius: 50px;
   pointer-events: ${({ valid }) => (valid ? "none" : "auto")};
-  border: ${({ valid }) => (valid ? "" : "1px")} solid
-    ${({ theme }) => theme.colors.MAIN_COLOR};
+  border: 1px solid
+    ${(props) =>
+      props.valid
+        ? props.theme.colors.MAIN_COLOR
+        : props.theme.colors.PRIMARY_300};
   font-size: 14px;
-  color: ${({ valid }) => (valid ? "white" : "#2E8CFE")};
-  background-color: ${({ valid }) => (valid ? "#2E8CFE" : "transparent")};
-  height: 37px;
-  margin-bottom: 10px;
+  color: ${(props) => (props.valid ? "white" : props.theme.colors.PRIMARY_300)};
+  background-color: ${(props) =>
+    props.valid ? props.theme.colors.MAIN_COLOR : "transparent"};
+  height: 36px;
+  font-weight: 600;
 `;
 
 const FoodText = styled.div``;

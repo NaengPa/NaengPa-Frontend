@@ -2,48 +2,54 @@ import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import AddFoodButton from "../components/addFoodButton";
 import FilterButton from "../components/filterButton";
-import GoBackButton from "../components/goBackButton";
-import { ReactComponent as Heart } from "../assets/shape.svg";
+import { ReactComponent as HeartActive } from "../assets/heartInactiveBlack.svg";
 import { ReactComponent as ArrowRight } from "../assets/upButton.svg";
 import { useScroll } from "../hooks/useScroll";
-import { selectedIngredientAtom } from "../atom";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { filterStateAtom, selectedIngredientAtom } from "../atom";
+import { useRecoilState } from "recoil";
 import FoodButtonAlone from "../components/foodButtonAlone";
 import { useNavigate } from "react-router-dom";
-import { post_GetRecipeList } from "../common/axios";
+import { getRecipeList } from "../common/axios";
 import Filter from "../components/filter/filter";
+import filterItem from "../Constant/constant";
+import PreviousPageBtn from "../components/PreviousPageBtn";
+import SighImoticon from "../assets/sigh.png";
+import LoadingPortal from "../components/LoadingPortal";
+import LoadingScreen from "../components/LoadingScreen";
 
 const ResultList = () => {
   const homeRef = useRef(0);
+  const mainRef = useRef(0);
+  console.log(homeRef);
   const [byPopularState, setByPopularState] = useState(true);
-  // const [mainTextIs, setMainTextIs] = useState(true);
   const [selectedIngredient, setSelectedIngredient] = useRecoilState(
     selectedIngredientAtom
   );
   const [foodData, setFoodData] = useState([]);
+  const [filteredButton, setFilteredButton] = useState([]);
   const [foodList, setFoodList] = useState([...selectedIngredient]);
   const [show, setShow] = useState(false);
+  const [filterFoodData, setFilterFoodData] = useState([]);
+  const [filtered, setFiltered] = useState();
+  const [filterItemState, setFilterItemState] = useRecoilState(filterStateAtom);
+  const [filterClick, setFilterClick] = useState(0); // 필터결과가 하나도 없을떄 핸들링 해주기위해 만든 상태
+  const listContainerRef = useRef();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    window.scrollTo(0, 1);
-    (async () => {
-      let promise = new Promise((resolve, reject) => {
-        resolve(post_GetRecipeList(selectedIngredient));
-      });
-      let result = await promise;
-      setFoodData(result);
-    })();
+    setLoading(true);
+    const getRecipeLists = async () => {
+      const result = await getRecipeList(selectedIngredient);
+      setFoodData(result.recipeInfos);
+      setFiltered(result.filterInfo);
+      setLoading(false);
+    };
+    getRecipeLists();
+    return () => {
+      setFilterItemState(filterItem);
+    };
   }, []);
   const { scrollY } = useScroll();
-  const observeroption = {
-    root: null,
-    rootmargin: "0px",
-    threshold: 0.3,
-  };
-  const observerCallback = (entries, observer) => {
-    entries.forEach((entry) => {});
-  };
-  const observer = new IntersectionObserver(observerCallback, observeroption);
 
   const handleByPopular = () => {
     setFoodData(
@@ -67,38 +73,177 @@ const ResultList = () => {
   };
 
   const navigate = useNavigate();
+
   const clickHistoryData = (e) => {
-    navigate(`/${e.target.id}/detail`, { replace: false, state: e.target.id });
+    navigate(`/detail/${e.target.id}`, { replace: false, state: e.target.id });
   };
+
   const handleScroll = () => {
     document.getElementById("root").scrollIntoView({ behavior: "smooth" });
   };
+
   const handleShow = () => {
     setShow(true);
   };
+
   const handleClose = () => {
     setShow(false);
   };
+
+  useEffect(() => {
+    const copyFilteredButton = [...filteredButton];
+    let copyFilteredButtonSorted = [...filteredButton];
+    copyFilteredButton.forEach((items, index) => {
+      if (
+        filterItem[1].category.filter((item) => item.title === items).length ===
+        0
+      ) {
+        const result = copyFilteredButton.filter((item) => item !== items);
+        result.unshift(items);
+        copyFilteredButtonSorted = result;
+      }
+    });
+
+    //로직 시작
+    let lotatedFiltered = [];
+    let countryFiltered = [];
+    const res = copyFilteredButtonSorted.forEach((items, index) => {
+      let temporalFiltered = [];
+      (lotatedFiltered.length > 0 ? lotatedFiltered : foodData).forEach(
+        (recipe) => {
+          if (
+            filterItem[1].category.filter((item) => item.title === items)
+              .length > 0
+          ) {
+            if (recipe.nationNm === items) {
+              temporalFiltered.push(recipe);
+            }
+          } else if (
+            filterItem[0].category.filter((item) => item.title === items)
+              .length > 0
+          ) {
+            if (recipe.levelNm === items) {
+              temporalFiltered.push(recipe);
+            }
+          } else if (
+            filterItem[2].category.filter((item) => item.title === items)
+              .length > 0
+          ) {
+            if (
+              recipe.irdnts.filter(
+                (item) =>
+                  (item.irdntNm === "허브(민트)" ? "민트" : item.irdntNm) ===
+                  items
+              ).length === 0
+            ) {
+              temporalFiltered.push(recipe);
+            }
+          }
+        }
+      );
+
+      if (
+        filterItem[1].category.filter(
+          (item) => item.title === copyFilteredButton[index + 1]
+        ).length > 0 &&
+        filterItem[1].category.filter(
+          (item) => item.title === copyFilteredButton[index]
+        ).length > 0
+      ) {
+        countryFiltered = [...countryFiltered, ...temporalFiltered];
+      } else if (
+        copyFilteredButton.filter(
+          (items) =>
+            filterItem[1].category.filter((item) => item.title === items)
+              .length > 0
+        ).length > 1 &&
+        index === copyFilteredButton.length - 1
+      ) {
+        countryFiltered = [...countryFiltered, ...temporalFiltered];
+      } else {
+        lotatedFiltered = temporalFiltered;
+      }
+    });
+    //recipeNmko<<레시피 이름 1번인덱스면 레시피에 총 재료에서 추가해야됨 0번인덱스면 레시피에 클릭한 버튼 이외에 친구들로 적용되야됨 2번인덱스면 있는 재료들이 삭제되야됨
+
+    setFilterFoodData(
+      countryFiltered.length > 0 ? countryFiltered : lotatedFiltered
+    );
+  }, [filteredButton]);
+  const handleFilterClick = (items) => {
+    const itemName = items.title;
+    const isClicked = items.isClicked;
+    if (
+      (itemName === "요알못" || itemName === "요잘알") &&
+      filteredButton.filter((item) => item === itemName).length === 1
+    ) {
+      setFilteredButton((prev) =>
+        filteredButton.filter((item) => item !== itemName)
+      );
+      setFilterClick(filterClick - 1);
+      return;
+    }
+    if (
+      (itemName === "요알못" || itemName === "요잘알") &&
+      // filterItemState[0].category.filter((item) => item.title).length > 0
+      filteredButton.filter((item) => item === "요알못" || item === "요잘알")
+        .length > 0
+    ) {
+      const firstIndexFiltered = filteredButton.filter((item) => {
+        if (item === "요알못" || item === "요잘알") {
+          return;
+        } else {
+          return item;
+        }
+      });
+      setFilteredButton((prev) => [...firstIndexFiltered, itemName]);
+      return;
+    }
+    if (!isClicked) {
+      setFilteredButton((prev) => [...filteredButton, itemName]);
+      setFilterClick(filterClick + 1);
+    } else {
+      setFilteredButton((prev) =>
+        filteredButton.filter((item) => item !== itemName)
+      );
+      setFilterClick(filterClick - 1);
+    }
+  };
+
+  const headerContainerRef = useRef();
+  const headerContainerHeight = headerContainerRef.current?.offsetHeight;
+
   return (
     <ResultListWrapper ref={homeRef}>
-      {show ? <Filter show={show} handleClose={handleClose}></Filter> : ""}
-      {/* <Filter show={show} handleClose={handleClose}></Filter> */}
+      {show ? (
+        <Filter
+          filterFoodData={filterFoodData}
+          handleFilterClick={handleFilterClick}
+          show={show}
+          handleClose={handleClose}
+          parentWidth={homeRef && homeRef.current?.offsetWidth}
+        ></Filter>
+      ) : (
+        ""
+      )}
       <FilterOp show={show}></FilterOp>
-      <HeaderContainer>
-        <ButtonIconContainer>
-          <GoBackButton></GoBackButton>
-          <FilterButton handleShow={handleShow}></FilterButton>
-        </ButtonIconContainer>
-        <TitleWhoIs scrollY={scrollY}>
-          셰프의 재료로 만들 수 있는<br></br>멋진 요리들이에요{" "}
-          <img
-            width={35}
-            height={35}
-            alt=""
-            src="https://ifh.cc/g/MzlDmN.png"
-          ></img>
-        </TitleWhoIs>
-        <TitleChosen>선택한 재료</TitleChosen>
+      <HeaderContainer
+        parentWidth={homeRef && homeRef.current?.offsetWidth}
+        ref={headerContainerRef}
+      >
+        <HeaderMainContainer>
+          <ButtonIconContainer>
+            <PreviousPageBtn></PreviousPageBtn>
+            <FilterButton handleShow={handleShow}></FilterButton>
+          </ButtonIconContainer>
+          <TitleWhoIs scrollY={scrollY}>
+            {localStorage.getItem("token")
+              ? JSON.parse(localStorage.getItem("userInfo")).nickname + "님"
+              : "셰프"}
+            의 재료로<br></br>멋진 레시피를 준비했어요✨
+          </TitleWhoIs>
+          <TitleChosen>선택한 재료</TitleChosen>
+        </HeaderMainContainer>
         <FoodListWrapper>
           <AddFoodButton></AddFoodButton>
           {selectedIngredient.map((item) => (
@@ -109,45 +254,69 @@ const ResultList = () => {
           ))}
         </FoodListWrapper>
       </HeaderContainer>
-      <MainContainer>
-        <SortingLetter byPopularState={byPopularState}>
-          <button
-            byPopularState={byPopularState}
-            onClick={handleByPopular}
-            className="byPopular"
-          >
-            인기순
-          </button>
-          <button
-            byPopularState={byPopularState}
-            onClick={handleByCorrect}
-            className="byCorrect"
-          >
-            정확도순
-          </button>
-        </SortingLetter>
-        <ListContainer>
-          {foodData.map((item) => (
-            <TextWrapper
-              key={item.recipeId}
-              onClick={clickHistoryData}
-              id={item.recipeId}
+      <MainContainer
+        headerContainerHeight={headerContainerHeight}
+        ref={mainRef}
+      >
+        {loading ? (
+          <LoadingPortal>
+            <LoadingScreen />
+          </LoadingPortal>
+        ) : (
+          <>
+            <UpButton
+              parentWidth={homeRef && homeRef.current?.offsetWidth}
+              scrollY={scrollY}
+              onClick={handleScroll}
             >
-              <img src={item.imgUrl} alt="" />
-              <SummaryAndLike>
-                <ListSpan>{item.summary}</ListSpan>
-                <IconWrapper>
-                  <StyledMyIcon></StyledMyIcon>
-                  <span>{item.likeCnt}</span>
-                </IconWrapper>
-              </SummaryAndLike>
-            </TextWrapper>
-          ))}
-        </ListContainer>
+              <StyledMyIconUp></StyledMyIconUp>
+            </UpButton>
+            <SortingLetter byPopularState={byPopularState}>
+              <button
+                byPopularState={byPopularState}
+                onClick={handleByPopular}
+                className="byPopular"
+              >
+                인기순
+              </button>
+              <button
+                byPopularState={byPopularState}
+                onClick={handleByCorrect}
+                className="byCorrect"
+              >
+                정확도순
+              </button>
+            </SortingLetter>
+            <ListContainer ref={listContainerRef}>
+              {filterClick > 0 && filterFoodData.length === 0 ? (
+                <FilterDefaultMessage>
+                  <img src={SighImoticon} alt="" />
+                  <span className="title">검색 결과가 없어요.</span>
+                  <span className="main">다른 재료나 옵션을 선택해주세요.</span>
+                </FilterDefaultMessage>
+              ) : (
+                ""
+              )}
+              {(filterClick > 0 ? filterFoodData : foodData).map((item) => (
+                <TextWrapper
+                  key={item.recipeId}
+                  onClick={clickHistoryData}
+                  id={item.recipeId}
+                >
+                  <img src={item.imgUrl} alt="" />
+                  <SummaryAndLike>
+                    <ListSpan>{item.summary}</ListSpan>
+                    <IconWrapper>
+                      <StyledMyIcon></StyledMyIcon>
+                      <span>{item.likeCnt}</span>
+                    </IconWrapper>
+                  </SummaryAndLike>
+                </TextWrapper>
+              ))}
+            </ListContainer>
+          </>
+        )}
       </MainContainer>
-      <UpButton scrollY={scrollY} onClick={handleScroll}>
-        <StyledMyIconUp></StyledMyIconUp>
-      </UpButton>
     </ResultListWrapper>
   );
 };
@@ -158,17 +327,17 @@ const ResultListWrapper = styled.div`
   width: 100%;
   margin: auto;
   box-sizing: border-box;
+  height: 100%;
 `;
 
 const FilterOp = styled.div`
   display: ${({ show }) => (show ? "block" : "none")};
-  position: sticky;
+  position: fixed;
+  width: 420px;
   top: 0;
-  left: 0;
   background-color: black;
   opacity: 0.5;
-  z-index: 999;
-  width: 100%;
+  z-index: 1000;
   height: 100vh;
 `;
 
@@ -176,19 +345,23 @@ const HeaderContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-bottom: 20px;
-  width: 418px;
+  padding-bottom: 16px;
+  width: ${(props) => `${props.parentWidth}px`};
   position: fixed;
-  top: 0px;
-  padding-top: 10px;
   background-color: white;
-  padding: 24px;
+  padding-left: 16px 0 16px 16px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+`;
+
+const HeaderMainContainer = styled.div`
+  padding: 16px 16px 0 16px;
+  display: flex;
+  flex-direction: column;
 `;
 
 const ButtonIconContainer = styled.div`
   margin-top: 12px;
-  width: 340px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
 `;
@@ -196,62 +369,78 @@ const ButtonIconContainer = styled.div`
 const TitleWhoIs = styled.div`
   display: ${({ scrollY }) => (scrollY > 145 ? "none" : "block")};
   transition: 300ms all ease-in-out;
-  margin-top: 12px;
+  margin-top: 8px;
   font-weight: 500;
   font-size: 24px;
-  line-height: 120%;
+  line-height: 30px;
   img {
-    transform: translateX(-10%) translateY(-10%);
+    transform: translateY(20%);
   }
 `;
 
 const TitleChosen = styled.div`
-  margin-top: 16px;
-  font-weight: 600;
-  font-size: 14px;
+  margin-top: 8px;
+  font-weight: 500;
+  font-size: 13px;
   line-height: 120%;
-  margin-bottom: 15px;
-  color: #a6a6a6;
+  margin-bottom: 8px;
+  color: ${({ theme }) => theme.colors.GREY_50};
 `;
 
 const FoodListWrapper = styled.div`
   display: flex;
   align-items: center;
   overflow-x: scroll;
+  padding-left: 16px;
   ::-webkit-scrollbar {
     display: none;
   }
 `;
 const MainContainer = styled.div`
-  padding: 24px;
-  padding-top: 240px;
+  box-sizing: content-box;
+  padding: 16px;
+  padding-top: ${(props) => `${props.headerContainerHeight}px`};
   padding-bottom: 50px;
+  height: 100%;
+  background-color: ${({ theme }) => theme.colors.WHITE};
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const SortingLetter = styled.div`
-  margin: 10px 0;
+  margin: 16px 0;
   text-align: end;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 600;
   .byPopular {
-    color: ${({ byPopularState }) => (byPopularState ? "#2E8CFE" : "#989898")};
-    background-color: ${({ byPopularState }) =>
-      byPopularState ? "#E4F0FF" : "transparent"};
-    padding: 5px 10px;
-    border-radius: 10px;
+    color: ${(props) =>
+      props.byPopularState
+        ? props.theme.colors.MAIN_COLOR
+        : props.theme.colors.GREY_30};
+    background-color: ${(props) =>
+      props.byPopularState ? props.theme.colors.PRIMARY_50 : "transparent"};
+    padding: 6px 12px;
+    border-radius: 5px;
   }
   .byCorrect {
-    color: ${({ byPopularState }) => (byPopularState ? "#989898" : "#2E8CFE")};
-    background-color: ${({ byPopularState }) =>
-      byPopularState ? "transparent" : "#E4F0FF"};
-    padding: 5px 10px;
-    border-radius: 10px;
+    color: ${(props) =>
+      props.byPopularState
+        ? props.theme.colors.GREY_30
+        : props.theme.colors.MAIN_COLOR};
+    background-color: ${(props) =>
+      props.byPopularState ? "transparent" : props.theme.colors.PRIMARY_50};
+    padding: 6px 12px;
+    border-radius: 5px;
   }
 `;
 
 const ListContainer = styled.div`
   display: flex;
   flex-direction: column;
+  background-color: ${({ theme }) => theme.colors.WHITE};
+  width: calc(100% + 32px);
+  margin-left: -16px;
 `;
 
 const TextWrapper = styled.div`
@@ -259,10 +448,11 @@ const TextWrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   margin-bottom: 20px;
+  width: calc(100% - 32px);
+  margin-left: 16px;
   cursor: pointer;
   img {
     object-fit: cover;
-    width: 100%;
     height: 184px;
     border-radius: 10px;
     pointer-events: none;
@@ -275,14 +465,16 @@ const ListSpan = styled.div`
   font-weight: 600;
 `;
 
-const StyledMyIcon = styled(Heart)``;
+const StyledMyIcon = styled(HeartActive)``;
 
 const IconWrapper = styled.div`
+  display: flex;
+  align-items: center;
   pointer-events: none;
   white-space: nowrap;
   font-size: 14px;
   span {
-    margin-left: 4px;
+    margin-left: 8px;
     font-weight: 600;
   }
 `;
@@ -294,19 +486,43 @@ const SummaryAndLike = styled.div`
 `;
 
 const UpButton = styled.button`
-  display: ${({ scrollY }) => (scrollY > 0 ? "auto" : "none")};
+  display: ${({ scrollY }) => (scrollY > 0 ? "flex" : "none")};
   width: 45px;
   height: 45px;
-  line-height: 45px;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   border-radius: 50%;
-  position: sticky;
+  position: fixed;
   bottom: 94px;
-  transform: translateX(350px);
+  transform: ${(props) => `translateX(${props.parentWidth - 77}px)`};
   background-color: white;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
   transition: all 300ms ease;
 `;
 const StyledMyIconUp = styled(ArrowRight)`
   transform: translateY(-2px);
+`;
+
+const FilterDefaultMessage = styled.div`
+  display: flex;
+  flex-direction: column;
+  color: ${({ theme }) => theme.colors.GREY_50};
+  align-items: center;
+  justify-content: center;
+  height: 500px;
+  img {
+    margin-bottom: 8px;
+    width: 40px;
+    height: 40px;
+  }
+  .title {
+    font-size: 22px;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .main {
+    font-size: 14px;
+    font-weight: 500;
+  }
 `;

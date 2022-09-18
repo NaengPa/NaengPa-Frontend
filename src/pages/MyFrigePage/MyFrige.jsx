@@ -1,45 +1,53 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { myFrigeAtom } from "../../atom";
+import { getFrigeIrdnt } from "../../common/axios";
 
 const MyFrigeContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100vh;
-  padding: 0px 27px;
-`;
+  background-color: #ffffff;
+  height: calc(var(--vh, 1vh) * 100);
+  padding: 0px 16px;
 
-const MyFrigeSubtitle = styled.p`
-  white-space: pre-wrap;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 140%;
-  /* or 20px */
-
-  letter-spacing: -0.03em;
-
-  color: #a3a3a3;
-  margin: 0;
-  margin-top: 73px;
+  overflow-y: hidden;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const MyFrigeTitle = styled.p`
+  margin-top: 40px;
+  font-style: normal;
   font-weight: 600;
-  font-size: 23px;
-  line-height: 29px;
-  margin: 0;
-  margin-bottom: 13px;
-  letter-spacing: -0.165px;
+  font-size: 24px;
+  line-height: 30px;
+  color: ${(props) => props.theme.colors.GREY_90};
+
+  white-space: pre-wrap;
 `;
 
 const MyFrigeListContainer = styled.div`
-  background: rgba(46, 140, 254, 0.06);
-  border-radius: 10px;
+  background: ${(props) => props.theme.colors.GREY_10};
+  border-radius: 5px;
   width: 100%;
-  height: calc(100vh - 300px);
-  padding: 20px 22px;
+  height: calc(100vh - 256px);
+  color: ${({ theme }) => theme.colors.GREY_40};
+  font-style: normal;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 20px;
+  letter-spacing: -0.01em;
+  /* height: 100vh; */
+  -ms-overflow-style: none;
+  white-space: pre-wrap;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  padding: 16px 16px;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
@@ -47,14 +55,24 @@ const MyFrigeListContainer = styled.div`
   align-content: flex-start;
 `;
 
+const MyFrigeText = styled.span`
+  color: ${({ theme }) => theme.colors.GREY_40};
+  font-style: normal;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 20px;
+  letter-spacing: -0.01em;
+`;
+
 const MyFrigeItem = styled.div`
-  background: #2e8cfe;
-  border: 1px solid #2e8cfe;
+  background: ${(props) => props.theme.colors.MAIN_COLOR};
+  border: 1px solid ${(props) => props.theme.colors.MAIN_COLOR};
   border-radius: 50px;
   display: flex;
   align-items: center;
-  height: 37px;
-  color: white;
+  height: 36px;
+  padding: 0;
+  color: #ffffff;
 `;
 
 const MyFrigeName = styled.p`
@@ -66,74 +84,81 @@ const MyFrigeName = styled.p`
 `;
 
 const SelectionCompleteBtn = styled.button`
-  bottom: 83px;
-  background: #2e8cfe;
-  border-radius: 10px;
-  width: 100%;
-  height: 58px;
-  font-weight: 500;
+  position: fixed;
+  bottom: 72px;
+  width: calc(100% - 32px);
+  max-width: calc(420px - 32px);
+  align-items: center;
+  color: #ffffff;
+
+  font-style: normal;
+  font-weight: 600;
   font-size: 16px;
   line-height: 20px;
-  align-items: center;
   text-align: center;
-  letter-spacing: -0.03em;
   color: #ffffff;
-  box-shadow: 0px 3px 10px #a9d0ff;
-
+  height: 50px;
+  background: ${(props) => props.theme.colors.MAIN_COLOR};
+  border-radius: 5px;
+  z-index: 1;
   &:disabled {
-    background: #a9a9a9;
+    background: ${(props) => props.theme.colors.GREY_30};
     box-shadow: none;
   }
 `;
 
 const FrigeGradient = styled.div`
   z-index: 0;
-  width: 90%;
-  height: 170px;
-  position: absolute;
-  bottom: 64px;
+  width: calc(100% - 32px);
+  max-width: calc(420px - 32px);
+  height: 178px;
+  position: fixed;
+  bottom: 56px;
   background: linear-gradient(
-    181.02deg,
-    rgba(255, 255, 255, 0) 13.62%,
-    #ffffff 55.49%
+    180deg,
+    rgba(255, 255, 255, 0) -10.29%,
+    #ffffff 55.59%
   );
 `;
 
-const Wrapper = styled.div`
-  z-index: 1;
-  width: 100%;
-  max-width: 420px;
-  position: fixed;
-  padding: 0 27px;
-  bottom: 80px;
-`;
-
 function MyFrige() {
-  const myFrige = useRecoilValue(myFrigeAtom);
+  const [myFrige, setMyFrige] = useRecoilState(myFrigeAtom);
+  useEffect(() => {
+    const get = async () => {
+      const result = await getFrigeIrdnt(
+        JSON.parse(localStorage.getItem("userInfo")).email
+      );
+      setMyFrige(result);
+    };
+
+    get();
+  }, []);
+
   return (
-    <>
-      <MyFrigeContainer>
-        <MyFrigeSubtitle>
-          오래된 재료는 비워지고{"\n"}행복은 채워질
-        </MyFrigeSubtitle>
-        <MyFrigeTitle>셰프의 냉장고 ❄️</MyFrigeTitle>
-        <MyFrigeListContainer>
-          {myFrige.map((item) => (
+    <MyFrigeContainer>
+      <MyFrigeTitle>
+        지금{"\n"}
+        {JSON.parse(localStorage.getItem("userInfo")).nickname}님의 냉장고에는❄️
+      </MyFrigeTitle>
+      <MyFrigeListContainer>
+        {myFrige.length > 0 ? (
+          myFrige.map((item) => (
             <MyFrigeItem>
               <MyFrigeName>{item}</MyFrigeName>
             </MyFrigeItem>
-          ))}
-        </MyFrigeListContainer>
-      </MyFrigeContainer>
-      <Wrapper>
-        <Link to={{ pathname: "/frige" }}>
-          <SelectionCompleteBtn>
-            {myFrige.length > 0 ? "냉장고 설정 다시하기" : "냉장고 설정하기"}
-          </SelectionCompleteBtn>
-        </Link>
-      </Wrapper>
+          ))
+        ) : (
+          <MyFrigeText>
+            내 냉장고가 비어있어요.{"\n"}설정 버튼을 눌러서 재료를 추가해주세요.
+          </MyFrigeText>
+        )}
+      </MyFrigeListContainer>
+
+      <Link to={{ pathname: "/frige" }}>
+        <SelectionCompleteBtn>내 냉장고 설정</SelectionCompleteBtn>
+      </Link>
       <FrigeGradient />
-    </>
+    </MyFrigeContainer>
   );
 }
 

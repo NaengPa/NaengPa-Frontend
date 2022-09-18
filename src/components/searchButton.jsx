@@ -21,14 +21,18 @@ const Wrapper = styled.button`
   white-space: nowrap;
   display: flex;
   align-items: center;
-  flex-direction: row;
-  margin-right: 10px;
-  padding: 10px 15px;
-  border-radius: 20px;
-  border: 1px solid ${({ theme }) => theme.colors.MAIN_COLOR};
-  font-size: 14px;
-  height: 37px;
-  margin-bottom: 10px;
+  padding: 8px 16px;
+  height: 36px;
+  border: 1px solid ${(props) => props.theme.colors.GREY_30};
+  border-radius: 50px;
+
+  font-style: normal;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 20px;
+  text-align: center;
+  letter-spacing: -0.005em;
+  color: ${(props) => props.theme.colors.GREY_60};
 `;
 
 const FoodText = styled.div``;

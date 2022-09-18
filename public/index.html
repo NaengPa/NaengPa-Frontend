@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <base href="/" />
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta property="og: title" content="냉장고 파먹기" />
+    <meta
+      property="og: description"
+      content="냉장고 파먹기에서 레시피를 만나보세요."
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta
@@ -10,10 +16,7 @@
       content="Web site created using create-react-app"
     />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <link rel="/manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>NaengPa</title>
   </head>
@@ -31,7 +34,9 @@
 
       gtag("config", "G-XT41KJPENL");
     </script>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <noscript></noscript>
+    <div style="height: 100%" id="root"></div>
+    <div id="global-modal"></div>
+    <div id="global-loading"></div>
   </body>
 </html>

@@ -3,15 +3,43 @@ import styled from "styled-components";
 import { ReactComponent as XButton } from "../../assets/x.svg";
 import FilterCategory from "./filterCategory";
 import { motion } from "framer-motion";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { filterStateAtom, navBarHeightAtom } from "../../atom";
 
-const Filter = ({ handleClose, show }) => {
+const Filter = ({
+  handleClose,
+  show,
+  handleFilterClick,
+  filterFoodData,
+  parentWidth,
+}) => {
   const [clicked, setClicked] = useState(false);
+  const [filterItemState, setFilterItemState] = useRecoilState(filterStateAtom);
 
-  const handleClick = () => {
+  const handleClick = (e) => {
     handleClose();
     setClicked(true);
   };
+
+  const handleFilter = (first, second) => {
+    const filterItemCopy = JSON.parse(JSON.stringify(filterItemState));
+    if (first !== 0) {
+      filterItemCopy[first].category[second].isClicked === false
+        ? (filterItemCopy[first].category[second].isClicked = true)
+        : (filterItemCopy[first].category[second].isClicked = false);
+    } else if (first === 0) {
+      if (filterItemCopy[0].category[second].isClicked) {
+        filterItemCopy[0].category[second].isClicked = false;
+      } else {
+        filterItemCopy[0].category[0].isClicked = false;
+        filterItemCopy[0].category[1].isClicked = false;
+        filterItemCopy[0].category[second].isClicked = true;
+      }
+    }
+    setFilterItemState((prev) => [...filterItemCopy]);
+  };
   useEffect(() => {
+    // setFilterItemState(filterItem);
     document.body.style.cssText = `
       position: fixed; 
       top: -${window.scrollY}px;
@@ -38,35 +66,16 @@ const Filter = ({ handleClose, show }) => {
       setClicked(true);
     }
   };
-  const filterItem = [
-    { title: "실력은 이 정도예요", category: ["요알못", "요잘알"] },
-    {
-      title: "이 나라 음식이 더 끌려요",
-      category: ["한식", "중식", "일식", "양식", "퓨전"],
-    },
-    {
-      title: "이건 빼고 싶어요",
-      category: [
-        "모든 고기류",
-        "모든 해산물",
-        "갑각류",
-        "고수",
-        "마라",
-        "복숭아",
-        "오이",
-        "우유",
-        "땅콩",
-        "땅콩",
-        "땅콩",
-        "땅콩",
-        "땅콩",
-        "땅콩",
-        "땅콩",
-      ],
-    },
-  ];
+
+  const navBarHeight = useRecoilValue(navBarHeightAtom);
+
   return (
-    <Container show ref={modalRef}>
+    <Container
+      parentWidth={parentWidth}
+      navBarHeight={navBarHeight}
+      show
+      ref={modalRef}
+    >
       <FilterContainer
         animate={{ x: clicked ? 400 : 0 }}
         transition={{ ease: "easeInOut", duration: 0.5 }}
@@ -76,8 +85,14 @@ const Filter = ({ handleClose, show }) => {
           <StyledMyIcon onClick={handleClick}></StyledMyIcon>
         </FilterHeader>
         <FilterMain>
-          {filterItem.map((item) => (
-            <FilterCategory filterItem={item}></FilterCategory>
+          {filterItemState?.map((item, index) => (
+            <FilterCategory
+              handleFilter={handleFilter}
+              firstIndex={index}
+              filterFoodData={filterFoodData}
+              handleFilterClick={handleFilterClick}
+              filterItem={item}
+            ></FilterCategory>
           ))}
         </FilterMain>
       </FilterContainer>
@@ -89,13 +104,13 @@ export default Filter;
 
 const Container = styled(motion.div)`
   border-radius: 20px 0px 0px 20px;
-  z-index: 9999;
-  height: calc(100vh - 64px); //calc 할떄는 내부에서 꼭 스페이스바를 해줘야된다.
+  z-index: 1200;
+  height: calc(100vh - 56px);
   background-color: transparent;
-  width: 80%;
-  position: sticky;
-  top: 0;
-  transform: translateX(25%);
+  width: ${(props) => `${props.parentWidth * 0.7}px`};
+  position: fixed;
+  top: 0px;
+  transform: ${(props) => `translateX(${props.parentWidth * 0.3}px)`};
   transition: all 300ms ease-in;
   overflow: scroll;
 `;
@@ -103,7 +118,8 @@ const Container = styled(motion.div)`
 const FilterContainer = styled(motion.div)`
   transform: translateX(100%);
   transition: all 300ms ease-in;
-  background-color: white;
+  height: 100%;
+  background-color: ${({ theme }) => theme.colors.WHITE};
 `;
 
 const FilterHeader = styled.header`

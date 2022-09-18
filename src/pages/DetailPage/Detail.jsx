@@ -1,22 +1,87 @@
 import styled from "styled-components";
-import { ReactComponent as Share } from "../../assets/share.svg";
-import { ReactComponent as Bookmark } from "../../assets/bookmark.svg";
-import { ReactComponent as Like } from "../../assets/like.svg";
-import IngredientTagList from "./IngredientTagList";
-import RecipeDetailItemList from "./RecipeDetailItemList";
-import RecipeReviewList from "./RecipeReviewList";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import IngredientTagList from "../../components/DetailPage/IngredientTagList";
+import RecipeDetailItemList from "../../components/DetailPage/RecipeDetailItemList";
+import RecipeReviewList from "../../components/DetailPage/RecipeReviewList";
+import { useSetRecoilState } from "recoil";
 import { viewedRecipeAtom } from "../../atom";
 import { useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useState } from "react";
-import GoBackButton from "../../components/goBackButton";
-import Header from "../../components/Header";
-import { get_GetRecipeDetail } from "../../common/axios";
+import { ReactComponent as Like } from "../../assets/heartInactiveWhite.svg";
+import { ReactComponent as Share } from "../../assets/shareWhite.svg";
+import Header from "../../components/DetailPage/Header";
+import { getRecipeDetail } from "../../common/axios";
+import ShareModal from "../../components/ShareModal/shareModal";
+
+function Detail() {
+  const setViewedRecipe = useSetRecoilState(viewedRecipeAtom);
+  const [recipeDetail, setRecipeDetail] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  console.log(showModal);
+
+  useEffect(() => {
+    setViewedRecipe((prev) => [recipeId, ...prev]);
+  }, [setViewedRecipe]);
+  const { recipeId } = useParams();
+
+  useEffect(() => {
+    const getRecipeDetails = async () => {
+      const result = await getRecipeDetail(recipeId);
+      setRecipeDetail(result);
+    };
+    getRecipeDetails();
+  }, [recipeId]);
+
+  const recipeName = recipeDetail?.recipeInfo?.recipeNmKo;
+  const recipeSummary = recipeDetail?.recipeInfo?.summary;
+  const recipeImg = recipeDetail?.recipeInfo?.imgUrl;
+  const recipeIrdnts = recipeDetail?.recipeIrdnts;
+  const recipeDescription = recipeDetail?.recipeCrses;
+
+  return (
+    <RecipeDetailContainer>
+      {showModal ? (
+        <ShareModal
+          setShowModal={setShowModal}
+          showModal={showModal}
+          recipeDetail={recipeDetail}
+        ></ShareModal>
+      ) : (
+        ""
+      )}
+      <Header></Header>
+      <RecipePhotoContainer>
+        <RecipePhoto src={recipeImg} />
+        <RecipePhotoGradient>
+          <Like />
+          <Share onClick={() => setShowModal(true)} />
+        </RecipePhotoGradient>
+      </RecipePhotoContainer>
+      <ContentsContainer>
+        <RecipeTitle>{recipeName}</RecipeTitle>
+        <RecipeShortDescription>{recipeSummary}</RecipeShortDescription>
+        <IngredientContainer>
+          <Subtitle>레시피 재료</Subtitle>
+          <IngredientTagList recipeIrdnts={recipeIrdnts} />
+        </IngredientContainer>
+      </ContentsContainer>
+      <RecipeDetailItemList recipeDescription={recipeDescription} />
+      <RecipeReviewList />
+    </RecipeDetailContainer>
+  );
+}
+
+export default Detail;
+
+const RecipeDetailContainer = styled.div`
+  width: 100%;
+  max-width: 420px;
+  background-color: #ffffff;
+`;
 
 const RecipePhotoContainer = styled.div`
   position: relative;
-  height: 470px;
+  height: 415px;
   overflow: hidden;
 `;
 
@@ -32,59 +97,44 @@ const RecipePhoto = styled.img`
 
 const RecipePhotoGradient = styled.div`
   width: 100%;
-  height: 70px;
+  height: 172px;
   position: absolute;
   bottom: 0;
   background: linear-gradient(
     180deg,
     rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0.37) 100%
+    rgba(0, 0, 0, 0.6) 100%
   );
-`;
-
-const SnsContainer = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 14px;
-`;
-
-const LikeWrapper = styled.div`
-  display: flex;
-  align-items: center;
-`;
-const LikeCount = styled.p`
-  margin: 0px 0px 0px 4px;
-`;
-
-const BtnContainer = styled.div`
-  display: flex;
-  gap: 10px;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 16px;
+  gap: 8px;
 `;
 
 const ContentsContainer = styled.div`
-  padding: 19px 27px 0 27px;
+  padding: 16px 16px 0 16px;
   display: flex;
   flex-direction: column;
 `;
 
 const RecipeTitle = styled.p`
+  font-style: normal;
   font-weight: 600;
-  font-size: 22px;
-  line-height: 120%;
-  letter-spacing: -0.02em;
+  font-size: 24px;
+  line-height: 30px;
+  color: ${(props) => props.theme.colors.GREY_90};
   margin: 0px;
   margin-bottom: 6px;
 `;
 
 const RecipeShortDescription = styled.p`
   margin: 0;
-  font-weight: 500;
+  font-style: normal;
+  font-weight: 600;
   font-size: 14px;
-  line-height: 120%;
-  letter-spacing: -0.02em;
-
-  color: #a6a6a6;
+  line-height: 17px;
+  color: ${(props) => props.theme.colors.GREY_30};
 `;
 
 const IngredientContainer = styled.div`
@@ -93,14 +143,17 @@ const IngredientContainer = styled.div`
   margin-top: 24px;
 `;
 
-const Subtitle = styled.p`
+const Subtitle = styled.span`
+  font-style: normal;
   font-weight: 600;
-  font-size: 14px;
-  line-height: 120%;
-  letter-spacing: -0.02em;
+  font-size: 13px;
+  line-height: 20px;
+  letter-spacing: -0.005em;
+  color: ${(props) => props.theme.colors.GREY_50};
   margin: 0;
   margin-bottom: 9px;
 `;
+<<<<<<< HEAD
 
 const Border = styled.div`
   background: rgba(35, 35, 35, 0.37);
@@ -162,3 +215,5 @@ function Detail() {
 }
 
 export default Detail;
+=======
+>>>>>>> develop
