@@ -15,7 +15,7 @@ const StyledMainLayout = styled.div`
 
 const LayoutWrapper = styled.div`
   width: 100%;
-  height: calc(var(--vh, 1vh) * 100);
+  /* height: calc(var(--vh, 1vh) * 100); */
 `;
 
 const BackGroundImage = styled.img`
