@@ -10,7 +10,7 @@ const StyledMainLayout = styled.div`
   height: 100%;
   margin: auto;
 
-  /* overflow-y: hidden; */
+  overflow-y: scroll;
 `;
 
 const LayoutWrapper = styled.div`
