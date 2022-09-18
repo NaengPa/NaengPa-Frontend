@@ -110,13 +110,13 @@ function Main() {
         )}
 
         <TitleWrapper>
-          <Subtitle>오래된 재료는 비우고 행복은 채우는</Subtitle>
-          <Title>냉장고 파먹기</Title>
+          <Subtitle>오래된 재료는 비우고, 행복은 채워요</Subtitle>
+          <Title>냉장고 파먹기❄️</Title>
         </TitleWrapper>
         <Link to={{ pathname: "/search" }}>
           <SearchBtn>
             <Search />
-            냉장고를 비워볼까요?
+            최고의 레시피 찾기
           </SearchBtn>
         </Link>
 

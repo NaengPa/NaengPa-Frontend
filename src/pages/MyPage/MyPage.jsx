@@ -111,19 +111,18 @@ const LogoutContainer = styled.div`
 `;
 
 const LogoutBtn = styled.button`
-  background-color: white;
-  border-radius: 5px;
   z-index: 20;
-  width: 64px;
-  height: 24px;
-  margin: 8px 0;
+  width: 56px;
+  height: 20px;
+  margin: 10px 0;
   padding: 0;
 
+  color: ${(props) => props.theme.colors.GREY_5};
   font-style: normal;
-  font-weight: 500;
-  font-size: 10px;
-  line-height: 17px;
-  color: ${(props) => props.theme.colors.GREY_50};
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
 `;
 
 function MyPage() {
@@ -158,7 +157,7 @@ function MyPage() {
       <MyPageWrapper>
         <Background />
         <LogoutContainer>
-          <LogoutBtn onClick={handleLogout}>LOGOUT</LogoutBtn>
+          <LogoutBtn onClick={handleLogout}>로그아웃</LogoutBtn>
         </LogoutContainer>
         <User>
           <UserProfileImg
@@ -174,7 +173,6 @@ function MyPage() {
           <Btn onClick={handleModal}>
             <Star />
             <BtnTitle>내가 받은 뱃지</BtnTitle>
-            <img src="../../assets/defaultImage.jpg" alt="" />
           </Btn>
 
           <Btn onClick={handleModal}>
