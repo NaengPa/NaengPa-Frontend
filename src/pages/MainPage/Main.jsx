@@ -38,6 +38,11 @@ const Title = styled.p`
   white-space: pre-wrap;
   margin: 0;
   margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  span {
+    font-size: 24px;
+  }
 `;
 
 const SearchBtn = styled.button`
@@ -111,12 +116,14 @@ function Main() {
 
         <TitleWrapper>
           <Subtitle>오래된 재료는 비우고 행복은 채우는</Subtitle>
-          <Title>냉장고 파먹기</Title>
+          <Title>
+            냉장고 파먹기<span>❄️</span>
+          </Title>
         </TitleWrapper>
         <Link to={{ pathname: "/search" }}>
           <SearchBtn>
             <Search />
-            냉장고를 비워볼까요?
+            최고의 레시피 찾기
           </SearchBtn>
         </Link>
 

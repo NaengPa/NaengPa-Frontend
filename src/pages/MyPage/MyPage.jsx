@@ -111,19 +111,12 @@ const LogoutContainer = styled.div`
 `;
 
 const LogoutBtn = styled.button`
-  background-color: white;
-  border-radius: 5px;
   z-index: 20;
-  width: 64px;
-  height: 24px;
-  margin: 8px 0;
+  margin: 10px 0;
   padding: 0;
 
-  font-style: normal;
-  font-weight: 500;
-  font-size: 10px;
-  line-height: 17px;
-  color: ${(props) => props.theme.colors.GREY_50};
+  font-weight: 600;
+  color: ${(props) => props.theme.colors.WHITE};
 `;
 
 function MyPage() {
@@ -158,7 +151,7 @@ function MyPage() {
       <MyPageWrapper>
         <Background />
         <LogoutContainer>
-          <LogoutBtn onClick={handleLogout}>LOGOUT</LogoutBtn>
+          <LogoutBtn onClick={handleLogout}>로그아웃</LogoutBtn>
         </LogoutContainer>
         <User>
           <UserProfileImg
