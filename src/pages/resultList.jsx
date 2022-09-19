@@ -29,7 +29,6 @@ const ResultList = () => {
   const [foodList, setFoodList] = useState([...selectedIngredient]);
   const [show, setShow] = useState(false);
   const [filterFoodData, setFilterFoodData] = useState([]);
-  const [filtered, setFiltered] = useState();
   const [filterItemState, setFilterItemState] = useRecoilState(filterStateAtom);
   const [filterClick, setFilterClick] = useState(0); // 필터결과가 하나도 없을떄 핸들링 해주기위해 만든 상태
   const listContainerRef = useRef();
@@ -40,7 +39,6 @@ const ResultList = () => {
     const getRecipeLists = async () => {
       const result = await getRecipeList(selectedIngredient);
       setFoodData(result.recipeInfos);
-      setFiltered(result.filterInfo);
       setLoading(false);
     };
     getRecipeLists();
