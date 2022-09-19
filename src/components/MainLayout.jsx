@@ -9,7 +9,9 @@ const StyledMainLayout = styled.div`
   background-color: ${theme.colors.WHITE};
   height: 100%;
   margin: auto;
-
+  ::-webkit-scrollbar {
+    display: none;
+  }
   overflow-y: scroll;
 `;
 

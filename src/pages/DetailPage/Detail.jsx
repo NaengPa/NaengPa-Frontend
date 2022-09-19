@@ -17,7 +17,6 @@ function Detail() {
   const setViewedRecipe = useSetRecoilState(viewedRecipeAtom);
   const [recipeDetail, setRecipeDetail] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  console.log(showModal);
 
   useEffect(() => {
     setViewedRecipe((prev) => [recipeId, ...prev]);

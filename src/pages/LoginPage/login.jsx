@@ -43,7 +43,6 @@ const Login = () => {
         setLoading(true);
         await postUrl();
         const result = await getLoginInfo(localStorage.getItem("token"));
-        console.log(result);
         localStorage.setItem("userInfo", JSON.stringify(result));
         await getFrige();
         setLoading(false);
@@ -52,11 +51,6 @@ const Login = () => {
       loginFn();
     }
   });
-
-  const a = process.env.NODE_ENV;
-  console.log(a);
-
-  console.log(window.location.href.split(":")[0]);
 
   const redirectUri =
     window.location.href.split(":")[1] === "//localhost"
@@ -70,18 +64,15 @@ const Login = () => {
     } else {
       setEmailState(false);
     }
-    console.log(e.target.value);
   };
 
   const onChangePassword = (e) => {
-    console.log(typeof e.target.value);
     const inputLen = e.target.value.length;
     if (inputLen > 2) {
       setPasswordState(true);
     } else {
       setPasswordState(false);
     }
-    console.log(e.target.value);
   };
 
   const handleSubmit = (e) => {
@@ -90,13 +81,11 @@ const Login = () => {
       const result = await localLogin(e);
       localStorage.setItem("token", result.accessToken);
       localStorage.setItem("refreshToken", result.accessToken);
-      console.log(result);
       getInfos();
       navigate("/");
     };
     const getInfos = async () => {
       const result = await getLoginInfo(localStorage.getItem("token"));
-      console.log(result);
       localStorage.setItem("userInfo", JSON.stringify(result));
     };
     localLogins(e);

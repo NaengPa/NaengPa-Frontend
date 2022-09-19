@@ -20,7 +20,6 @@ import LoadingScreen from "../components/LoadingScreen";
 const ResultList = () => {
   const homeRef = useRef(0);
   const mainRef = useRef(0);
-  console.log(homeRef);
   const [byPopularState, setByPopularState] = useState(true);
   const [selectedIngredient, setSelectedIngredient] = useRecoilState(
     selectedIngredientAtom
@@ -327,6 +326,7 @@ const ResultListWrapper = styled.div`
   width: 100%;
   margin: auto;
   box-sizing: border-box;
+  min-height: 100vh;
   height: 100%;
 `;
 

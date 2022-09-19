@@ -9,7 +9,6 @@ import { articleAtom, articleDeleteAtom } from "../../atom";
 import ArticleDeleteModal from "../../components/CommunityPage/ArticleDeleteModal";
 import LoadingScreen from "../../components/LoadingScreen";
 import LoadingPortal from "../../components/LoadingPortal";
-import ShareModal from "../../components/ShareModal/shareModal";
 
 const CommunityWrapper = styled.div`
   padding: 40px 16px 56px 16px;
@@ -43,7 +42,6 @@ function Community() {
   const [article, setArticle] = useRecoilState(articleAtom);
   const isDeleteModalOpen = useRecoilValue(articleDeleteAtom);
   const [isLoading, setIsLoading] = useState(false);
-  // const [showModal, setShowModal] = useState(false);
   const communityRef = useRef();
 
   console.log(article);
