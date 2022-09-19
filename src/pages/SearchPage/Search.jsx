@@ -3,6 +3,7 @@ import styled from "styled-components";
 import FoodButton from "../../components/foodButton";
 import { ReactComponent as searchXButton } from "../../assets/searchXButton.svg";
 import { ReactComponent as inputSearchButton } from "../../assets/inputSearch.svg";
+import { ReactComponent as Loading } from "../../assets/loading.svg";
 import { useRecoilState } from "recoil";
 import { myFrigeAtom, selectedIngredientAtom } from "../../atom";
 import FrigeButton from "../../components/frigeButton";
@@ -18,8 +19,10 @@ function SearchIndex() {
   const [viewMyFrigeAtom, setViewMyFrigeAtom] = useRecoilState(myFrigeAtom);
   const [data, setData] = useState([]);
   const [filterData, setFilterData] = useState([]);
+  const [loadingState, setLoadingState] = useState(false);
 
   useEffect(() => {
+    setLoadingState(true);
     const getIngredient = async () => {
       const result = await getIngredients();
       setData(result);
@@ -30,6 +33,7 @@ function SearchIndex() {
         JSON.parse(localStorage.getItem("userInfo")).email
       );
       setViewMyFrigeAtom(result);
+      setLoadingState(false);
     };
 
     get();
@@ -123,11 +127,15 @@ function SearchIndex() {
         <MyFrigeContainer>
           <SelectTitle>내 냉장고에서도 골라보세요</SelectTitle>
           <SelectItemArea>
-            {viewMyFrigeAtom.length === 0
-              ? `하단의 내 냉장고 아이콘을 누르면${"\n"}냉장고를 채울 수 있어요`
-              : viewMyFrigeAtom.map((item) => (
-                  <FrigeButton handleAdd={handleAdd} item={item}></FrigeButton>
-                ))}
+            {loadingState ? (
+              <LoadingIndicator></LoadingIndicator>
+            ) : viewMyFrigeAtom.length === 0 ? (
+              `하단의 내 냉장고 아이콘을 누르면${"\n"}냉장고를 채울 수 있어요`
+            ) : (
+              viewMyFrigeAtom.map((item) => (
+                <FrigeButton handleAdd={handleAdd} item={item}></FrigeButton>
+              ))
+            )}
           </SelectItemArea>
         </MyFrigeContainer>
         <IngredientContainer>
@@ -329,4 +337,18 @@ const SearchGradient = styled.div`
   bottom: 56px;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0), #ffffff 55.59%);
   pointer-events: none;
+`;
+
+const LoadingIndicator = styled(Loading)`
+  width: 40px;
+  height: 40px;
+  animation: rotate_loading 2s linear infinite;
+  transform-origin: 50% 50%;
+  margin: auto;
+
+  @keyframes rotate_loading {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
 `;
