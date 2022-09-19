@@ -65,7 +65,6 @@ export async function getCurRecipeList(numberLimitViewedRecipe) {
 
 export async function getArticle(email) {
   try {
-    console.log(email);
     const response = await axios.get(`${baseURL}/board?email=${email}`);
     return response.data;
   } catch (error) {
@@ -75,7 +74,6 @@ export async function getArticle(email) {
 
 export async function postArticle(newArticle) {
   try {
-    console.log(newArticle);
     const response = await axios({
       method: "POST",
       url: `${baseURL}/board`,
@@ -145,7 +143,6 @@ export async function postFrigeIrdnt(data) {
 
 export async function getFrigeIrdnt(email) {
   try {
-    console.log(email);
     const response = await axios.get(`${baseURL}/refrigerator/${email}`);
     return response.data;
   } catch (error) {

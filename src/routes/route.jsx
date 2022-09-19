@@ -12,7 +12,6 @@ const RootRoute = () => {
     <RouteWrapper>
       <BrowserRouter basename={process.env.PUBLIC_URL}>
         <ScrollToTop />
-        <Navigation></Navigation>
         <Routes>
           {pages.map((r) => {
             return (
@@ -28,6 +27,7 @@ const RootRoute = () => {
             );
           })}
         </Routes>
+        <Navigation></Navigation>
       </BrowserRouter>
     </RouteWrapper>
   );

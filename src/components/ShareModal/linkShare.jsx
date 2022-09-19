@@ -4,12 +4,19 @@ import { ReactComponent as LinkShareButton } from "../../assets/linkShare.svg";
 
 const LinkShare = () => {
   const handleLinkCopy = () => {
-    const result = async () => {
-      const currentUrl = window.location.href;
-      await navigator.clipboard.writeText(currentUrl); // 클립보드 복사 로직
-      alert("클립보드에 복사되었습니다.");
-    };
-    result();
+    const textarea = document.createElement("textarea");
+    const currentUrl = window.location.href;
+    textarea.value = currentUrl;
+    textarea.style.top = 0;
+    textarea.style.left = 0;
+    textarea.style.position = "fixed";
+
+    document.body.appendChild(textarea);
+    textarea.focus();
+    textarea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textarea);
+    alert("클립보드에 복사되었습니다.");
   };
 
   return (
