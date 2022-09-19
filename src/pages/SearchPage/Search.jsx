@@ -25,10 +25,8 @@ function SearchIndex() {
       setData(result);
     };
     getIngredient();
-    console.log(viewMyFrigeAtom);
   }, []);
 
-  console.log(window.location.pathname);
   useEffect(() => {
     if (searchInput !== "") {
       setFilterData(data.filter((item) => item.includes(searchInput)));
@@ -38,13 +36,11 @@ function SearchIndex() {
   }, [searchInput, data]);
 
   const addListClick = (e) => {
-    console.log(e);
     setSelectedIngredient([...selectedIngredient, e.target.textContent]);
     setData(data.filter((item) => item !== e.target.textContent));
   };
 
   const handleDelete = (e) => {
-    console.log(e);
     setSelectedIngredient(
       selectedIngredient.filter((item) => item !== e.target.textContent)
     );
@@ -60,8 +56,16 @@ function SearchIndex() {
   };
 
   const handleAdd = (e) => {
-    setSelectedIngredient([...selectedIngredient, e.target.textContent]);
-    setData(data.filter((item) => item !== e.target.textContent));
+    const targetText = e.target.textContent;
+    if (selectedIngredient.includes(targetText)) {
+      setSelectedIngredient(
+        selectedIngredient.filter((item) => item !== targetText)
+      );
+      setData([...data, targetText]);
+    } else {
+      setSelectedIngredient([...selectedIngredient, e.target.textContent]);
+      setData(data.filter((item) => item !== targetText));
+    }
   };
 
   const navigate = useNavigate();

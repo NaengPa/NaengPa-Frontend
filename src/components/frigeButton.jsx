@@ -24,7 +24,6 @@ const Wrapper = styled.button`
   flex-direction: row;
   padding: 8px 16px;
   border-radius: 50px;
-  pointer-events: ${({ valid }) => (valid ? "none" : "auto")};
   border: 1px solid
     ${(props) =>
       props.valid

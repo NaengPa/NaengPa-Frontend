@@ -193,7 +193,6 @@ function Frige() {
   const searchRef = useRef();
 
   useEffect(() => {
-    console.log(myFrige);
     myFrige.length > 0 ? setIsDisabled(false) : setIsDisabled(true);
   }, [myFrige]);
 
@@ -246,7 +245,7 @@ function Frige() {
         isInputFocused={isInputFocused}
       >
         <FrigeTitle>
-          {JSON.parse(localStorage.getItem("userInfo")).nickname}의 냉장고
+          {JSON.parse(localStorage.getItem("userInfo")).nickname}님의 냉장고
           재료를{"\n"}선택해주세요 🥦
         </FrigeTitle>
         <InputWrapper>

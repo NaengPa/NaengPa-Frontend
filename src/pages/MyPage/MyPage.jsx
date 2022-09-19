@@ -132,7 +132,6 @@ function MyPage() {
   const handleModal = () => {
     setIsModalOpen((prev) => !prev);
   };
-  console.log(JSON.parse(localStorage?.getItem("userInfo")));
   useEffect(() => {
     setUserInfo(JSON.parse(localStorage.getItem("userInfo")));
   }, []);
