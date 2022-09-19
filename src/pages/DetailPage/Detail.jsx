@@ -12,11 +12,14 @@ import { ReactComponent as Share } from "../../assets/shareWhite.svg";
 import Header from "../../components/DetailPage/Header";
 import { getRecipeDetail } from "../../common/axios";
 import ShareModal from "../../components/ShareModal/shareModal";
+import LoadingPortal from "../../components/LoadingPortal";
+import LoadingScreen from "../../components/LoadingScreen";
 
 function Detail() {
   const setViewedRecipe = useSetRecoilState(viewedRecipeAtom);
   const [recipeDetail, setRecipeDetail] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setViewedRecipe((prev) => [recipeId, ...prev]);
@@ -24,12 +27,14 @@ function Detail() {
   const { recipeId } = useParams();
 
   useEffect(() => {
+    setLoading(true);
     const getRecipeDetails = async () => {
       const result = await getRecipeDetail(recipeId);
       setRecipeDetail(result);
+      setLoading(false);
     };
     getRecipeDetails();
-  }, [recipeId]);
+  }, []);
 
   const recipeName = recipeDetail?.recipeInfo?.recipeNmKo;
   const recipeSummary = recipeDetail?.recipeInfo?.summary;
@@ -37,7 +42,11 @@ function Detail() {
   const recipeIrdnts = recipeDetail?.recipeIrdnts;
   const recipeDescription = recipeDetail?.recipeCrses;
 
-  return (
+  return loading ? (
+    <LoadingPortal>
+      <LoadingScreen></LoadingScreen>
+    </LoadingPortal>
+  ) : (
     <RecipeDetailContainer>
       {showModal ? (
         <ShareModal
