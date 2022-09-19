@@ -70,7 +70,7 @@ const Container = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   padding: 16px;
 `;
 
@@ -80,7 +80,7 @@ const ModalBackground = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   background-color: black;
   opacity: 0.5;
 `;
@@ -89,7 +89,7 @@ const ModalContainer = styled.div`
   width: calc(100% - 32px);
   background-color: ${({ theme }) => theme.colors.WHITE};
   position: absolute;
-  top: 300px;
+  top: 30%;
   z-index: 1002;
   padding: 16px;
   padding-top: 0px;

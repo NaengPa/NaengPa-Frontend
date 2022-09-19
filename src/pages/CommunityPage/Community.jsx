@@ -44,7 +44,6 @@ function Community() {
   const [isLoading, setIsLoading] = useState(false);
   const communityRef = useRef();
 
-  console.log(article);
   const get = async () => {
     if (localStorage.getItem("userInfo")) {
       setIsLoading(true);
@@ -62,7 +61,6 @@ function Community() {
   };
 
   useLayoutEffect(() => {
-    console.log(article);
     get();
   }, []);
 

@@ -4,9 +4,12 @@ import styled from "styled-components";
 
 const LoadingScreenContainer = styled.div`
   width: 100%;
-  /* max-width: 420px; */
+  max-width: 420px;
+  margin: auto;
+  left: 50%;
+  transform: translateX(-50%);
   height: 100vh;
-  position: fixed;
+  position: absolute;
   background-color: white;
   top: 0;
   display: flex;
