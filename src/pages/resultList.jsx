@@ -287,7 +287,7 @@ const ResultList = () => {
               {filterClick > 0 && filterFoodData.length === 0 ? (
                 <FilterDefaultMessage>
                   <img src={SighImoticon} alt="" />
-                  <span className="title">검색 결과가 없어요.</span>
+                  <span className="title">검색 결과가 없어요</span>
                   <span className="main">다른 재료나 옵션을 선택해주세요.</span>
                 </FilterDefaultMessage>
               ) : (

@@ -127,7 +127,7 @@ function SearchIndex() {
       </SearchContainer>
       <MainContainer>
         <MyFrigeContainer>
-          <SelectTitle>내 냉장고에서도 골라보세요</SelectTitle>
+          <SelectTitle>내 냉장고에서도 골라볼래요</SelectTitle>
           <SelectItemArea>
             {loadingState ? (
               <LoadingIndicator></LoadingIndicator>
