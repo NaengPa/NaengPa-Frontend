@@ -93,7 +93,7 @@ function ArticleImgUploadSection() {
         onChange={onImgChange}
       />
 
-      {imgList.length > 10 ? (
+      {imgList.length >= 10 ? (
         <ImgUploadBtn disabled={true}>
           <ImgUploadDisabledIcon />
           <ImgUploadCnt>{imgList.length}/10</ImgUploadCnt>
