@@ -16,7 +16,6 @@ export async function getKakaoLogin(kakaoUrl) {
 }
 
 export async function getLoginInfo(value) {
-  console.log(value);
   try {
     const { data } = await axios({
       method: "GET",
@@ -33,7 +32,6 @@ export async function getLoginInfo(value) {
 }
 
 export async function getRefreshLogin(value) {
-  console.log(value);
   try {
     const { data } = await axios({
       method: "GET",
@@ -42,7 +40,7 @@ export async function getRefreshLogin(value) {
         authorization: `Bearer ${value}`,
       },
     });
-    console.log(data);
+
     return data;
   } catch (error) {
     throw new Error(error);

@@ -54,7 +54,7 @@ function ArticleEditCompleteBtn({ id, width }) {
 
     put(editedArticle);
   };
-  console.log(width);
+
   return (
     <>
       <LoadingPortal>

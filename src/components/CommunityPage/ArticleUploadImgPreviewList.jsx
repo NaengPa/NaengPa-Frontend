@@ -15,13 +15,13 @@ const UploadImgPreviewListWrapper = styled.div`
 
 function ArticleUploadImgPreviewList() {
   const imgPreviewList = useRecoilValue(articlePreviewImgAtom);
-  console.log(imgPreviewList);
+
   return (
     <UploadImgPreviewListWrapper>
       {imgPreviewList.map((item, idx) => {
         return (
           <ArticleUploadImgPreviewListItem imgData={item} key={idx} idx={idx} />
-        ); //TODO: unique한 key 부여하기
+        );
       })}
     </UploadImgPreviewListWrapper>
   );

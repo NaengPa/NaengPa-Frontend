@@ -18,8 +18,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [emailState, setEmailState] = useState(false);
   const [passwordState, setPasswordState] = useState(false);
-  const [pageState, setPageState] = useRecoilState(pageStateAtom);
-  const [myFrige, setMyFrige] = useRecoilState(myFrigeAtom);
+  const setMyFrige = useSetRecoilState(myFrigeAtom);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,8 +34,6 @@ const Login = () => {
       );
       setMyFrige(result);
     };
-
-    //TODO :  기록할것 로그인 시 내 냉장고 재료를 가져오는 함수 추가 필요
 
     if (KakaoUrl) {
       const loginFn = async () => {

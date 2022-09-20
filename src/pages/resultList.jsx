@@ -1,12 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import styled from "styled-components";
 import AddFoodButton from "../components/addFoodButton";
 import FilterButton from "../components/filterButton";
-import { ReactComponent as HeartActive } from "../assets/heartInactiveBlack.svg";
 import { ReactComponent as ArrowRight } from "../assets/upButton.svg";
 import { useScroll } from "../hooks/useScroll";
-import { filterStateAtom, selectedIngredientAtom } from "../atom";
-import { useRecoilState } from "recoil";
+import { filterStateAtom, foodDataAtom, selectedIngredientAtom } from "../atom";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import FoodButtonAlone from "../components/foodButtonAlone";
 import { useNavigate } from "react-router-dom";
 import { getRecipeList } from "../common/axios";
@@ -16,28 +15,28 @@ import PreviousPageBtn from "../components/PreviousPageBtn";
 import SighImoticon from "../assets/sigh.png";
 import LoadingPortal from "../components/LoadingPortal";
 import LoadingScreen from "../components/LoadingScreen";
+import FoodLikeBtn from "../components/ResultListPage/FoodLikeBtn";
 
 const ResultList = () => {
   const homeRef = useRef(0);
   const mainRef = useRef(0);
   const [byPopularState, setByPopularState] = useState(true);
-  const [selectedIngredient, setSelectedIngredient] = useRecoilState(
-    selectedIngredientAtom
-  );
-  const [foodData, setFoodData] = useState([]);
+  const selectedIngredient = useRecoilValue(selectedIngredientAtom);
+  const [foodData, setFoodData] = useRecoilState(foodDataAtom);
   const [filteredButton, setFilteredButton] = useState([]);
   const [foodList, setFoodList] = useState([...selectedIngredient]);
   const [show, setShow] = useState(false);
   const [filterFoodData, setFilterFoodData] = useState([]);
-  const [filterItemState, setFilterItemState] = useRecoilState(filterStateAtom);
+  const setFilterItemState = useSetRecoilState(filterStateAtom);
   const [filterClick, setFilterClick] = useState(0); // 필터결과가 하나도 없을떄 핸들링 해주기위해 만든 상태
   const listContainerRef = useRef();
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setLoading(true);
+    const email = JSON.parse(localStorage.getItem("userInfo")).email;
     const getRecipeLists = async () => {
-      const result = await getRecipeList(selectedIngredient);
+      const result = await getRecipeList(selectedIngredient, email);
       setFoodData(result.recipeInfos);
       setLoading(false);
     };
@@ -295,17 +294,20 @@ const ResultList = () => {
                 ""
               )}
               {(filterClick > 0 ? filterFoodData : foodData).map((item) => (
-                <TextWrapper
-                  key={item.recipeId}
-                  onClick={clickHistoryData}
-                  id={item.recipeId}
-                >
-                  <img src={item.imgUrl} alt="" />
+                <TextWrapper key={item.recipeId} id={item.recipeId}>
+                  <img
+                    src={item.imgUrl}
+                    alt=""
+                    id={item.recipeId}
+                    onClick={clickHistoryData}
+                  />
                   <SummaryAndLike>
-                    <ListSpan>{item.summary}</ListSpan>
+                    <ListSpan id={item.recipeId} onClick={clickHistoryData}>
+                      {item.summary}
+                    </ListSpan>
                     <IconWrapper>
-                      <StyledMyIcon></StyledMyIcon>
-                      <span>{item.likeCnt}</span>
+                      <FoodLikeBtn id={item.recipeId} likeYn={item.likeYn} />
+                      <FoodLikeSpan>{item.likeCnt}</FoodLikeSpan>
                     </IconWrapper>
                   </SummaryAndLike>
                 </TextWrapper>
@@ -453,7 +455,6 @@ const TextWrapper = styled.div`
     object-fit: cover;
     height: 184px;
     border-radius: 10px;
-    pointer-events: none;
     margin-bottom: 12px;
   }
 `;
@@ -463,22 +464,23 @@ const ListSpan = styled.div`
   font-weight: 600;
 `;
 
-const StyledMyIcon = styled(HeartActive)``;
-
 const IconWrapper = styled.div`
   display: flex;
   align-items: center;
-  pointer-events: none;
   white-space: nowrap;
+`;
+
+const FoodLikeSpan = styled.span`
+  margin-left: 8px;
+  font-family: "SUIT";
+  font-style: normal;
+  font-weight: 600;
   font-size: 14px;
-  span {
-    margin-left: 8px;
-    font-weight: 600;
-  }
+  line-height: 17px;
+  color: ${({ theme }) => theme.colors.GREY_90};
 `;
 
 const SummaryAndLike = styled.div`
-  pointer-events: none;
   display: flex;
   justify-content: space-between;
 `;

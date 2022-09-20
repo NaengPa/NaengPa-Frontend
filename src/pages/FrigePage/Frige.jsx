@@ -266,7 +266,7 @@ function Frige() {
           ref={searchRef}
         >
           {filteredIrdntList.map((item) => (
-            <div>
+            <div key={item}>
               {myFrige.indexOf(item) === -1 ? (
                 <IngredientItem
                   onClick={() => {
@@ -287,7 +287,6 @@ function Frige() {
                 </SelectedIngredientItem>
               )}
             </div>
-            //TODO 유니크한 키 부여하기
           ))}
         </IngredientItemList>
 

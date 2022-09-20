@@ -6,8 +6,6 @@ import ScrollToTop from "../components/ScrollToTop";
 import ProtectedRoute from "./protectedRoute";
 
 const RootRoute = () => {
-  const token = localStorage?.getItem("token");
-  console.log(token);
   return (
     <RouteWrapper>
       <BrowserRouter basename={process.env.PUBLIC_URL}>

@@ -49,7 +49,7 @@ function ViewedRecipeImgList({ item }) {
         for (let x of viewedRecipeData) {
           if (x.recipeId === item) {
             return (
-              <Link to={`/${x.recipeId}/detail`}>
+              <Link to={`/detail/${x.recipeId}`}>
                 <div>
                   <ViewedRecipeImgItem src={x.imgUrl} />
                 </div>
