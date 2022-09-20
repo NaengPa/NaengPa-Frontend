@@ -22,12 +22,11 @@ function SearchIndex() {
   const [loadingState, setLoadingState] = useState(false);
 
   useEffect(() => {
-    setLoadingState(true);
     const getIngredient = async () => {
       const result = await getIngredients();
       setData(result);
     };
-    getIngredient();
+
     const get = async () => {
       const result = await getFrigeIrdnt(
         JSON.parse(localStorage.getItem("userInfo")).email
@@ -35,8 +34,11 @@ function SearchIndex() {
       setViewMyFrigeAtom(result);
       setLoadingState(false);
     };
-
-    get();
+    if (localStorage.getItem("token")) {
+      setLoadingState(true);
+      get();
+    }
+    getIngredient();
   }, []);
 
   useEffect(() => {

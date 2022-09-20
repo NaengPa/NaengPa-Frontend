@@ -197,9 +197,11 @@ function Frige() {
   }, [myFrige]);
 
   useEffect(() => {
+    setIsLoading(true);
     async function get() {
       const result = await getIngredients();
       setIrdnt(result);
+      setIsLoading(false);
     }
     get();
   }, []);

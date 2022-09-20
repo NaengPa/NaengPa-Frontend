@@ -18,14 +18,14 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [emailState, setEmailState] = useState(false);
   const [passwordState, setPasswordState] = useState(false);
-  const setMyFrige = useSetRecoilState(myFrigeAtom);
+
+  const [myFrige, setMyFrige] = useRecoilState(myFrigeAtom);
   const navigate = useNavigate();
 
   useEffect(() => {
     const KakaoUrl = window.location.search.split("=")[1];
     const postUrl = async () => {
-      const result = await getKakaoLogin(KakaoUrl);
-      localStorage.setItem("token", result);
+      await getKakaoLogin(KakaoUrl);
     };
 
     const getFrige = async () => {

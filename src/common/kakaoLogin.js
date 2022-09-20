@@ -9,6 +9,7 @@ export async function getKakaoLogin(kakaoUrl) {
         window.location.href.split("?")[0]
       }`,
     });
+    localStorage.setItem("token", data);
     return data;
   } catch (error) {
     throw new Error(error);
