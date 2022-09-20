@@ -10,8 +10,6 @@ import Login from "../pages/LoginPage/login";
 import SignIn from "../pages/SignIn/signIn";
 import WriteArticle from "../pages/CommunityPage/WriteArticle";
 import EditArticle from "../pages/CommunityPage/EditArticle";
-// import Navigation from "../components/navigation";
-// import styled from "styled-components";
 
 const pages = [
   { pathname: "/", element: <Main></Main>, isPublic: true },
