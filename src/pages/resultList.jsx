@@ -472,7 +472,6 @@ const IconWrapper = styled.div`
 
 const FoodLikeSpan = styled.span`
   margin-left: 8px;
-  font-family: "SUIT";
   font-style: normal;
   font-weight: 600;
   font-size: 14px;
