@@ -1,13 +1,14 @@
 import axios from "axios";
 let baseURL = process.env.REACT_APP_SERVER_API_KEY;
 
-export async function getRecipeList(data) {
+export async function getRecipeList(irdntNms, email) {
   try {
     const response = await axios({
       method: "POST",
       url: `${baseURL}/recipe/getRecipeList`,
       data: {
-        irdntNms: [...data],
+        irdntNms: [...irdntNms],
+        email: email,
       },
       headers: { contentType: "application/json" },
     });
@@ -34,14 +35,28 @@ export async function getIngredients() {
   }
 }
 
-export async function getRecipeDetail(recipeId) {
+export async function getRecipeDetail(email, recipeId) {
   try {
     const response = await axios({
       method: "get",
-      url: `${baseURL}/recipe/getRecipeDetail/${recipeId}`,
+      url: `${baseURL}/recipe/getRecipeDetail/?email=${email}&recipeId=${recipeId}`,
       headers: { contentType: "application/json" },
     });
     return response.data;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+export async function likeRecipe(data) {
+  try {
+    const response = await axios({
+      method: "POST",
+      url: `${baseURL}/recipe/like`,
+      data: data,
+      headers: { contentType: "application/json" },
+    });
+    return response;
   } catch (error) {
     throw new Error(error);
   }

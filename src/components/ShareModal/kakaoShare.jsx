@@ -2,11 +2,9 @@ import React, { useEffect } from "react";
 import { ReactComponent as Kakaotalk } from "../../assets/kakaotalk.svg";
 
 const KakaoShare = ({ recipeDetail }) => {
-  console.log(recipeDetail);
   useEffect(() => {
     initKakao(); //
   }, []);
-  console.log(recipeDetail.imgUrl);
 
   //자바스크립트키로 카카오 init
   const initKakao = () => {

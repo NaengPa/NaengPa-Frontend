@@ -36,14 +36,13 @@ const MyFrigeListContainer = styled.div`
   background: ${(props) => props.theme.colors.GREY_10};
   border-radius: 5px;
   width: 100%;
-  height: calc(100vh - 256px);
+  height: calc(var(--vh, 1vh) * 100 - 256px);
   color: ${({ theme }) => theme.colors.GREY_40};
   font-style: normal;
   font-weight: 600;
   font-size: 13px;
   line-height: 20px;
   letter-spacing: -0.01em;
-  /* height: 100vh; */
   -ms-overflow-style: none;
   white-space: pre-wrap;
   ::-webkit-scrollbar {

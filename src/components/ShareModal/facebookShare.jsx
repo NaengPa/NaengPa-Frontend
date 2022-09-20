@@ -2,7 +2,6 @@ import React from "react";
 import { ReactComponent as Facebook } from "../../assets/facebook.svg";
 
 const FacebookShare = () => {
-  console.log(window.location.href);
   const shareFacebook = () => {
     window.open(`http://www.facebook.com/sharer.php?u=${window.location.href}`);
   };
