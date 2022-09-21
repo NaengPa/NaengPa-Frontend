@@ -1,21 +1,21 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
-import AddFoodButton from "../components/addFoodButton";
-import FilterButton from "../components/filterButton";
-import { ReactComponent as HeartActive } from "../assets/heartInactiveBlack.svg";
-import { ReactComponent as ArrowRight } from "../assets/upButton.svg";
-import { useScroll } from "../hooks/useScroll";
-import { filterStateAtom, selectedIngredientAtom } from "../atom";
+import AddFoodButton from "../../components/AddFoodButton";
+import FilterButton from "../../components/FilterButton";
+import { ReactComponent as HeartActive } from "../../assets/heartInactiveBlack.svg";
+import { ReactComponent as ArrowRight } from "../../assets/upButton.svg";
+import { useScroll } from "../../hooks/useScroll";
+import { filterStateAtom, selectedIngredientAtom } from "../../atom";
 import { useRecoilState } from "recoil";
-import FoodButtonAlone from "../components/foodButtonAlone";
+import FoodButtonAlone from "../../components/FoodButtonAlone";
 import { useNavigate } from "react-router-dom";
-import { getRecipeList } from "../common/axios";
-import Filter from "../components/filter/filter";
-import filterItem from "../Constant/constant";
-import PreviousPageBtn from "../components/PreviousPageBtn";
-import SighImoticon from "../assets/sigh.png";
-import LoadingPortal from "../components/LoadingPortal";
-import LoadingScreen from "../components/LoadingScreen";
+import { getRecipeList } from "../../common/axios";
+import Filter from "../../components/Filter/Filter";
+import filterItem from "../../Constant/constant";
+import PreviousPageBtn from "../../components/PreviousPageBtn";
+import SighImoticon from "../../assets/sigh.png";
+import LoadingPortal from "../../components/LoadingPortal";
+import LoadingScreen from "../../components/LoadingScreen";
 
 const ResultList = () => {
   const homeRef = useRef(0);

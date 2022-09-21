@@ -5,11 +5,11 @@ import MyPage from "../pages/MyPage/MyPage";
 import Community from "../pages/CommunityPage/Community";
 import Frige from "../pages/FrigePage/Frige";
 import MyFrige from "../pages/MyFrigePage/MyFrige";
-import ResultList from "../pages/resultList";
-import Login from "../pages/LoginPage/login";
-import SignIn from "../pages/SignIn/signIn";
+import Login from "../pages/LoginPage/Login";
+import SignIn from "../pages/SignIn/SignIn";
 import WriteArticle from "../pages/CommunityPage/WriteArticle";
 import EditArticle from "../pages/CommunityPage/EditArticle";
+import ResultList from "../pages/ResultListPage/ResultList";
 
 const pages = [
   { pathname: "/", element: <Main></Main>, isPublic: true },
