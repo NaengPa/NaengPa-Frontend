@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import FoodButton from "../../components/foodButton";
+import FoodButton from "../../components/FoodButton";
 import { ReactComponent as searchXButton } from "../../assets/searchXButton.svg";
 import { ReactComponent as inputSearchButton } from "../../assets/inputSearch.svg";
 import { ReactComponent as Loading } from "../../assets/loading.svg";
 import { useRecoilState } from "recoil";
 import { myFrigeAtom, selectedIngredientAtom } from "../../atom";
-import FrigeButton from "../../components/frigeButton";
+import FrigeButton from "../../components/FrigeButton";
 import { useNavigate } from "react-router-dom";
-import SearchButton from "../../components/searchButton";
+import SearchButton from "../../components/SearchButton";
 import { getFrigeIrdnt, getIngredients } from "../../common/axios";
 
 function SearchIndex() {

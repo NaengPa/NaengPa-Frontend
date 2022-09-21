@@ -22,22 +22,6 @@ const Container = styled.div`
   margin-top: 22px;
 `;
 
-const FindId = styled.button`
-  font-weight: 500;
-  color: ${({ theme }) => theme.colors.GREY_50};
-  font-size: 14px;
-  padding: 0 16px;
-  border-right: 1px solid ${({ theme }) => theme.colors.GREY_20};
-`;
-
-const FindPassword = styled.button`
-  font-weight: 500;
-  color: ${({ theme }) => theme.colors.GREY_50};
-  font-size: 14px;
-  padding: 0 16px;
-  border-right: 1px solid ${({ theme }) => theme.colors.GREY_20};
-`;
-
 const SignIn = styled.button`
   font-weight: 500;
   color: ${({ theme }) => theme.colors.GREY_50};

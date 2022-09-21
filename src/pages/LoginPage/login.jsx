@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import FindAndSignIn from "./findAndSignIn";
+import FindAndSignIn from "./FindAndSignIn";
 import { ReactComponent as Kakao } from "../../assets/kakao.svg";
 import { useState } from "react";
 import { getKakaoLogin, getLoginInfo } from "../../common/kakaoLogin";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { myFrigeAtom, pageStateAtom } from "../../atom";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { myFrigeAtom } from "../../atom";
+import { useRecoilState } from "recoil";
 import { localLogin } from "../../common/localLogin";
 import PreviousPageBtn from "../../components/PreviousPageBtn";
 import { getFrigeIrdnt } from "../../common/axios";
@@ -18,7 +18,6 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [emailState, setEmailState] = useState(false);
   const [passwordState, setPasswordState] = useState(false);
-
   const [myFrige, setMyFrige] = useRecoilState(myFrigeAtom);
   const navigate = useNavigate();
 
@@ -95,7 +94,7 @@ const Login = () => {
       <PreviousPageBtn />
       <MainContainer>
         <MainTitle>
-          냉파를 이용하기 위해<br></br> 로그인을 해주세요 🍳{" "}
+          이 서비스에는<br></br>로그인이 필요해요 🍳{" "}
         </MainTitle>
         <LoginForm onSubmit={handleSubmit}>
           <LoginWrapper>
@@ -218,6 +217,7 @@ const LoginButton = styled.button`
   transition: all 300ms ease-in-out;
   padding: 15px 0;
   width: 100%;
+  font-size: 14px;
   border-radius: 5px;
 `;
 

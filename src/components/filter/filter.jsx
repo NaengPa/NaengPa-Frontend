@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { ReactComponent as XButton } from "../../assets/x.svg";
-import FilterCategory from "./filterCategory";
+import FilterCategory from "./FilterCategory";
 import { motion } from "framer-motion";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { filterStateAtom, navBarHeightAtom } from "../../atom";
