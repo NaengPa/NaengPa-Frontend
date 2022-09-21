@@ -98,7 +98,7 @@ const Login = () => {
         </MainTitle>
         <LoginForm onSubmit={handleSubmit}>
           <LoginWrapper>
-            <LoginTitle>아이디</LoginTitle>
+            <LoginTitle>이메일</LoginTitle>
             <LoginInput
               onChange={onChangeEmail}
               name="email"
