@@ -10,7 +10,7 @@ import { useState } from "react";
 import { ReactComponent as Share } from "../../assets/shareWhite.svg";
 import Header from "../../components/DetailPage/Header";
 import { getRecipeDetail } from "../../common/axios";
-import ShareModal from "../../components/ShareModal/shareModal";
+import ShareModal from "../../components/ShareModal/ShareModal";
 import LoadingPortal from "../../components/LoadingPortal";
 import LoadingScreen from "../../components/LoadingScreen";
 import RecipeLike from "../../components/DetailPage/RecipeLike";

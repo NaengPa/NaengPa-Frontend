@@ -4,7 +4,7 @@ import ArticleImgCarousel from "./ArticleImgCarousel";
 import ArticleModifySection from "./ArticleModifySection";
 import ArticleLike from "./ArticleLike";
 import { useState } from "react";
-import ShareModal from "../ShareModal/shareModal";
+import ShareModal from "../ShareModal/ShareModal";
 
 const ArticleContainer = styled.div`
   width: 100%;

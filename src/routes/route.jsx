@@ -1,9 +1,10 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import pages from "./page";
-import Navigation from "../components/navigation";
+import Navigation from "../components/Navigation";
 import styled from "styled-components";
 import ScrollToTop from "../components/ScrollToTop";
 import ProtectedRoute from "./protectedRoute";
+//adad
 
 const RootRoute = () => {
   return (
