@@ -209,7 +209,7 @@ const LoginButton = styled.button`
     props.passwordState && props.emailState
       ? props.theme.colors.WHITE
       : props.theme.colors.GREY_10};
-
+  font-size: 14px;
   background-color: ${(props) =>
     props.passwordState && props.emailState
       ? props.theme.colors.MAIN_COLOR
