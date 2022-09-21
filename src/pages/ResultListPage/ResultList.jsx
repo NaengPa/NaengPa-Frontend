@@ -11,7 +11,7 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import FoodButtonAlone from "../../components/FoodButtonAlone";
 import { useNavigate } from "react-router-dom";
 import { getRecipeList } from "../../common/axios";
-import Filter from "../../components/Filter/Filter";
+import Filter from "../../components/filter/Filter";
 import filterItem from "../../Constant/constant";
 import PreviousPageBtn from "../../components/PreviousPageBtn";
 import SighImoticon from "../../assets/sigh.png";
