@@ -6,7 +6,7 @@ import Community from "../pages/CommunityPage/Community";
 import Frige from "../pages/FrigePage/Frige";
 import MyFrige from "../pages/MyFrigePage/MyFrige";
 import Login from "../pages/LoginPage/Login";
-import SignIn from "../pages/SignIn/SignIn";
+import SignIn from "../pages/SignInPage/SignIn";
 import WriteArticle from "../pages/CommunityPage/WriteArticle";
 import EditArticle from "../pages/CommunityPage/EditArticle";
 import ResultList from "../pages/ResultListPage/ResultList";
