@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import { ReactComponent as XButton } from "../../assets/X_InActive.svg";
-import KakaoShare from "./kakaoShare";
+import KakaoShare from "./KakaoShare";
 import LinkShare from "./LinkShare";
 import FacebookShare from "./FacebookShare";
 
