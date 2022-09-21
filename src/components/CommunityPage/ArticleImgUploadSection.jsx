@@ -1,9 +1,10 @@
-import { useEffect, useRef } from "react";
-import { useRecoilState } from "recoil";
+import { useEffect, useRef, useState } from "react";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { articleImgAtom, articlePreviewImgAtom } from "../../atom";
 import ArticleUploadImgPreviewList from "./ArticleUploadImgPreviewList";
 import { ReactComponent as ImgUploadIcon } from "../../assets/camera.svg";
+import { ReactComponent as ImgUploadDisabledIcon } from "../../assets/cameraWhite.svg";
 import imageCompression from "browser-image-compression";
 
 const ImgUploadSectionWrapper = styled.div`
@@ -22,12 +23,15 @@ const ImgUploadBtn = styled.button`
   align-items: center;
   min-width: 56px;
   height: 56px;
-  border: 1px solid ${(props) => props.theme.colors.GREY_30};
+  border: 1px solid ${(props) => props.theme.colors.GREY_20};
   border-radius: 5px;
   margin: 10px 8px 0 0;
   cursor: pointer;
   :disabled {
-    background-color: ${(props) => props.theme.colors.GREY_30};
+    background-color: ${(props) => props.theme.colors.GREY_20};
+    span {
+      color: ${(props) => props.theme.colors.GREY_10};
+    }
   }
 `;
 
@@ -41,9 +45,7 @@ const ImgUploadCnt = styled.span`
 
 function ArticleImgUploadSection() {
   const [imgList, setImgList] = useRecoilState(articleImgAtom);
-  const [previewImgList, setPreviewImgList] = useRecoilState(
-    articlePreviewImgAtom
-  );
+  const setPreviewImgList = useSetRecoilState(articlePreviewImgAtom);
   const ImgUploadInput = useRef();
 
   useEffect(() => {
@@ -55,7 +57,6 @@ function ArticleImgUploadSection() {
     event.preventDefault();
 
     const actionImgCompress = async (fileSrc) => {
-      console.log("압축 시작");
       const options = {
         maxSizeMB: 0.1,
         maxWidthOrHeight: 1024,
@@ -69,9 +70,7 @@ function ArticleImgUploadSection() {
           setPreviewImgList((prev) => [...prev, compressedFile]);
           setImgList((prev) => [...prev, reader.result]);
         };
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     };
 
     [...event.target.files].forEach((element) => {
@@ -79,7 +78,6 @@ function ArticleImgUploadSection() {
     });
     event.target.value = "";
   };
-  //TODO : 기록할것 이미지 압축하여 blob으로 전달
   const onImgUploadBtnClick = (event) => {
     ImgUploadInput.current.click();
   };
@@ -94,14 +92,19 @@ function ArticleImgUploadSection() {
         ref={ImgUploadInput}
         onChange={onImgChange}
       />
-      <ImgUploadBtn
-        disabled={imgList.length > 10 ? true : false}
-        onClick={onImgUploadBtnClick}
-      >
-        {/* TODO: 10장되면 비활성상태 */}
-        <ImgUploadIcon />
-        <ImgUploadCnt>{imgList.length}/10</ImgUploadCnt>
-      </ImgUploadBtn>
+
+      {imgList.length >= 10 ? (
+        <ImgUploadBtn disabled={true}>
+          <ImgUploadDisabledIcon />
+          <ImgUploadCnt>{imgList.length}/10</ImgUploadCnt>
+        </ImgUploadBtn>
+      ) : (
+        <ImgUploadBtn disabled={false} onClick={onImgUploadBtnClick}>
+          <ImgUploadIcon />
+          <ImgUploadCnt>{imgList.length}/10</ImgUploadCnt>
+        </ImgUploadBtn>
+      )}
+
       <ArticleUploadImgPreviewList />
     </ImgUploadSectionWrapper>
   );

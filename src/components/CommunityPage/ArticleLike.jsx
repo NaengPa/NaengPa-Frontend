@@ -3,7 +3,7 @@ import { ReactComponent as InactiveLike } from "../../assets/heartInactiveBlack.
 import { ReactComponent as ActiveLike } from "../../assets/heartActive.svg";
 import { likeArticle } from "../../common/axios";
 import { articleAtom } from "../../atom";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 
 const ArticleLikeContainer = styled.div`
@@ -21,7 +21,7 @@ const LikeCount = styled.span`
 `;
 
 function ArticleLike({ id, likes, likeYn }) {
-  const [article, setArticle] = useRecoilState(articleAtom);
+  const setArticle = useSetRecoilState(articleAtom);
   const navigate = useNavigate();
 
   const likeChange = () => {
@@ -39,6 +39,7 @@ function ArticleLike({ id, likes, likeYn }) {
       boardId: id,
       email: JSON.parse(localStorage.getItem("userInfo")).email,
     };
+
     async function post(likeData) {
       await likeArticle(likeData);
     }

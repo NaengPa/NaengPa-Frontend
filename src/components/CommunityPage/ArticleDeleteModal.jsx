@@ -100,25 +100,9 @@ function ArticleDeleteModal() {
   useEffect(() => {
     return () => handleModal();
   }, []);
-  //TODO 기록 남기기. 언마운트 시점에 모달을 사라지게 만듦
 
   const onDeleteBtnClick = (e) => {
-    setArticle(
-      (prev) => prev.filter((item) => item.id !== deleteArticleId)
-
-      // let targetArticle;
-      // article.forEach((item) => {
-      //   if (item.id === deleteArticleId) {
-      //     targetArticle = article.indexOf(item);
-      //   }
-      // });
-
-      // const copiedArticle = [...article];
-      // copiedArticle.splice(article.indexOf(targetArticle) - 1, 1);
-      // console.log(copiedArticle);
-      // return copiedArticle;
-      //TODO-Done 삭제하는 방식을 index로 하면 여러개 삭제할 경우 꼬이게됨. 다른 방법을 찾자. 기록하기
-    );
+    setArticle((prev) => prev.filter((item) => item.id !== deleteArticleId));
     deleteArticle(
       deleteArticleId,
       JSON.parse(localStorage.getItem("userInfo")).email

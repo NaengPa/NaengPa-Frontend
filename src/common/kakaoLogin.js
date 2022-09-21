@@ -41,6 +41,7 @@ export async function getRefreshLogin(value) {
         authorization: `Bearer ${value}`,
       },
     });
+
     return data;
   } catch (error) {
     throw new Error(error);
