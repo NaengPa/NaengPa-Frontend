@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import styled from "styled-components";
 import AddFoodButton from "../../components/AddFoodButton";
 import FilterButton from "../../components/FilterButton";
+import FoodLikeBtn from "../../components/ResultListPage/FoodLikeBtn";
 import { foodDataAtom } from "../../atom";
 import { ReactComponent as ArrowRight } from "../../assets/upButton.svg";
 import { useScroll } from "../../hooks/useScroll";
