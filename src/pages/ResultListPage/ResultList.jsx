@@ -35,7 +35,7 @@ const ResultList = () => {
 
   useLayoutEffect(() => {
     setLoading(true);
-    const email = JSON.parse(localStorage.getItem("userInfo")).email;
+    const email = JSON.parse(localStorage.getItem("userInfo"))?.email;
     const getRecipeLists = async () => {
       const result = await getRecipeList(selectedIngredient, email);
       setFoodData(result.recipeInfos);

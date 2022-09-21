@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
@@ -143,7 +143,7 @@ function MyFrige() {
   const [myFrige, setMyFrige] = useRecoilState(myFrigeAtom);
   const [loadingState, setLoadingState] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setLoadingState(true);
     const get = async () => {
       const result = await getFrigeIrdnt(

@@ -17,7 +17,7 @@ function FoodLikeBtn({ id, likeYn }) {
   const setFoodData = useSetRecoilState(foodDataAtom);
   const navigate = useNavigate();
 
-  const email = JSON.parse(localStorage.getItem("userInfo")).email;
+  const email = JSON.parse(localStorage.getItem("userInfo"))?.email;
   const likeChange = () => {
     setFoodData((prev) => {
       const newArr = [...prev].map((item) =>

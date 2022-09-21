@@ -27,7 +27,7 @@ function Detail() {
   const { recipeId } = useParams();
 
   useLayoutEffect(() => {
-    const email = JSON.parse(localStorage.getItem("userInfo")).email;
+    const email = JSON.parse(localStorage.getItem("userInfo"))?.email;
     setLoading(true);
     const getRecipeDetails = async () => {
       const result = await getRecipeDetail(email, recipeId);

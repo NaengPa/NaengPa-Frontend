@@ -16,7 +16,7 @@ function RecipeLike({ id }) {
   const [recipeDetail, setRecipeDetail] = useRecoilState(recipeDetailAtom);
   const navigate = useNavigate();
 
-  const email = JSON.parse(localStorage.getItem("userInfo")).email;
+  const email = JSON.parse(localStorage.getItem("userInfo"))?.email;
   console.log(recipeDetail);
   const likeChange = () => {
     setRecipeDetail((prev) => {
