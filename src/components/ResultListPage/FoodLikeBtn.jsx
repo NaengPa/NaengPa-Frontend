@@ -2,9 +2,13 @@ import styled from "styled-components";
 import { ReactComponent as InactiveLike } from "../../assets/heartInactiveBlack.svg";
 import { ReactComponent as ActiveLike } from "../../assets/heartActive.svg";
 import { likeRecipe } from "../../common/axios";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
-import { foodDataAtom, recipeDetailAtom } from "../../atom";
+import {
+  foodDataAtom,
+  recipeDetailAtom,
+  targetFoodLikeYnAtom,
+} from "../../atom";
 
 const RecipeLikeContainer = styled.div`
   display: flex;
@@ -14,11 +18,22 @@ const RecipeLikeContainer = styled.div`
 
 function FoodLikeBtn({ id, likeYn }) {
   const setRecipeDetail = useSetRecoilState(recipeDetailAtom);
-  const setFoodData = useSetRecoilState(foodDataAtom);
+  const [foodData, setFoodData] = useRecoilState(foodDataAtom);
+  const [targetFoodLikeYn, setTargetFoodLikeYn] =
+    useRecoilState(targetFoodLikeYnAtom);
+
   const navigate = useNavigate();
 
   const email = JSON.parse(localStorage.getItem("userInfo"))?.email;
   const likeChange = () => {
+    setTargetFoodLikeYn(() => {
+      let targetLikeYn = null;
+      foodData.forEach((item) =>
+        item.recipeId === id ? (targetLikeYn = item.likeYn) : null
+      );
+      return !targetLikeYn;
+    });
+    console.log(targetFoodLikeYn);
     setFoodData((prev) => {
       const newArr = [...prev].map((item) =>
         item.recipeId === id

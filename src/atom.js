@@ -25,6 +25,11 @@ export const foodDataAtom = atom({
   default: [],
 });
 
+export const targetFoodLikeYnAtom = atom({
+  key: "targetFoodLikeYn",
+  default: null,
+});
+
 export const recipeDetailAtom = atom({
   key: "recipeDetail",
   default: [],

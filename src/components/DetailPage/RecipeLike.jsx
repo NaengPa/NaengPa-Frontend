@@ -4,7 +4,7 @@ import { ReactComponent as ActiveLike } from "../../assets/heartActive.svg";
 import { likeRecipe } from "../../common/axios";
 import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
-import { recipeDetailAtom } from "../../atom";
+import { recipeDetailAtom, targetFoodLikeYnAtom } from "../../atom";
 
 const RecipeLikeContainer = styled.div`
   display: flex;
@@ -14,11 +14,16 @@ const RecipeLikeContainer = styled.div`
 
 function RecipeLike({ id }) {
   const [recipeDetail, setRecipeDetail] = useRecoilState(recipeDetailAtom);
+  const [targetFoodLikeYn, setTargetFoodLikeYn] =
+    useRecoilState(targetFoodLikeYnAtom);
   const navigate = useNavigate();
 
   const email = JSON.parse(localStorage.getItem("userInfo"))?.email;
-  console.log(recipeDetail);
+  console.log(targetFoodLikeYn);
   const likeChange = () => {
+    if (targetFoodLikeYn !== null) {
+      setTargetFoodLikeYn((prev) => !prev);
+    }
     setRecipeDetail((prev) => {
       return prev.recipeInfo.likeYn
         ? {
@@ -54,7 +59,13 @@ function RecipeLike({ id }) {
 
   return (
     <RecipeLikeContainer>
-      {recipeDetail?.recipeInfo?.likeYn ? (
+      {targetFoodLikeYn !== null ? (
+        targetFoodLikeYn ? (
+          <ActiveLike onClick={handleLike} />
+        ) : (
+          <InactiveLike onClick={handleLike} />
+        )
+      ) : recipeDetail?.recipeInfo?.likeYn ? (
         <ActiveLike onClick={handleLike} />
       ) : (
         <InactiveLike onClick={handleLike} />
