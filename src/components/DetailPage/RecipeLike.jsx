@@ -17,12 +17,26 @@ function RecipeLike({ id }) {
   const navigate = useNavigate();
 
   const email = JSON.parse(localStorage.getItem("userInfo")).email;
-
+  console.log(recipeDetail);
   const likeChange = () => {
     setRecipeDetail((prev) => {
-      return prev.likeYn
-        ? { ...prev, likeCnt: prev.likeCnt - 1, likeYn: false }
-        : { ...prev, likeCnt: prev.likeCnt + 1, likeYn: true };
+      return prev.recipeInfo.likeYn
+        ? {
+            ...prev,
+            recipeInfo: {
+              ...prev.recipeInfo,
+              likeCnt: prev.likeCnt - 1,
+              likeYn: false,
+            },
+          }
+        : {
+            ...prev,
+            recipeInfo: {
+              ...prev.recipeInfo,
+              likeCnt: prev.likeCnt + 1,
+              likeYn: true,
+            },
+          };
     });
     const likeData = {
       email: email,
@@ -40,7 +54,7 @@ function RecipeLike({ id }) {
 
   return (
     <RecipeLikeContainer>
-      {recipeDetail.likeYn ? (
+      {recipeDetail?.recipeInfo?.likeYn ? (
         <ActiveLike onClick={handleLike} />
       ) : (
         <InactiveLike onClick={handleLike} />
