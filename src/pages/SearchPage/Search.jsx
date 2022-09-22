@@ -90,9 +90,7 @@ function SearchIndex() {
   return (
     <StyledContainer>
       <SearchContainer>
-        <RefridgeTitle>
-          요리에 사용할 재료를{"\n"}선택해주세요. 🍎
-        </RefridgeTitle>
+        <RefridgeTitle>요리에 사용할 재료를{"\n"}선택해주세요 🍎</RefridgeTitle>
         <FormControlWrapper>
           <StyledMyIconSearch searchInput={searchInput}></StyledMyIconSearch>
           <FormInput
@@ -132,7 +130,7 @@ function SearchIndex() {
             {loadingState ? (
               <LoadingIndicator></LoadingIndicator>
             ) : viewMyFrigeAtom.length === 0 ? (
-              `하단의 내 냉장고 아이콘을 누르면 냉장고를 채울 수 있어요`
+              `하단의 내 냉장고 아이콘을 누르면 냉장고를 채울 수 있어요.`
             ) : (
               viewMyFrigeAtom.map((item) => (
                 <FrigeButton handleAdd={handleAdd} item={item}></FrigeButton>

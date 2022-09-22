@@ -111,7 +111,7 @@ const Login = () => {
             <PasswordInput
               onChange={onChangePassword}
               name="password"
-              placeholder="**********"
+              placeholder="******"
               type={"password"}
             ></PasswordInput>
           </PasswordWrapper>
