@@ -16,7 +16,7 @@ const ViewedRecipePhotoGradient = styled.div`
   width: 132px;
   height: 124px;
   position: absolute;
-  right: -1px;
+  right: 0;
   background: linear-gradient(
     270deg,
     #f8fbff 0%,
