@@ -112,11 +112,8 @@ const LogoutContainer = styled.div`
 
 const LogoutBtn = styled.button`
   z-index: 20;
-  width: 56px;
-  height: 20px;
   margin: 10px 0;
   padding: 0;
-
   color: ${(props) => props.theme.colors.GREY_5};
   font-style: normal;
   font-weight: 600;
@@ -132,7 +129,6 @@ function MyPage() {
   const handleModal = () => {
     setIsModalOpen((prev) => !prev);
   };
-  console.log(JSON.parse(localStorage?.getItem("userInfo")));
   useEffect(() => {
     setUserInfo(JSON.parse(localStorage.getItem("userInfo")));
   }, []);

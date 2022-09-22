@@ -31,7 +31,7 @@ function ArticleUploadBtn({ width }) {
   const [imgList, setImgList] = useRecoilState(articleImgAtom);
   const [isDisabled, setIsDisabled] = useState(true);
   const setPreviewImgList = useSetRecoilState(articlePreviewImgAtom);
-  const [article, setArticle] = useRecoilState(articleAtom);
+  const setArticle = useSetRecoilState(articleAtom);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -71,7 +71,6 @@ function ArticleUploadBtn({ width }) {
     upload();
   };
 
-  console.log(width);
   return (
     <>
       <LoadingPortal>

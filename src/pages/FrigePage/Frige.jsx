@@ -193,14 +193,15 @@ function Frige() {
   const searchRef = useRef();
 
   useEffect(() => {
-    console.log(myFrige);
     myFrige.length > 0 ? setIsDisabled(false) : setIsDisabled(true);
   }, [myFrige]);
 
   useEffect(() => {
+    setIsLoading(true);
     async function get() {
       const result = await getIngredients();
       setIrdnt(result);
+      setIsLoading(false);
     }
     get();
   }, []);
@@ -246,7 +247,7 @@ function Frige() {
         isInputFocused={isInputFocused}
       >
         <FrigeTitle>
-          {JSON.parse(localStorage.getItem("userInfo")).nickname}의 냉장고
+          {JSON.parse(localStorage.getItem("userInfo")).nickname}님의 냉장고
           재료를{"\n"}선택해주세요 🥦
         </FrigeTitle>
         <InputWrapper>
@@ -267,7 +268,7 @@ function Frige() {
           ref={searchRef}
         >
           {filteredIrdntList.map((item) => (
-            <div>
+            <div key={item}>
               {myFrige.indexOf(item) === -1 ? (
                 <IngredientItem
                   onClick={() => {
@@ -288,7 +289,6 @@ function Frige() {
                 </SelectedIngredientItem>
               )}
             </div>
-            //TODO 유니크한 키 부여하기
           ))}
         </IngredientItemList>
 

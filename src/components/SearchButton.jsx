@@ -25,7 +25,6 @@ const Wrapper = styled.button`
   height: 36px;
   border: 1px solid ${(props) => props.theme.colors.GREY_30};
   border-radius: 50px;
-
   font-style: normal;
   font-weight: 600;
   font-size: 13px;

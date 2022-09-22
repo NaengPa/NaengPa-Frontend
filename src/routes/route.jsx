@@ -1,18 +1,16 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import pages from "./page";
-import Navigation from "../components/navigation";
+import Navigation from "../components/Navigation";
 import styled from "styled-components";
 import ScrollToTop from "../components/ScrollToTop";
 import ProtectedRoute from "./protectedRoute";
+//adad
 
 const RootRoute = () => {
-  const token = localStorage?.getItem("token");
-  console.log(token);
   return (
     <RouteWrapper>
       <BrowserRouter basename={process.env.PUBLIC_URL}>
         <ScrollToTop />
-        <Navigation></Navigation>
         <Routes>
           {pages.map((r) => {
             return (
@@ -28,6 +26,7 @@ const RootRoute = () => {
             );
           })}
         </Routes>
+        <Navigation></Navigation>
       </BrowserRouter>
     </RouteWrapper>
   );

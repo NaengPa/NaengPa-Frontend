@@ -2,35 +2,40 @@ import styled from "styled-components";
 import IngredientTagList from "../../components/DetailPage/IngredientTagList";
 import RecipeDetailItemList from "../../components/DetailPage/RecipeDetailItemList";
 import RecipeReviewList from "../../components/DetailPage/RecipeReviewList";
-import { useSetRecoilState } from "recoil";
-import { viewedRecipeAtom } from "../../atom";
-import { useEffect } from "react";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { recipeDetailAtom, viewedRecipeAtom } from "../../atom";
+import { useEffect, useLayoutEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-import { ReactComponent as Like } from "../../assets/heartInactiveWhite.svg";
 import { ReactComponent as Share } from "../../assets/shareWhite.svg";
 import Header from "../../components/DetailPage/Header";
 import { getRecipeDetail } from "../../common/axios";
-import ShareModal from "../../components/ShareModal/shareModal";
+import ShareModal from "../../components/ShareModal/ShareModal";
+import LoadingPortal from "../../components/LoadingPortal";
+import LoadingScreen from "../../components/LoadingScreen";
+import RecipeLike from "../../components/DetailPage/RecipeLike";
 
 function Detail() {
   const setViewedRecipe = useSetRecoilState(viewedRecipeAtom);
-  const [recipeDetail, setRecipeDetail] = useState([]);
+  const [recipeDetail, setRecipeDetail] = useRecoilState(recipeDetailAtom);
   const [showModal, setShowModal] = useState(false);
-  console.log(showModal);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setViewedRecipe((prev) => [recipeId, ...prev]);
   }, [setViewedRecipe]);
   const { recipeId } = useParams();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    const email = JSON.parse(localStorage.getItem("userInfo"))?.email;
+    setLoading(true);
     const getRecipeDetails = async () => {
-      const result = await getRecipeDetail(recipeId);
+      const result = await getRecipeDetail(email, recipeId);
       setRecipeDetail(result);
+      setLoading(false);
     };
     getRecipeDetails();
-  }, [recipeId]);
+  }, []);
 
   const recipeName = recipeDetail?.recipeInfo?.recipeNmKo;
   const recipeSummary = recipeDetail?.recipeInfo?.summary;
@@ -38,7 +43,11 @@ function Detail() {
   const recipeIrdnts = recipeDetail?.recipeIrdnts;
   const recipeDescription = recipeDetail?.recipeCrses;
 
-  return (
+  return loading ? (
+    <LoadingPortal>
+      <LoadingScreen />
+    </LoadingPortal>
+  ) : (
     <RecipeDetailContainer>
       {showModal ? (
         <ShareModal
@@ -53,7 +62,7 @@ function Detail() {
       <RecipePhotoContainer>
         <RecipePhoto src={recipeImg} />
         <RecipePhotoGradient>
-          <Like />
+          <RecipeLike id={recipeId} />
           <Share onClick={() => setShowModal(true)} />
         </RecipePhotoGradient>
       </RecipePhotoContainer>

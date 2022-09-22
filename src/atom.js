@@ -20,6 +20,21 @@ export const pageStateAtom = atom({
   default: [],
 });
 
+export const foodDataAtom = atom({
+  key: "foodData",
+  default: [],
+});
+
+export const targetFoodLikeYnAtom = atom({
+  key: "targetFoodLikeYn",
+  default: null,
+});
+
+export const recipeDetailAtom = atom({
+  key: "recipeDetail",
+  default: [],
+});
+
 export const articleAtom = atom({
   key: "article",
   default: [],

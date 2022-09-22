@@ -366,7 +366,6 @@ const SignInButton = styled.button`
   border-radius: 5px;
   color: ${(props) =>
     props.isValid ? props.theme.colors.WHITE : props.theme.colors.GREY_10};
-
   background-color: ${(props) =>
     props.isValid ? props.theme.colors.MAIN_COLOR : props.theme.colors.GREY_30};
   transition: all 300ms ease-in-out;

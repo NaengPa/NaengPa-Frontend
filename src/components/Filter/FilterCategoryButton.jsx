@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 const FilterCategoryButton = ({
@@ -10,14 +10,7 @@ const FilterCategoryButton = ({
   firstIndex,
   handleFilter,
 }) => {
-  // const [buttonClick, setButtonClick] = useState(false);
   const handleClick = (e) => {
-    // if (buttonClick === false) {
-    //   setButtonClick(true);
-    // } else {
-    //   setButtonClick(false);
-    // }
-    // console.log(item.isClicked);
     handleFilterClick(item);
     handleFilter(firstIndex, secondIndex);
   };

@@ -1,13 +1,14 @@
 import axios from "axios";
 let baseURL = process.env.REACT_APP_SERVER_API_KEY;
 
-export async function getRecipeList(data) {
+export async function getRecipeList(irdntNms, email) {
   try {
     const response = await axios({
       method: "POST",
       url: `${baseURL}/recipe/getRecipeList`,
       data: {
-        irdntNms: [...data],
+        irdntNms: [...irdntNms],
+        email: email,
       },
       headers: { contentType: "application/json" },
     });
@@ -34,14 +35,28 @@ export async function getIngredients() {
   }
 }
 
-export async function getRecipeDetail(recipeId) {
+export async function getRecipeDetail(email, recipeId) {
   try {
     const response = await axios({
       method: "get",
-      url: `${baseURL}/recipe/getRecipeDetail/${recipeId}`,
+      url: `${baseURL}/recipe/getRecipeDetail/?email=${email}&recipeId=${recipeId}`,
       headers: { contentType: "application/json" },
     });
     return response.data;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+export async function likeRecipe(data) {
+  try {
+    const response = await axios({
+      method: "POST",
+      url: `${baseURL}/recipe/like`,
+      data: data,
+      headers: { contentType: "application/json" },
+    });
+    return response;
   } catch (error) {
     throw new Error(error);
   }
@@ -65,7 +80,6 @@ export async function getCurRecipeList(numberLimitViewedRecipe) {
 
 export async function getArticle(email) {
   try {
-    console.log(email);
     const response = await axios.get(`${baseURL}/board?email=${email}`);
     return response.data;
   } catch (error) {
@@ -75,7 +89,6 @@ export async function getArticle(email) {
 
 export async function postArticle(newArticle) {
   try {
-    console.log(newArticle);
     const response = await axios({
       method: "POST",
       url: `${baseURL}/board`,
@@ -145,7 +158,6 @@ export async function postFrigeIrdnt(data) {
 
 export async function getFrigeIrdnt(email) {
   try {
-    console.log(email);
     const response = await axios.get(`${baseURL}/refrigerator/${email}`);
     return response.data;
   } catch (error) {

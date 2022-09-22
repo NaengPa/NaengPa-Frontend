@@ -18,7 +18,6 @@ const Wrapper = styled.button`
   padding: 8px 16px;
   border-radius: 50px;
   background-color: ${({ theme }) => theme.colors.MAIN_COLOR};
-
   font-style: normal;
   font-weight: 600;
   font-size: 13px;

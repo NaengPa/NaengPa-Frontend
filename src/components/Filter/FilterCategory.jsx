@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import FilterCategoryButton from "./filterCategoryButton";
+import FilterCategoryButton from "./FilterCategoryButton";
 
 const FilterCategory = ({
   filterItem,

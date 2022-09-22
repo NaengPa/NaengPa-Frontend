@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { ReactComponent as XButton } from "../../assets/x.svg";
-import FilterCategory from "./filterCategory";
+import FilterCategory from "./FilterCategory";
 import { motion } from "framer-motion";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { filterStateAtom, navBarHeightAtom } from "../../atom";
@@ -39,9 +39,8 @@ const Filter = ({
     setFilterItemState((prev) => [...filterItemCopy]);
   };
   useEffect(() => {
-    // setFilterItemState(filterItem);
     document.body.style.cssText = `
-      position: fixed; 
+      position: fixed;
       top: -${window.scrollY}px;
       overflow-y: scroll;
       width: 100%;`;
@@ -105,7 +104,8 @@ export default Filter;
 const Container = styled(motion.div)`
   border-radius: 20px 0px 0px 20px;
   z-index: 1200;
-  height: calc(100vh - 56px);
+  height: 100%;
+  min-height: calc(100vh - 56px);
   background-color: transparent;
   width: ${(props) => `${props.parentWidth * 0.7}px`};
   position: fixed;
@@ -119,7 +119,9 @@ const FilterContainer = styled(motion.div)`
   transform: translateX(100%);
   transition: all 300ms ease-in;
   height: 100%;
+  min-height: calc(100vh - 56px);
   background-color: ${({ theme }) => theme.colors.WHITE};
+  overflow-y: scroll;
 `;
 
 const FilterHeader = styled.header`
