@@ -108,7 +108,6 @@ function Main() {
   return (
     <MainBg>
       <Container>
-        <Link to={"/login"}>로그인</Link>
         {viewedRecipe.length > 0 ? (
           <Burger src="images/burger.png" />
         ) : (
