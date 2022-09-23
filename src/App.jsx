@@ -12,7 +12,7 @@ function App() {
   useEffect(() => {
     setScreenSize();
   });
-
+  console.warn = console.error = () => {};
   return (
     <ThemeProvider theme={theme}>
       <RootRoute />
