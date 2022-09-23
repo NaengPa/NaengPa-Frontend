@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
@@ -200,7 +200,7 @@ function Frige() {
     myFrige.length > 0 ? setIsDisabled(false) : setIsDisabled(true);
   }, [myFrige]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setIsLoading(true);
     async function get() {
       const result = await getIngredients();

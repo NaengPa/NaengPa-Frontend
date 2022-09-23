@@ -16,7 +16,6 @@ const RecipeReviewPhotoSwiper = styled.div`
   gap: 8px;
   display: flex;
   overflow-x: scroll;
-  /* padding-left: 16px; */
   margin: 8px 0px 0px 0px;
   ::-webkit-scrollbar {
     display: none;

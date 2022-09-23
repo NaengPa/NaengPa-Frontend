@@ -142,7 +142,7 @@ function SearchIndex() {
         </MyFrigeContainer>
         <IngredientContainer>
           <SelectTitle>이 재료들로 요리할래요</SelectTitle>
-          {/* TODO: 선택한 재료가 있는 경우/없는 경우*/}
+
           <FoodButtonContainer>
             {selectedIngredient === []
               ? null
@@ -241,9 +241,7 @@ const MyFrigeContainer = styled.div`
   margin-bottom: 16px;
 `;
 
-const IngredientContainer = styled.div`
-  /* margin-bottom: 16px; */
-`;
+const IngredientContainer = styled.div``;
 
 const StyledMyIconSearch = styled(inputSearchButton)`
   display: ${({ searchInput }) => (searchInput ? "none" : "block")};
@@ -305,8 +303,7 @@ const RecipeSearchButton = styled.button`
   width: calc(100% - 32px);
   max-width: calc(420px - 32px);
   margin: 0 -16px 0 0px;
-  /* width: calc(100% - 32px);
-  max-width: calc(420px - 32px); */
+
   align-items: center;
   color: #ffffff;
   cursor: pointer;
@@ -330,7 +327,6 @@ const MainContainer = styled.div`
   display: flex;
   position: relative;
   flex-direction: column;
-  /* padding-bottom: 56px; */
 `;
 
 const SearchGradient = styled.div`

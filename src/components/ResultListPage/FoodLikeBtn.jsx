@@ -19,8 +19,7 @@ const RecipeLikeContainer = styled.div`
 function FoodLikeBtn({ id, likeYn }) {
   const setRecipeDetail = useSetRecoilState(recipeDetailAtom);
   const [foodData, setFoodData] = useRecoilState(foodDataAtom);
-  const [targetFoodLikeYn, setTargetFoodLikeYn] =
-    useRecoilState(targetFoodLikeYnAtom);
+  const setTargetFoodLikeYn = useSetRecoilState(targetFoodLikeYnAtom);
 
   const navigate = useNavigate();
 
@@ -33,7 +32,7 @@ function FoodLikeBtn({ id, likeYn }) {
       );
       return !targetLikeYn;
     });
-    console.log(targetFoodLikeYn);
+
     setFoodData((prev) => {
       const newArr = [...prev].map((item) =>
         item.recipeId === id

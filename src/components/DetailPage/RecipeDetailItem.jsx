@@ -32,7 +32,6 @@ const RecipeDescriptionText = styled.p`
   line-height: 20px;
   letter-spacing: -0.01em;
   color: ${(props) => props.theme.colors.GREY_50};
-  /* margin-top: 1.5px; */
   margin: 0;
 `;
 

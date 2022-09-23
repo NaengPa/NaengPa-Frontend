@@ -29,7 +29,7 @@ const ResultList = () => {
   const [show, setShow] = useState(false);
   const [filterFoodData, setFilterFoodData] = useState([]);
   const setFilterItemState = useSetRecoilState(filterStateAtom);
-  const [filterClick, setFilterClick] = useState(0); // 필터결과가 하나도 없을떄 핸들링 해주기위해 만든 상태
+  const [filterClick, setFilterClick] = useState(0);
   const listContainerRef = useRef();
   const [loading, setLoading] = useState(false);
 
@@ -104,7 +104,7 @@ const ResultList = () => {
     //로직 시작
     let lotatedFiltered = [];
     let countryFiltered = [];
-    const res = copyFilteredButtonSorted.forEach((items, index) => {
+    copyFilteredButtonSorted.forEach((items, index) => {
       let temporalFiltered = [];
       (lotatedFiltered.length > 0 ? lotatedFiltered : foodData).forEach(
         (recipe) => {
@@ -182,7 +182,6 @@ const ResultList = () => {
     }
     if (
       (itemName === "요알못" || itemName === "요잘알") &&
-      // filterItemState[0].category.filter((item) => item.title).length > 0
       filteredButton.filter((item) => item === "요알못" || item === "요잘알")
         .length > 0
     ) {

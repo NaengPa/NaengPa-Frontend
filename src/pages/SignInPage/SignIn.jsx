@@ -18,40 +18,16 @@ const SignIn = () => {
 
   const navigate = useNavigate();
 
-  console.log(
-    passwordState,
-    passwordConfirmState,
-    emailState,
-    nickNameState,
-    emailCheckState,
-    nickNameCheckState
-  );
-
-  console.log(currentPassword);
-  console.log(
-    (passwordState &&
-      passwordConfirmState === "good" &&
-      emailState &&
-      nickNameState === "good") === true &&
-      (emailCheckState || nickNameCheckState) === false
-  );
-  console.log(
-    passwordState &&
-      passwordConfirmState === "good" &&
-      emailState &&
-      nickNameState === "good"
-  );
   const handleSubmit = (e) => {
     e.preventDefault();
     const localSignIns = async (e) => {
       const result = await localSignIn(e);
-      console.log(result);
+
       if (result === "회원가입에 성공했습니다.") {
         navigate("/login");
       }
     };
     localSignIns(e);
-    console.log(e);
   };
 
   const handleEmailBlur = async (e) => {
@@ -99,12 +75,9 @@ const SignIn = () => {
     } else {
       setPasswordConfirmState(false);
     }
-    console.log(passwordConfirmState);
   };
 
-  const onClickSignIn = () => {
-    console.log("adad");
-  };
+  const onClickSignIn = () => {};
   return (
     <Container>
       <Header>
@@ -219,10 +192,6 @@ const SignIn = () => {
               ? true
               : false
           }
-          // passwordState={passwordState}
-          // passwordConfirmState={passwordConfirmState}
-          // emailState={emailState}
-          // nickNameState={nickNameState}
         >
           회원가입
         </SignInButton>

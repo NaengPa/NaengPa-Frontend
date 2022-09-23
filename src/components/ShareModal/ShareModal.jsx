@@ -7,7 +7,6 @@ import FacebookShare from "./FacebookShare";
 
 const ShareModal = ({ setShowModal, recipeDetail }) => {
   useEffect(() => {
-    // setFilterItemState(filterItem);
     document.body.style.cssText = `
       position: fixed; 
       top: -${window.scrollY}px;
@@ -18,8 +17,8 @@ const ShareModal = ({ setShowModal, recipeDetail }) => {
       document.body.style.cssText = "";
       window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
     };
-  }, []); // 화면이 스크롤이 안되고 화면외에 클릭안되게
-  const modalRef = useRef(); //화면 외부 클릭하면 창이 닫히게
+  }, []);
+  const modalRef = useRef();
   useEffect(() => {
     document.addEventListener("mousedown", clickModalOutside);
 

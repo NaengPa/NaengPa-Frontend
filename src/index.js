@@ -7,11 +7,11 @@ import MainLayout from "./components/MainLayout";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-  // <React.StrictMode>
-  <MainLayout>
-    <RecoilRoot>
-      <App />
-    </RecoilRoot>
-  </MainLayout>
-  // </React.StrictMode>
+  <React.StrictMode>
+    <MainLayout>
+      <RecoilRoot>
+        <App />
+      </RecoilRoot>
+    </MainLayout>
+  </React.StrictMode>
 );

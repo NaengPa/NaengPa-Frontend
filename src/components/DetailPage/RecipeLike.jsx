@@ -19,7 +19,7 @@ function RecipeLike({ id }) {
   const navigate = useNavigate();
 
   const email = JSON.parse(localStorage.getItem("userInfo"))?.email;
-  console.log(targetFoodLikeYn);
+
   const likeChange = () => {
     if (targetFoodLikeYn !== null) {
       setTargetFoodLikeYn((prev) => !prev);
