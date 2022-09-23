@@ -1,6 +1,15 @@
 import { createGlobalStyle } from "styled-components";
 import "./font/SUIT-Variable.css";
 
+function setScreenSize() {
+  let vh = window.innerHeight * 0.01;
+
+  document.documentElement.style.setProperty("--vh", `${vh}px`);
+}
+setScreenSize();
+
+window.addEventListener("resize", () => setScreenSize());
+
 const GlobalStyle = createGlobalStyle`
 * {
   box-sizing: border-box;
@@ -23,7 +32,7 @@ const GlobalStyle = createGlobalStyle`
   }
   :root {
        --vh: 100%;
-   }
-`;
+      }
+      `;
 
 export default GlobalStyle;
