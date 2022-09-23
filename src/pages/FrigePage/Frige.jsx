@@ -9,6 +9,7 @@ import { getIngredients, postFrigeIrdnt } from "../../common/axios";
 import AllFrigeList from "../../components/FrigePage/AllFrigeList";
 import LoadingPortal from "../../components/LoadingPortal";
 import LoadingScreen from "../../components/LoadingScreen";
+import broccoli from "../../assets/broccoli.png";
 
 const FrigeWrapper = styled.div`
   height: calc(var(--vh, 1vh) * 100);
@@ -44,6 +45,9 @@ const FrigeTitle = styled.p`
   color: ${(props) => props.theme.colors.GREY_90};
   margin: 0;
   white-space: pre-wrap;
+  img {
+    transform: translateY(2px);
+  }
 `;
 
 const InputWrapper = styled.div`
@@ -248,7 +252,7 @@ function Frige() {
       >
         <FrigeTitle>
           {JSON.parse(localStorage.getItem("userInfo")).nickname}님의 냉장고
-          재료를{"\n"}선택해주세요 🥦
+          재료를{"\n"}선택해주세요 <img src={broccoli} alt="" />
         </FrigeTitle>
         <InputWrapper>
           {!searchText && <StyledSearch isInputFocused={isInputFocused} />}

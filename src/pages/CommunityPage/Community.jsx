@@ -5,7 +5,7 @@ import { getArticle } from "../../common/axios";
 import { useLayoutEffect, useRef, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { articleAtom, articleDeleteAtom } from "../../atom";
-
+import eyes from "../../assets/eyes.png";
 import ArticleDeleteModal from "../../components/CommunityPage/ArticleDeleteModal";
 import LoadingScreen from "../../components/LoadingScreen";
 import LoadingPortal from "../../components/LoadingPortal";
@@ -29,6 +29,9 @@ const CommunityTitle = styled.span`
   color: ${(props) => props.theme.colors.GREY_90};
   white-space: pre-wrap;
   margin-bottom: 16px;
+  img {
+    transform: translateY(2px);
+  }
 `;
 
 const BtnContainer = styled.div`
@@ -70,7 +73,7 @@ function Community() {
       {isDeleteModalOpen ? <ArticleDeleteModal /> : null}
       <CommunityWrapper ref={communityRef}>
         <CommunityTitle>
-          내가 만든 냉파 레시피{"\n"}자랑해봐요 👀
+          내가 만든 냉파 레시피{"\n"}자랑해봐요 <img src={eyes} alt="" />
         </CommunityTitle>
         {article.map((item) => (
           <CommunityArticle {...item} key={item.id} />

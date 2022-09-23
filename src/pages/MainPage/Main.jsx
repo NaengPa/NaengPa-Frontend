@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-
+import snow from "../../assets/snow.png";
 import { ReactComponent as Search } from "../../assets/mainSearch.svg";
 import { viewedRecipeAtom } from "../../atom";
 import RecentlyViewedRecipe from "../../components/MainPage/RecentlyViewedRecipe";
@@ -116,7 +116,10 @@ function Main() {
 
         <TitleWrapper>
           <Subtitle>오래된 재료는 비우고, 행복은 채워요</Subtitle>
-          <Title>냉장고 파먹기❄️</Title>
+          <Title>
+            냉장고 파먹기
+            <img src={snow} alt="" />
+          </Title>
         </TitleWrapper>
         <Link to={{ pathname: "/search" }}>
           <SearchBtn>

@@ -13,6 +13,7 @@ import PreviousPageBtn from "../../components/PreviousPageBtn";
 import { getFrigeIrdnt } from "../../common/axios";
 import LoadingPortal from "../../components/LoadingPortal";
 import LoadingScreen from "../../components/LoadingScreen";
+import eggPan from "../../assets/eggPan.png";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
@@ -94,7 +95,7 @@ const Login = () => {
       <PreviousPageBtn />
       <MainContainer>
         <MainTitle>
-          이 서비스에는<br></br>로그인이 필요해요 🍳{" "}
+          이 서비스에는<br></br>로그인이 필요해요 <img src={eggPan} alt="" />{" "}
         </MainTitle>
         <LoginForm onSubmit={handleSubmit}>
           <LoginWrapper>
@@ -167,6 +168,9 @@ const MainTitle = styled.div`
   font-weight: 600;
   font-size: 24px;
   line-height: 30px;
+  img {
+    transform: translateY(4px);
+  }
 `;
 
 const LoginForm = styled.form`
