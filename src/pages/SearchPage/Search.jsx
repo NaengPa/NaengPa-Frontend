@@ -10,6 +10,7 @@ import FrigeButton from "../../components/FrigeButton";
 import { useNavigate } from "react-router-dom";
 import SearchButton from "../../components/SearchButton";
 import { getFrigeIrdnt, getIngredients } from "../../common/axios";
+import apple from "../../assets/apple.png";
 
 function SearchIndex() {
   const [searchInput, setSearchInput] = useState("");
@@ -89,7 +90,9 @@ function SearchIndex() {
   return (
     <StyledContainer>
       <SearchContainer>
-        <RefridgeTitle>요리에 사용할 재료를{"\n"}선택해주세요 🍎</RefridgeTitle>
+        <RefridgeTitle>
+          요리에 사용할 재료를{"\n"}선택해주세요 <img src={apple} alt="" />
+        </RefridgeTitle>
         <FormControlWrapper>
           <StyledMyIconSearch searchInput={searchInput}></StyledMyIconSearch>
           <FormInput
@@ -182,6 +185,9 @@ const RefridgeTitle = styled.h2`
   line-height: 30px;
   letter-spacing: -0.165px;
   white-space: pre-wrap;
+  img {
+    transform: translateY(2px);
+  }
 `;
 
 const SelectTitle = styled.h3`

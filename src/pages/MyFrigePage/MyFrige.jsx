@@ -6,6 +6,7 @@ import { myFrigeAtom } from "../../atom";
 import { getFrigeIrdnt } from "../../common/axios";
 import { ReactComponent as Loading } from "../../assets/loading.svg";
 import { useState } from "react";
+import snow from "../../assets/snow.png";
 
 const MyFrigeContainer = styled.div`
   display: flex;
@@ -28,7 +29,11 @@ const MyFrigeTitle = styled.p`
   font-size: 24px;
   line-height: 30px;
   color: ${(props) => props.theme.colors.GREY_90};
-
+  img {
+    transform: translateY(4px);
+    width: 24px;
+    height: 24px;
+  }
   white-space: pre-wrap;
 `;
 
@@ -160,7 +165,8 @@ function MyFrige() {
     <MyFrigeContainer>
       <MyFrigeTitle>
         지금{"\n"}
-        {JSON.parse(localStorage.getItem("userInfo")).nickname}님의 냉장고에는❄️
+        {JSON.parse(localStorage.getItem("userInfo")).nickname}님의 냉장고에는{" "}
+        <img src={snow} alt="" />
       </MyFrigeTitle>
       <MyFrigeListContainer>
         {myFrige.length > 0 ? (
