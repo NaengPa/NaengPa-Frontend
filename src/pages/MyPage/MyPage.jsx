@@ -18,7 +18,9 @@ const MyPageWrapper = styled.div`
   padding: 0 16px 80px 16px;
   position: relative;
   overflow-y: scroll;
-  margin-bottom: 56px;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 const Background = styled.div`
   position: absolute;
