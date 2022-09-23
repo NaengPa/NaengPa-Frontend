@@ -64,13 +64,14 @@ const ShareModal = ({ setShowModal, recipeDetail }) => {
 export default ShareModal;
 
 const Container = styled.div`
-  position: absolute;
-  z-index: 1000;
+  position: fixed;
   top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
-  padding: 16px;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
 `;
 
 const ModalBackground = styled.div`
@@ -85,14 +86,12 @@ const ModalBackground = styled.div`
 `;
 
 const ModalContainer = styled.div`
-  width: calc(100% - 32px);
   background-color: ${({ theme }) => theme.colors.WHITE};
-  position: absolute;
-  top: 30%;
   z-index: 1002;
   padding: 16px;
   padding-top: 0px;
   border-radius: 4px;
+  width: 343px;
 `;
 
 const EmptySpcae = styled.div`

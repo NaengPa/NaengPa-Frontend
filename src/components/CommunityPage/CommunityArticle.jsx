@@ -5,6 +5,7 @@ import ArticleModifySection from "./ArticleModifySection";
 import ArticleLike from "./ArticleLike";
 import { useState } from "react";
 import ShareModal from "../ShareModal/ShareModal";
+import ModalPortal from "../ModalPortal";
 
 const ArticleContainer = styled.div`
   width: 100%;
@@ -69,20 +70,20 @@ function CommunityArticle({
 
   return (
     <ArticleContainer>
-      {showModal ? (
-        <ShareModal
-          recipeDetail={{
-            title: "냉장고 파먹기",
-            description: content,
-            button: "본문 보러가기",
-            imgUrl: "https://ifh.cc/g/wQDwLh.jpg",
-          }}
-          setShowModal={setShowModal}
-          showModal={showModal}
-        ></ShareModal>
-      ) : (
-        ""
-      )}
+      <ModalPortal>
+        {showModal ? (
+          <ShareModal
+            recipeDetail={{
+              title: "냉장고 파먹기",
+              description: content,
+              button: "본문 보러가기",
+              imgUrl: "https://ifh.cc/g/wQDwLh.jpg",
+            }}
+            setShowModal={setShowModal}
+            showModal={showModal}
+          />
+        ) : null}
+      </ModalPortal>
       <ArticleHeader>
         <UserContainer>
           <UserProfileImg src={imgUrl} />

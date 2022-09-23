@@ -2,6 +2,7 @@ import styled from "styled-components";
 import IngredientTagList from "../../components/DetailPage/IngredientTagList";
 import RecipeDetailItemList from "../../components/DetailPage/RecipeDetailItemList";
 import RecipeReviewList from "../../components/DetailPage/RecipeReviewList";
+import ModalPortal from "../../components/ModalPortal";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { recipeDetailAtom, viewedRecipeAtom } from "../../atom";
 import { useEffect, useLayoutEffect } from "react";
@@ -49,15 +50,15 @@ function Detail() {
     </LoadingPortal>
   ) : (
     <RecipeDetailContainer>
-      {showModal ? (
-        <ShareModal
-          setShowModal={setShowModal}
-          showModal={showModal}
-          recipeDetail={recipeDetail}
-        ></ShareModal>
-      ) : (
-        ""
-      )}
+      <ModalPortal>
+        {showModal ? (
+          <ShareModal
+            setShowModal={setShowModal}
+            showModal={showModal}
+            recipeDetail={recipeDetail}
+          />
+        ) : null}
+      </ModalPortal>
       <Header></Header>
       <RecipePhotoContainer>
         <RecipePhoto src={recipeImg} />
