@@ -11,6 +11,9 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0px 27px;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const Subtitle = styled.p`
