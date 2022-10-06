@@ -9,6 +9,7 @@ import eyes from "../../assets/eyes.png";
 import ArticleDeleteModal from "../../components/CommunityPage/ArticleDeleteModal";
 import LoadingScreen from "../../components/LoadingScreen";
 import LoadingPortal from "../../components/LoadingPortal";
+import { useEffect } from "react";
 
 const CommunityWrapper = styled.div`
   padding: 40px 16px 56px 16px;
@@ -67,8 +68,18 @@ function Community() {
     get();
   }, []);
 
+  function Input() {
+    useEffect(() => {
+      const script = document.createElement("script");
+      script.src = "https://developers.kakao.com/sdk/js/kakao.js";
+      script.async = true;
+      document.body.appendChild(script);
+    }, []);
+  }
+
   return (
     <>
+      <Input></Input>
       <LoadingPortal>{isLoading ? <LoadingScreen /> : null}</LoadingPortal>
       {isDeleteModalOpen ? <ArticleDeleteModal /> : null}
       <CommunityWrapper ref={communityRef}>

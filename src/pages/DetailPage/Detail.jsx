@@ -27,6 +27,15 @@ function Detail() {
   }, [setViewedRecipe]);
   const { recipeId } = useParams();
 
+  function Input() {
+    useEffect(() => {
+      const script = document.createElement("script");
+      script.src = "https://developers.kakao.com/sdk/js/kakao.js";
+      script.async = true;
+      document.body.appendChild(script);
+    }, []);
+  }
+
   useLayoutEffect(() => {
     const email = JSON.parse(localStorage.getItem("userInfo"))?.email;
     setLoading(true);
@@ -50,6 +59,7 @@ function Detail() {
     </LoadingPortal>
   ) : (
     <RecipeDetailContainer>
+      <Input></Input>
       <ModalPortal>
         {showModal ? (
           <ShareModal

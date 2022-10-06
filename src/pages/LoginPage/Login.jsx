@@ -49,15 +49,6 @@ const Login = () => {
     }
   }, []);
 
-  function Input() {
-    useEffect(() => {
-      const script = document.createElement("script");
-      script.src = "https://unpkg.com/lodash";
-      script.async = true;
-      document.body.appendChild(script);
-    }, []);
-  }
-
   const redirectUri =
     window.location.href.split(":")[1] === "//localhost"
       ? "http://localhost:3000/login"
@@ -101,7 +92,6 @@ const Login = () => {
     <LoadingPortal>{<LoadingScreen />}</LoadingPortal>
   ) : (
     <Container>
-      <Input />
       <PreviousPageBtn />
       <MainContainer>
         <MainTitle>
