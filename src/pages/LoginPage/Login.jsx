@@ -47,7 +47,16 @@ const Login = () => {
       };
       loginFn();
     }
-  });
+  }, []);
+
+  function Input() {
+    useEffect(() => {
+      const script = document.createElement("script");
+      script.src = "https://unpkg.com/lodash";
+      script.async = true;
+      document.body.appendChild(script);
+    }, []);
+  }
 
   const redirectUri =
     window.location.href.split(":")[1] === "//localhost"
@@ -92,6 +101,7 @@ const Login = () => {
     <LoadingPortal>{<LoadingScreen />}</LoadingPortal>
   ) : (
     <Container>
+      <Input />
       <PreviousPageBtn />
       <MainContainer>
         <MainTitle>
