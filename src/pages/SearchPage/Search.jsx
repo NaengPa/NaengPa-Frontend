@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import SearchButton from "../../components/SearchButton";
 import { getFrigeIrdnt, getIngredients } from "../../common/axios";
 import apple from "../../assets/apple.png";
+import { useQueries } from "react-query";
 
 function SearchIndex() {
   const [searchInput, setSearchInput] = useState("");
@@ -18,47 +19,58 @@ function SearchIndex() {
     selectedIngredientAtom
   );
   const [viewMyFrigeAtom, setViewMyFrigeAtom] = useRecoilState(myFrigeAtom);
-  const [data, setData] = useState([]);
+  const [searchData, setSearchData] = useState([]);
   const [filterData, setFilterData] = useState([]);
-  const [loadingState, setLoadingState] = useState(false);
+  const navigate = useNavigate();
+  const results = useQueries([
+    {
+      queryKey: "searchData2",
+      queryFn: () => getIngredients(),
+    },
+    {
+      queryKey: [
+        "myFrigeData",
+        JSON.parse(localStorage.getItem("userInfo")).email,
+      ],
+      queryFn: () =>
+        getFrigeIrdnt(JSON.parse(localStorage.getItem("userInfo")).email),
+    },
+  ]);
+
+  const isLoadingSearch = results[0].isLoading;
+  const isLoadingFrige = results[1].isLoading;
 
   useEffect(() => {
-    const getIngredient = async () => {
-      const result = await getIngredients();
-      setData(result);
-    };
-
-    const get = async () => {
-      const result = await getFrigeIrdnt(
-        JSON.parse(localStorage.getItem("userInfo")).email
+    if (selectedIngredient?.length > 0) {
+      setSearchData(
+        results[0].data.filter(
+          (item) => selectedIngredient.includes(item) === false
+        )
       );
-      setViewMyFrigeAtom(result);
-      setLoadingState(false);
-    };
-    if (localStorage.getItem("token")) {
-      setLoadingState(true);
-      get();
+    } else {
+      setSearchData(results[0].data);
     }
-    getIngredient();
+    setViewMyFrigeAtom(results[1].data);
   }, []);
 
   useEffect(() => {
     if (searchInput !== "") {
-      setFilterData(data.filter((item) => item.includes(searchInput)));
+      setFilterData(searchData?.filter((item) => item.includes(searchInput)));
     } else {
       setFilterData([]);
     }
-  }, [searchInput, data]);
+  }, [searchInput, searchData]);
 
-  const addListClick = (e) => {
-    setSelectedIngredient([...selectedIngredient, e.target.textContent]);
-    setData(data.filter((item) => item !== e.target.textContent));
+  const addListClick = (buttonName) => {
+    setSelectedIngredient([...selectedIngredient, buttonName]);
+    setSearchData(searchData.filter((item) => item !== buttonName));
   };
-  const handleDelete = (e) => {
+
+  const handleDelete = (itemName) => {
     setSelectedIngredient(
-      selectedIngredient.filter((item) => item !== e.target.textContent)
+      selectedIngredient.filter((item) => item !== itemName)
     );
-    setData([...data, e.target.textContent]);
+    setSearchData([...searchData, itemName]);
   };
 
   const handleChangingSearch = (e) => {
@@ -69,22 +81,19 @@ function SearchIndex() {
     setSearchInput("");
   };
 
-  const handleAdd = (e) => {
-    const targetText = e.target.textContent;
-    if (selectedIngredient.includes(targetText)) {
+  const handleAdd = (itemName) => {
+    if (selectedIngredient.includes(itemName)) {
       setSelectedIngredient(
-        selectedIngredient.filter((item) => item !== targetText)
+        selectedIngredient.filter((item) => item !== itemName)
       );
-      setData([...data, targetText]);
+      setSearchData([...searchData, itemName]);
     } else {
-      setSelectedIngredient([...selectedIngredient, e.target.textContent]);
-      setData(data.filter((item) => item !== targetText));
+      setSelectedIngredient([...selectedIngredient, itemName]);
+      setSearchData(searchData.filter((item) => item !== itemName));
     }
   };
 
-  const navigate = useNavigate();
-
-  const moveToNext = (e) => {
+  const moveToNext = () => {
     navigate("/resultlist");
   };
   return (
@@ -97,7 +106,7 @@ function SearchIndex() {
           <StyledMyIconSearch searchInput={searchInput}></StyledMyIconSearch>
           <FormInput
             placeholder={
-              data.length > 0 ? "재료를 검색해주세요" : "재료를 불러오고 있어요"
+              isLoadingSearch ? "재료를 검색해주세요" : "재료를 불러오고 있어요"
             }
             value={searchInput}
             onChange={handleChangingSearch}
@@ -118,7 +127,7 @@ function SearchIndex() {
           {filterData.map((item) => {
             return (
               <SearchButton
-                addListClick={addListClick}
+                addListClick={() => addListClick(item)}
                 item={item}
               ></SearchButton>
             );
@@ -129,13 +138,16 @@ function SearchIndex() {
         <MyFrigeContainer>
           <SelectTitle>내 냉장고에서도 골라볼래요</SelectTitle>
           <SelectItemArea>
-            {loadingState ? (
+            {isLoadingFrige ? (
               <LoadingIndicator></LoadingIndicator>
-            ) : viewMyFrigeAtom.length === 0 ? (
+            ) : viewMyFrigeAtom?.length === 0 ? (
               `하단의 내 냉장고 아이콘을 누르면 냉장고를 채울 수 있어요.`
             ) : (
-              viewMyFrigeAtom.map((item) => (
-                <FrigeButton handleAdd={handleAdd} item={item}></FrigeButton>
+              viewMyFrigeAtom?.map((item) => (
+                <FrigeButton
+                  handleAdd={() => handleAdd(item)}
+                  item={item}
+                ></FrigeButton>
               ))
             )}
           </SelectItemArea>
@@ -149,14 +161,14 @@ function SearchIndex() {
               : selectedIngredient.map((item) => (
                   <FoodButton
                     key={item.id}
-                    handleDelete={handleDelete}
+                    handleDelete={() => handleDelete(item)}
                     item={item}
                   ></FoodButton>
                 ))}
           </FoodButtonContainer>
         </IngredientContainer>
         <RecipeSearchButton
-          disabled={data.length > 0 ? false : true}
+          disabled={isLoadingSearch ? true : false}
           onClick={moveToNext}
         >
           맞춤 레시피 찾기
