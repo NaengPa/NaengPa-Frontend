@@ -169,8 +169,8 @@ function MyFrige() {
         <img src={snow} alt="" />
       </MyFrigeTitle>
       <MyFrigeListContainer>
-        {myFrige.length > 0 ? (
-          myFrige.map((item) => (
+        {myFrige?.length > 0 ? (
+          myFrige?.map((item) => (
             <MyFrigeItem>
               <MyFrigeName>{item}</MyFrigeName>
             </MyFrigeItem>

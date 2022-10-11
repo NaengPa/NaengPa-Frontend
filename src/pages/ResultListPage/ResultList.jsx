@@ -17,6 +17,7 @@ import PreviousPageBtn from "../../components/PreviousPageBtn";
 import SighImoticon from "../../assets/sigh.png";
 import LoadingPortal from "../../components/LoadingPortal";
 import LoadingScreen from "../../components/LoadingScreen";
+import { useQuery } from "react-query";
 
 const ResultList = () => {
   const homeRef = useRef(0);
@@ -31,17 +32,15 @@ const ResultList = () => {
   const setFilterItemState = useSetRecoilState(filterStateAtom);
   const [filterClick, setFilterClick] = useState(0);
   const listContainerRef = useRef();
-  const [loading, setLoading] = useState(false);
+  const { isLoading, data } = useQuery("recipeData", () =>
+    getRecipeList(
+      selectedIngredient,
+      JSON.parse(localStorage.getItem("userInfo"))?.email
+    )
+  );
 
-  useLayoutEffect(() => {
-    setLoading(true);
-    const email = JSON.parse(localStorage.getItem("userInfo"))?.email;
-    const getRecipeLists = async () => {
-      const result = await getRecipeList(selectedIngredient, email);
-      setFoodData(result.recipeInfos);
-      setLoading(false);
-    };
-    getRecipeLists();
+  useEffect(() => {
+    setFoodData(data?.recipeInfos);
     return () => {
       setFilterItemState(filterItem);
     };
@@ -65,6 +64,7 @@ const ResultList = () => {
     );
     setByPopularState(false);
   };
+
   const handleDelete = (e) => {
     setFoodList([foodList].filter((item) => item !== e.target.outerText));
   };
@@ -254,7 +254,7 @@ const ResultList = () => {
         headerContainerHeight={headerContainerHeight}
         ref={mainRef}
       >
-        {loading ? (
+        {isLoading ? (
           <LoadingPortal>
             <LoadingScreen />
           </LoadingPortal>
@@ -293,25 +293,27 @@ const ResultList = () => {
               ) : (
                 ""
               )}
-              {(filterClick > 0 ? filterFoodData : foodData).map((item) => (
-                <TextWrapper key={item.recipeId} id={item.recipeId}>
-                  <img
-                    src={item.imgUrl}
-                    alt=""
-                    id={item.recipeId}
-                    onClick={clickHistoryData}
-                  />
-                  <SummaryAndLike>
-                    <ListSpan id={item.recipeId} onClick={clickHistoryData}>
-                      {item.summary}
-                    </ListSpan>
-                    <IconWrapper>
-                      <FoodLikeBtn id={item.recipeId} likeYn={item.likeYn} />
-                      <FoodLikeSpan>{item.likeCnt}</FoodLikeSpan>
-                    </IconWrapper>
-                  </SummaryAndLike>
-                </TextWrapper>
-              ))}
+              {(filterClick > 0 ? filterFoodData : data?.recipeInfos).map(
+                (item) => (
+                  <TextWrapper key={item.recipeId} id={item.recipeId}>
+                    <img
+                      src={item.imgUrl}
+                      alt=""
+                      id={item.recipeId}
+                      onClick={clickHistoryData}
+                    />
+                    <SummaryAndLike>
+                      <ListSpan id={item.recipeId} onClick={clickHistoryData}>
+                        {item.summary}
+                      </ListSpan>
+                      <IconWrapper>
+                        <FoodLikeBtn id={item.recipeId} likeYn={item.likeYn} />
+                        <FoodLikeSpan>{item.likeCnt}</FoodLikeSpan>
+                      </IconWrapper>
+                    </SummaryAndLike>
+                  </TextWrapper>
+                )
+              )}
             </ListContainer>
           </>
         )}
