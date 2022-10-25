@@ -7,7 +7,7 @@ import { getKakaoLogin, getLoginInfo } from "../../common/kakaoLogin";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { myFrigeAtom } from "../../atom";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { localLogin } from "../../common/localLogin";
 import PreviousPageBtn from "../../components/PreviousPageBtn";
 import { getFrigeIrdnt } from "../../common/axios";
@@ -19,7 +19,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [emailState, setEmailState] = useState(false);
   const [passwordState, setPasswordState] = useState(false);
-  const [myFrige, setMyFrige] = useRecoilState(myFrigeAtom);
+  const  setMyFrige = useSetRecoilState(myFrigeAtom);
   const navigate = useNavigate();
 
   useEffect(() => {
