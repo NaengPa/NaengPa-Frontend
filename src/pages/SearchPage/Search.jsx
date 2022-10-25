@@ -36,6 +36,7 @@ function SearchIndex() {
         getFrigeIrdnt(JSON.parse(localStorage.getItem("userInfo")).email),
     },
   ]);
+  console.log(results[0].data);
 
   const isLoadingSearch = results[0].isLoading;
   const isLoadingFrige = results[1].isLoading;
@@ -55,7 +56,9 @@ function SearchIndex() {
 
   useEffect(() => {
     if (searchInput !== "") {
-      setFilterData(searchData?.filter((item) => item.includes(searchInput)));
+      setFilterData(
+        results[0].data?.filter((item) => item.includes(searchInput))
+      );
     } else {
       setFilterData([]);
     }
@@ -105,8 +108,11 @@ function SearchIndex() {
         <FormControlWrapper>
           <StyledMyIconSearch searchInput={searchInput}></StyledMyIconSearch>
           <FormInput
+            disabled={isLoadingSearch ? true : false}
             placeholder={
-              isLoadingSearch ? "재료를 검색해주세요" : "재료를 불러오고 있어요"
+              isLoadingSearch
+                ? "재료를 불러오고 있어요 "
+                : "재료를 검색해주세요"
             }
             value={searchInput}
             onChange={handleChangingSearch}
@@ -124,7 +130,7 @@ function SearchIndex() {
           )}
         </FormControlWrapper>
         <SearchListContainer>
-          {filterData.map((item) => {
+          {filterData?.map((item) => {
             return (
               <SearchButton
                 addListClick={() => addListClick(item)}
