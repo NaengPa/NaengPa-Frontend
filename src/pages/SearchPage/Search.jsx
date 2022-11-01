@@ -145,10 +145,10 @@ function SearchIndex() {
           <SelectItemArea>
             {isLoadingFrige ? (
               <LoadingIndicator></LoadingIndicator>
-            ) : viewMyFrigeAtom?.length === 0 ? (
+            ) : results[1].data?.length === 0 ? (
               `하단의 내 냉장고 아이콘을 누르면 냉장고를 채울 수 있어요.`
             ) : (
-              viewMyFrigeAtom?.map((item) => (
+              results[1].data?.map((item) => (
                 <FrigeButton
                   handleAdd={() => handleAdd(item)}
                   item={item}
