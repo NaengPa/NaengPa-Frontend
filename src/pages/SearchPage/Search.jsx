@@ -36,7 +36,6 @@ function SearchIndex() {
         getFrigeIrdnt(JSON.parse(localStorage.getItem("userInfo")).email),
     },
   ]);
-  console.log(results[0].data);
 
   const isLoadingSearch = results[0].isLoading;
   const isLoadingFrige = results[1].isLoading;
@@ -44,9 +43,9 @@ function SearchIndex() {
   useEffect(() => {
     if (selectedIngredient?.length > 0) {
       setSearchData(
-        results[0].data.filter(
-          (item) => selectedIngredient.includes(item) === false
-        )
+        results[0].data
+          .filter((item) => selectedIngredient.includes(item) === false)
+          .filter((value) => !viewMyFrigeAtom?.includes(value))
       );
     } else {
       setSearchData(results[0].data);
@@ -66,14 +65,14 @@ function SearchIndex() {
 
   const addListClick = (buttonName) => {
     setSelectedIngredient([...selectedIngredient, buttonName]);
-    setSearchData(searchData.filter((item) => item !== buttonName));
+    setFilterData(filterData?.filter((item) => item !== buttonName));
   };
 
   const handleDelete = (itemName) => {
     setSelectedIngredient(
       selectedIngredient.filter((item) => item !== itemName)
     );
-    setSearchData([...searchData, itemName]);
+    setFilterData([...filterData, itemName]);
   };
 
   const handleChangingSearch = (e) => {
