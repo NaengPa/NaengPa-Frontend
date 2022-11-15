@@ -14,6 +14,7 @@ import apple from "../../assets/apple.png";
 import { useQueries } from "react-query";
 
 function SearchIndex() {
+  console.log(window.location.pathname);
   const [searchInput, setSearchInput] = useState("");
   const [selectedIngredient, setSelectedIngredient] = useRecoilState(
     selectedIngredientAtom
@@ -30,7 +31,7 @@ function SearchIndex() {
     {
       queryKey: [
         "myFrigeData",
-        JSON.parse(localStorage.getItem("userInfo")).email,
+        JSON.parse(localStorage.getItem("userInfo"))?.email,
       ],
       queryFn: () =>
         getFrigeIrdnt(JSON.parse(localStorage.getItem("userInfo")).email),
